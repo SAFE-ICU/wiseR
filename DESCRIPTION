@@ -1,0 +1,24 @@
+Package: wiseR
+Type: Package
+Title: Enabling Decisions with Bayesian Networks Artificial Intelligence
+Version: 0.1.0
+Author: Shubham Maheshwari, Anant Mittal, Tavpritesh Sethi
+Authors@R: c(
+              person("Shubham", "Maheshwari", role = c("aut", "cre"), email = "shubham14101@iiitd.ac.in"),
+              person("Anant", "Mittal", role = c("aut", "cre"), email = "anant14015@iiitd.ac.in"),
+              person("Tavpritesh", "Sethi", role = c("aut", "cre"), email = "tavpriteshsethi@iiitd.ac.in")
+            )
+Maintainer: The package maintainer <shubham14101@iiitd.ac.in>
+Contact: Shubham Maheshwari<shubham14101@iiitd.ac.in>, Anant Mittal<anant14015@iiitd.ac.in>, Tavpritesh Sethi<tavpriteshsethi@iiitd.ac.in>
+Description: The package can be used to perform structure learning, parameter visulaization, graphical visualization and chained inferences on discrete and continous data
+biocViews:
+Depends: R (>= 3.3.1)
+Imports: RBGL,graph,bnlearn,rhandsontable,shiny,shinydashboard,dplyr,visNetwork,shinyWidgets,missRanger,tools,shinyalert,shinycssloaders,rintrojs,arules,psych,DescTools,DT,linkcomm,igraph,parallel,snow,shinyBS
+URL: https://github.com/shubham14101/wiseR
+BugReports: https://github.com/shubham14101/wiseR/issues
+Suggests: knitr, rmarkdown, rcompanion
+VignetteBuilder: knitr
+License: MIT License | file License
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
