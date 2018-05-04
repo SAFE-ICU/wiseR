@@ -14,8 +14,8 @@ Description: The package can be used to perform structure learning, parameter vi
 biocViews:
 Depends: R (>= 3.3.1)
 Imports: RBGL,graph,bnlearn,rhandsontable,shiny,shinydashboard,dplyr,visNetwork,shinyWidgets,missRanger,tools,shinyalert,shinycssloaders,rintrojs,arules,psych,DescTools,DT,linkcomm,igraph,parallel,snow,shinyBS
-URL: https://github.com/shubham14101/wiseR
-BugReports: https://github.com/shubham14101/wiseR/issues
+URL: https://github.com/SAFE-ICU/wiseR
+BugReports: https://github.com/SAFE-ICU/wiseR/issues
 Suggests: knitr, rmarkdown, rcompanion
 VignetteBuilder: knitr
 License: MIT License | file License

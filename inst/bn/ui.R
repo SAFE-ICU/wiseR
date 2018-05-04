@@ -55,7 +55,7 @@ dashboardPage(skin = "blue",
                                            ),
                                            menuItem(text = "",
                                                     icon = shiny::icon("github"),
-                                                    href = "https://github.com/SAFE-ICU/ShinyBN"),
+                                                    href = "https://github.com/SAFE-ICU/wiseR"),
                                           menuItem(text = "",
                                                     icon = shiny::icon("info"),
                                                   tabName = "About")
@@ -122,8 +122,8 @@ dashboardPage(skin = "blue",
                                                                                 fluidRow(column(9,selectInput('defData',label = NULL,choices = c("Alarm","Asia","Coronary","Lizards","Marks","Insurance","Hailfinder"))),column(3,actionButton('loadDef','load', class = "butt"))),
                                                                                 h5('Data Format:'),
                                                                                 shiny::selectInput('format',label = NULL,c(".CSV",".RData","Comma Seperated","Semicolon Seperated","Tab Seperated","Space Seperated")),
-                                                                                h5('Input Possible variables as Factor:'),
-                                                                                checkboxInput("factorCheck", label = NULL, value = FALSE, width = NULL),
+                                                                                h5('variables as Factor:'),
+                                                                                checkboxInput("factorCheck", label = NULL, value = TRUE, width = NULL),
                                                                                 h5('File Input:'),
                                                                                 shiny::fileInput('dataFile',
                                                                                                  label = NULL,
@@ -132,6 +132,14 @@ dashboardPage(skin = "blue",
                                                                                 label = "upload",circle = F, status = "primary", icon = icon("upload"), width = "500px",tooltip = tooltipOptions(title = "upload data as csv or RData")
                                                                               )),
                                                                               shiny::column(2, dropdownButton(
+                                                                                div(id="dataNumeric",
+                                                                                    shiny::h4("Convert Variables to Numeric"),
+                                                                                    shiny::fluidRow(shiny::column(6,selectInput('numSelect',label = NULL,"")),shiny::column(3,actionButton('numconv','Convert', class = "butt")))
+                                                                                ),
+                                                                                div(id="dataFactor",
+                                                                                    shiny::h4("Convert Variables to Factor"),
+                                                                                    shiny::fluidRow(shiny::column(6,selectInput('facSelect',label = NULL,"")),shiny::column(3,actionButton('facconv','Convert', class = "butt")))
+                                                                                ),
                                                                                 div(id="dataImpute",
                                                                                     shiny::h4("Impute Missing Data:"),
                                                                                     actionButton('impute','Impute', class = "butt")),
@@ -265,12 +273,12 @@ dashboardPage(skin = "blue",
                                                                             shiny::fluidRow(
                                                                               shiny::column(2,dropdownButton(
                                                                                 shinyWidgets::radioGroupButtons(inputId = "structureOption",
-                                                                                                                choices = c("Specify Known Edges (optional)","Learn Network From Data","Upload Saved Network","Edit Learnt Network (optional)","Validate Network"),
-                                                                                                                selected = "Specify Known Edges (optional)",
+                                                                                                                choices = c("Initialize Structure (optional)","Learn Structure","Upload Pre-learnt Structure","Edit Structure (optional)","Validate Structure"),
+                                                                                                                selected = "Initialize Structure (optional)",
                                                                                                                 justified = FALSE
                                                                                 ),
                                                                                 shiny::conditionalPanel(
-                                                                                  "input.structureOption=='Upload Saved Network'",
+                                                                                  "input.structureOption=='Upload Pre-learnt Structure'",
                                                                                   h5("parameter learning algorithm"),
                                                                                   selectizeInput('paramMethod',label = NULL,choices = c("Bayesian parameter estimation" = "bayes","Maximum Likelihood parameter estimation" = "mle")),
                                                                                   hr(),
@@ -317,7 +325,7 @@ dashboardPage(skin = "blue",
                                                                                   actionButton("parameterTuningU","Parameter Tuning", class = "butt")
                                                                                 ),
                                                                                 shiny::conditionalPanel(
-                                                                                  "input.structureOption=='Specify Known Edges (optional)'",
+                                                                                  "input.structureOption=='Initialize Structure (optional)'",
                                                                                   shiny::fluidRow(column(5,h5("Upload list of prior known edges (as .CSV)"))),
                                                                                   shiny::fluidRow(column(5,shiny::fileInput('priorFile',label = NULL,accept = c('.RData')))),
                                                                                   shiny::fluidRow(shiny::column(3,h5("from")),shiny::column(3,h5("to")),shiny::column(3,h5("")),shiny::column(3,h5("Select from table"))),
@@ -325,7 +333,7 @@ dashboardPage(skin = "blue",
                                                                                   shinycssloaders::withSpinner(DT::dataTableOutput("priorout"),color = "#2E86C1")
                                                                                 ),
                                                                                 shiny::conditionalPanel(
-                                                                                  "input.structureOption=='Learn Network From Data'",
+                                                                                  "input.structureOption=='Learn Structure'",
                                                                                   div(style ='overflow-y:scroll;height:600px;padding-right:20px;',
 
                                                                                       # Structural learning algorithm input select
@@ -402,13 +410,13 @@ dashboardPage(skin = "blue",
                                                                                   )
                                                                                 ),
                                                                                 shiny::conditionalPanel(
-                                                                                  "input.structureOption=='Edit Learnt Network (optional)'",
+                                                                                  "input.structureOption=='Edit Structure (optional)'",
                                                                                   shiny::fluidRow(shiny::column(3,h5("from")),shiny::column(3,h5("to")),shiny::column(3,h5("")),shiny::column(3,h5("Select from table"))),
                                                                                   shiny::fluidRow(shiny::column(3,selectInput("fromarc",label = NULL,choices=c())),shiny::column(3,selectInput("toarc",label = NULL,choices=c())),column(3,actionButton("addarc","Add", class = "butt")),actionButton("RemoveArc2","Remove", class = "butt"),actionButton("ReverseArc2","Reverse", class = "butt")),
                                                                                   shinycssloaders::withSpinner(DT::dataTableOutput("postout"),color = "#2E86C1")
                                                                                 ),
                                                                                 shiny::conditionalPanel(
-                                                                                  "input.structureOption=='Validate Network'",
+                                                                                  "input.structureOption=='Validate Structure'",
                                                                                   shiny::fluidRow(shiny::column(6,shiny::selectInput('crossFunc',label = "Validation Method",choices = c("10-fold"="k-fold","hold-out"))),shiny::column(6,shiny::selectInput('lossFunc',label = "Loss Function",choices = c("pred","pred-lw")))),
                                                                                   h5("Parameter Fitting Method"),
                                                                                   shiny::fluidRow(shiny::column(8,shiny::selectInput('paramMethod3',label = NULL,choices = c("Bayesian parameter estimation" = "bayes","Maximum Likelihood parameter estimation" = "mle"))),shiny::column(4,shiny::actionButton("calLoss","Cross Validate", class = "butt"))),
@@ -556,15 +564,15 @@ dashboardPage(skin = "blue",
                                             h2('Team')
                                         ),
                                         fluidRow(
-                                          style = "margin-left:50px;padding:10px;",
-                                          column(width=3, align = "center",
-                                                 #img(src = "tps.jpg", style = "max-width: 50%; width: 50%; height: auto;"),
+                                          style = "margin-left:10px;padding:10px;",
+                                          column(3, align = "center",
+                                                 img(src = "tps.jpg", style = "max-width: 50%; width: 50%; height: auto;")
+                                                 ),
+                                          column(4,
                                                  h4('Tavpritesh Sethi'),
                                                  h5('Assistant Professor, IIIT-Delhi'),
                                                  h5('Visiting Assistant Professor, Stanford Medicine'),
                                                  h5('tavpriteshsethi@iiitd.ac.in | tavsethi@stanford.edu'),
-
-
                                                  fluidRow(width = 12,
                                                           column(width=2, a(img(src = "email.png", style = "margin:5px; width: 20px; height: 20px"), href = "mailto:tavpriteshsethi@iiitd.ac.in"), target = "_blank"),
                                                           column(width=2, a(img(src = "email.png", style = "margin:5px; width: 20px; height: 20px"), href = "mailto:tavsethi@stanford.edu"), target = "_blank"),
@@ -572,40 +580,43 @@ dashboardPage(skin = "blue",
                                                           column(width=2, a(img(src = "facebook.png", style = "margin:5px; width: 20px; height: 20px"), href = "https://www.facebook.com/tavpritesh.sethi"), target = "_blank"),
                                                           column(width=2, a(img(src = "linkedin.png", style = "margin:5px; width: 20px; height: 20px"), href = "https://in.linkedin.com/in/tavpritesh"), target = "_blank"),
                                                           column(width=2, a(img(src = "twitter.png", style = "margin:6px; width: 18px; height: 18px"), href = "https://twitter.com/tavpritesh"), target = "_blank")
-                                                 )),
-                                          column(width=1, align = "center", img(src = "vertical-line.png",style = "max-width: 100%; width: 100%; height: auto;")),
-                                          column(width=3, align = "center",
-                                                 #img(src = "shubham.jpg",style = "max-width: 50%; width: 50%; height: auto"),
+                                                 )
+                                                 )
+                                        ),
+                                        fluidRow(
+                                          style = "margin-left:10px;padding:10px;",
+                                          column(3, align = "center",
+                                                 img(src = "shubham.jpg",style = "max-width: 50%; width: 50%; height: auto")
+                                          ),
+                                          column(4,
                                                  h4('Shubham Maheshwari'),
                                                  h5('B.Tech Computer Science, IIIT-Delhi'),
                                                  h5('shubham14101@iiitd.ac.in'),
-                                                 br(),
-                                                 br(),
-                                                 br(),
+                                                 h5("(looking for opportunities to collaborate on projects in AI and it's Applications)"),
                                                  fluidRow(width = 12,
-                                                   column(width=2, a(img(src = "email.png", style = "margin:5px; width: 20px; height: 20px"), href = "mailto:shubham14101@iiitd.ac.in"), target = "_blank"),
-                                                   column(width=2, a(img(src = "github.png", width = '30px', height = '30px'), href = "https://github.com/shubham14101"),target = "_blank"),
-                                                   column(width=2, a(img(src = "facebook.png", style = "margin:5px; width: 20px; height: 20px"), href = "https://www.facebook.com/shubham.maheshwari3"),target = "_blank"),
-                                                   column(width=2, a(img(src = "linkedin.png", style = "margin:5px; width: 20px; height: 20px"), href = "https://www.linkedin.com/in/shubham-maheshwari-93a35b108/"),target = "_blank"),
-                                                   column(width=2, a(img(src = "twitter.png", style = "margin:6px; width: 18px; height: 18px"), href = "https://twitter.com/real_SM96"),target = "_blank")
-                                                 )),
-                                          column(width=1, align = "center", img(src = "vertical-line.png",style = "max-width: 100%; width: 100%; height: 100%;")),
-                                          column(width=3, align = "center",
-                                                 #img(src = "anant.jpg", style = "max-width: 50%; width: 50%; height: auto"),
+                                                          column(width=2, a(img(src = "email.png", style = "margin:5px; width: 20px; height: 20px"), href = "mailto:shubham14101@iiitd.ac.in"), target = "_blank"),
+                                                          column(width=2, a(img(src = "github.png", width = '30px', height = '30px'), href = "https://github.com/shubham14101"),target = "_blank"),
+
+                                                          column(width=2, a(img(src = "linkedin.png", style = "margin:5px; width: 20px; height: 20px"), href = "https://www.linkedin.com/in/shubham-maheshwari-93a35b108/"),target = "_blank"),
+                                                          column(width=2, a(img(src = "twitter.png", style = "margin:6px; width: 18px; height: 18px"), href = "https://twitter.com/real_SM96"),target = "_blank")
+                                                 )
+
+                                          )
+                                        ),
+                                        fluidRow(
+                                          style = "margin-left:10px;padding:10px;",
+                                          column(3, align = "center",
+                                                 img(src = "anant.jpg", style = "max-width: 50%; width: 50%; height: auto")
+                                          ),
+                                          column(4,
                                                  h4('Anant Mittal'),
                                                  h5('B.Tech Computer Science, IIIT-Delhi'),
                                                  h5('anant14015@iiitd.ac.in'),
-                                                 br(),
-                                                 br(),
-                                                 br(),
                                                  fluidRow(width = 12,
                                                           column(width=2, a(img(src = "email.png", style = "margin:5px; width: 20px; height: 20px"), href = "mailto:anant14015@iiitd.ac.in"), target = "_blank"),
-                                                          column(width=2, a(img(src = "github.png", width = '30px', height = '30px'), href = "https://github.com/anant15"), target = "_blank"),
-                                                          column(width=2, a(img(src = "facebook.png", style = "margin:5px; width: 20px; height: 20px"), href = "https://www.facebook.com/shubham.maheshwari3"), target = "_blank"),
-                                                          column(width=2, a(img(src = "linkedin.png", style = "margin:5px; width: 20px; height: 20px"), href = "https://www.linkedin.com/in/shubham-maheshwari-93a35b108/"), target = "_blank"),
-                                                          column(width=2, a(img(src = "twitter.png", style = "margin:6px; width: 18px; height: 18px"), href = "https://twitter.com/real_SM96"),target = "_blank")
-                                                 ))
-
+                                                          column(width=2, a(img(src = "github.png", width = '30px', height = '30px'), href = "https://github.com/anant15"), target = "_blank")
+                                                 )
+                                          )
                                         ),
                                         hr(),
                                             div(style="text-align:center",
@@ -615,7 +626,11 @@ dashboardPage(skin = "blue",
                                                 h3('Acknowlegments'),
                                                 h5("Rakesh Lodha, Professor (Pediatrics), All India Institute of Medical Sciences, New Delhi, India"),
                                                 h5("Nigam Shah, Associate Professor (Biomedical Informatics), Stanford University, USA"),
-                                                h5('Funding Support: The Wellcome Trust/DBT India Alliance Early Career Award IA/CPHE/14/1/501504')
+                                                h5('Funding Support: The Wellcome Trust/DBT India Alliance Early Career Award IA/CPHE/14/1/501504'),
+                                                hr(),
+                                                h3('Work with us'),
+                                                a(h5("Contact:  tavpriteshsethi@iiitd.ac.in"), href = "mailto:tavpriteshsethi@iiitd.ac.in")
+
 
                                         )
 
