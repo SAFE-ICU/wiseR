@@ -4,7 +4,7 @@ Title: Enabling Decisions with Bayesian Networks Artificial Intelligence
 Version: 0.1.0
 Author: Tavpritesh Sethi, Shubham Maheshwari, Anant Mittal
 Authors@R: c(
-              person("Tavpritesh", "Sethi", role = c("aut", "cre"), email = "tavsethi@stanford.edu"; "tavpriteshsethi@iiitd.ac.in")
+              person("Tavpritesh", "Sethi", role = c("aut", "cre"), email = "tavsethi@stanford.edu; tavpriteshsethi@iiitd.ac.in")
               person("Shubham", "Maheshwari", role = c("aut", "cre"), email = "shubham14101@iiitd.ac.in"),
               person("Anant", "Mittal", role = c("aut", "cre"), email = "anant14015@iiitd.ac.in")             
             )
