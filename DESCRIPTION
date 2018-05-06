@@ -10,7 +10,7 @@ Authors@R: c(
             )
 Maintainer: The package maintainer <shubham14101@iiitd.ac.in>
 Contact: Tavpritesh Sethi<tavpriteshsethi@iiitd.ac.in>,Shubham Maheshwari<shubham14101@iiitd.ac.in>, Anant Mittal<anant14015@iiitd.ac.in> 
-Description: An end-to-end Bayesian Network Analysis and Publishing Platform for learning cross-validated structure, inferences, topology, visualization in interventional and observational data. wiseR is strongly influenced by Marco Scutari's bnlearn engine for learning Bayesian Network models from observational and interventional data. wiseR has novel features such as hybrid discretization, ensemble approximate-inference, module-level visualization, inference and publishing your results as a web-application/dashboard for the community use.
+Description: An end-to-end Bayesian Network Analysis and publishing platform for learning cross-validated structure, inferences, topology, visualization in interventional and observational data. wiseR is strongly influenced by bnlearn engine for learning Bayesian Network models from observational and interventional data and has novel features such as hybrid discretization, ensemble approximate inference, module level visualization, inference and publishing your results as a web-application or a dashboard.
 biocViews:
 Depends: R (>= 3.3.1)
 Imports: RBGL,graph,bnlearn,rhandsontable,shiny,shinydashboard,dplyr,visNetwork,shinyWidgets,missRanger,tools,shinyalert,shinycssloaders,rintrojs,arules,psych,DescTools,DT,linkcomm,igraph,parallel,snow,shinyBS
