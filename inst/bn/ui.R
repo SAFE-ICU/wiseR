@@ -640,7 +640,7 @@ dashboardPage(skin = "blue",
 
                                       )
                                     )
-)
+),
 tags$footer("Funding Support: The Wellcome Trust/DBT India Alliance grant IA/CPHE/14/1/501504", align = "center", style = "
 position:absolute;
             bottom:0;
