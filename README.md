@@ -3,6 +3,6 @@
 
 (Link to publication: coming soon)
 
-Team: [Shubham Maheshwari](https://github.com/shubham14101), [Anant Mittal](https://github.com/anant15), [Tavpritesh Sethi](https://github.com/Tavpritesh)
+Team: [Tavpritesh Sethi](https://github.com/Tavpritesh),[Shubham Maheshwari](https://github.com/shubham14101), [Anant Mittal](https://github.com/anant15)
 
-Correspondence: tavpriteshsethi@iiitd.ac.in
+Correspondence: tavsethi@stanford.edu; tavpriteshsethi@iiitd.ac.in
