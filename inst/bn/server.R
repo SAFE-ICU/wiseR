@@ -762,9 +762,9 @@ shinyServer(function(input, output,session) {
         output$valLoss<<-renderText({0})
         output$netScore<<-renderText({0})
         output$assocPlot<<-renderVisNetwork({validate("Explore the association network on your data")})
-        output$netPlot<<-renderVisNetwork({validate("Construct bayesian netowrk for taking decisions")})
-        output$parameterPlot<<-renderPlot({validate("Construct bayesian network for taking decision")})
-        output$distPlot<<-renderPlot({validate("Construct bayesian network for taking decision")})
+        output$netPlot<<-renderVisNetwork({validate("Construct a Bayesian Network for taking decisions")})
+        output$parameterPlot<<-renderPlot({validate("Construct a Bayesian Network for taking decisions")})
+        output$distPlot<<-renderPlot({validate("Construct a Bayesian Network for taking decisions")})
         output$datasetTable<-DT::renderDataTable({DiscreteData},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'))
         NetworkGraph <<- NULL
         assocNetwork<<-NULL
