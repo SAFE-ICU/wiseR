@@ -373,10 +373,10 @@ dashboardPage(skin = "blue",
 
                                                                                       ),
                                                                                       shiny::fluidRow(
-                                                                                        shiny::column(6,selectInput("algoscore",label = "Network Score",choices = c("modified Bayesian Dirichlet equivalent"="mbde","log-likelihood"="loglik","Akaike Information Criterion"="aic","Bayesian Information Criterion"="bic","Bayesian Dirichlet equivalent"="bde","Bayesian Dirichlet sparse"="bds","locally averaged Bayesian Dirichlet"="bdla"))),
+                                                                                        shiny::column(6,selectInput("algoscore",label = "Network Score",choices = c("Bayesian Information Criterion"="bic","Bayesian Dirichlet Equivalent"="bde","modified Bayesian Dirichlet Equivalent"="mbde","log-likelihood"="loglik","Akaike Information Criterion"="aic","Bayesian Dirichlet Sparse"="bds","Locally Averaged Bayesian Dirichlet"="bdla"))),
                                                                                         shiny::column(6,sliderInput("iss", label = "Imaginary sample size",
                                                                                                                     min = 1, max = 1000,
-                                                                                                                    value = 10))
+                                                                                                                    value = 7))
                                                                                       ),
                                                                                       h5("Use Expert Knowledge by Forcing/Prohibiting Edges"),
                                                                                       shiny::fluidRow(shiny::column(6,selectInput("listType",label = NULL,choices = c("Blacklist","Whitelist"))),shiny::column(6,shiny::fileInput('listFile',label = NULL,accept = c('.csv')))),
