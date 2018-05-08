@@ -648,7 +648,7 @@ position:absolute;
             width:100%;
             height:30px;
             padding:5px;
-            background-color: white;z-index:1200;")
+            background-color: none;z-index:1200;")
                            )
 
 
