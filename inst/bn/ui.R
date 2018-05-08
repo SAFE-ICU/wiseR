@@ -384,11 +384,11 @@ dashboardPage(skin = "blue",
                                                                                         column(6, h5("Bootstrap replicates"),
                                                                                                sliderInput("boot", label = NULL,
                                                                                                            min = 1, max = 1000,
-                                                                                                           value = 10)),
+                                                                                                           value = 11)),
                                                                                         column(6, h5("Proportion of sample for Bootstrap:"),
                                                                                                sliderInput("SampleSize", label = NULL,
                                                                                                            min = 0, max = 1,
-                                                                                                           value = 0.7))
+                                                                                                           value = 1))
                                                                                       ),
 
                                                                                       hr(),
