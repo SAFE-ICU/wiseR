@@ -97,7 +97,7 @@ dashboardPage(skin = "blue",
 
                                                       )),
                               shinydashboard::tabItem(tabName = "Structure",
-                                                          tabBox(id = "visula_tabs",
+                                                          tabBox(id = "visual_tabs",
                                                                  width = 12,
                                                                  tabPanel("App Settings",
                                                                           shiny::fluidRow(
