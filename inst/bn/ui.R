@@ -128,7 +128,7 @@ dashboardPage(skin = "blue",
                                                                                 h5('File Input:'),
                                                                                 shiny::fileInput('dataFile',
                                                                                                  label = NULL,
-                                                                                                 accept = c('.RData','.csv')
+                                                                                                 accept = c('.RData','.csv','.txt')
                                                                                 ),
                                                                                 label = "upload",circle = F, status = "primary", icon = icon("upload"), width = "500px",tooltip = tooltipOptions(title = "upload data as csv or RData")
                                                                               )),
