@@ -399,8 +399,8 @@ shinyServer(function(input, output,session) {
       fileName<<- input$priorFile
       #print(fileName)
       tryCatch({
-        edgeList<<-read.csv(fileName$datapath,stringsAsFactors = T,na.strings = c("NA","na","Na","nA","","?","-"))
-        edgeList<<-as.data.frame(edgeList)
+        edgeList<-read.csv(fileName$datapath,stringsAsFactors = T,na.strings = c("NA","na","Na","nA","","?","-"))
+        edgeList<-as.data.frame(edgeList)
         for(i in 1:dim(edgeList)[1])
         {
           bn.start<<-set.arc(bn.start,as.character(edgeList[i,1]),as.character(edgeList[i,2]))
