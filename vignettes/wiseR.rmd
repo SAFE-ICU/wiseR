@@ -30,7 +30,7 @@ wiseR::wiser()
 #Example
 We explain the functionality of the app and usefullness of bayesian networks by replicating the results presented in Sachs et al. (2005), which utilizes bayesian learning on complex interventional data.
 
-
+###Start
 On lauching the App we are greeted with the home page.The app then starts initializing UI components which may take 1-2 seconds. First time launch may experience more delay as the app checks and installs all the necessary dependecies required. Clicking on start analyzing redirects us to the main page, containing app utilities in a tab fashion.
 
 The ordering of the tab has been maintained in a left to right fashion based on flow of use in bayesian learning. The main page has 5 tabs named 'App Settings','Data','Association Network','Bayesian Network' and 'Publish your dashboard', each tab covering a specific functionality.
