@@ -328,7 +328,7 @@ dashboardPage(skin = "blue",
                                                                                 shiny::conditionalPanel(
                                                                                   "input.structureOption=='Initialize Structure (optional)'",
                                                                                   shiny::fluidRow(column(5,h5("Upload list of prior known edges (as .CSV)"))),
-                                                                                  shiny::fluidRow(column(5,shiny::fileInput('priorFile',label = NULL,accept = c('.RData')))),
+                                                                                  shiny::fluidRow(column(5,shiny::fileInput('priorFile',label = NULL,accept = c('.CSV')))),
                                                                                   shiny::fluidRow(shiny::column(3,h5("from")),shiny::column(3,h5("to")),shiny::column(3,h5("")),shiny::column(3,h5("Select from table"))),
                                                                                   shiny::fluidRow(shiny::column(3,selectInput("fromarc1",label = NULL,choices=c())),shiny::column(3,selectInput("toarc1",label = NULL,choices=c())),column(3,actionButton("addarc1","Add", class = "butt")),actionButton("RemoveArc","Remove", class = "butt"),actionButton("ReverseArc","Reverse", class = "butt")),
                                                                                   shinycssloaders::withSpinner(DT::dataTableOutput("priorout"),color = "#2E86C1")
