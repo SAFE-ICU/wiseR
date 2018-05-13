@@ -1,0 +1,88 @@
+---
+title: "wiseR: Helping your decisions from complex datasets"
+author: "Shubham Maheshwari, Anant Mittal, Tavpritesh Sethi"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{An Introduction to wiseR. using a validated network as example}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+Wiser is an interactive,end-to-end Bayesian Network Analysis and publishing platform for learning cross-validated structure, inferences, topology, visualization in interventional and observational data. It is powered by shiny, bnlearn and visNetwork packages.
+
+# Getting Started
+To install latest developmental version of wiseR in R
+
+```c
+devtools::install_github('SAFE-ICU/wiseR')
+```
+
+To launch the app:
+
+```c
+wiseR::wiser()
+```
+
+#Example
+We explain the functionality of the app and usefullness of bayesian networks by replicating the results presented in Sachs et al. (2005), which utilizes bayesian learning on complex interventional data.
+
+
+On lauching the App we are greeted with the home page.The app then starts initializing UI components which may take 1-2 seconds. First time launch may experience more delay as the app checks and installs all the necessary dependecies required. Clicking on start analyzing redirects us to the main page, containing app utilities in a tab fashion.
+
+The ordering of the tab has been maintained in a left to right fashion based on flow of use in bayesian learning. The main page has 5 tabs named 'App Settings','Data','Association Network','Bayesian Network' and 'Publish your dashboard', each tab covering a specific functionality.
+
+##App Settings
+This tab is used to set the computation settings of the app. Bayesian learning on complex data is often computationally expensive and time consuming, thus we enable the user to run computationally expensive processes in parallel, and also to choose the number of clusters (Parallel nodes) to form which they can select based on their hardware.
+
+##Data
+This tab is used to load, pre-process and explore the dataset user wants to work with before learning begins.
+
+The dataset panel contains the upload and pre-process menu while explore panel is used to visualize the distrubution of the data.
+
+###Upload
+Using upload menu user can either load pre-existing data or upload data of their own. Available file formats of data are '.CSV','.RData' & '.txt'. For '.txt' files different options of file formatting are provided such as:
+
+* Comma Seperated 
+* Semi-colon Seperated 
+* Tab seperated 
+* Space Seperated 
+
+We upload the sachs interventional data as a space seperated text file.
+
+The default setting of the app is to consider variables in the dataset as factors by default. This can be unselected based on user need.
+
+Current limit of file upload is 8000 mb, however it is recommended to use .RData for large datasets.
+
+###Pre-process
+The pre-process menu is used to edit the data before using through the app. It is essential that data is discrete and complete for learning association network and bayesian network. Multiple options to pre-process the data have been provided.
+
+* User can convert any variable which has been missclassified as numeric to factor
+* User can convert any variable which has been missclassified as factor to numeric
+* User can choose from a number of algorithms to discritize their data - Hybrid(Recommended),Hartemink(Recommended),K-means,Quantile,Frequency,Interval
+
+We select Hartemink deiscritization for our example. Hartemink requires 2 parameters 'break' and 'ibreak' which can be passed using the text input boxes. For our purpose breaks = 3, ibreak = 60
+
+* user can also transpose their data frame, which is especially usefull in case of gene expression data
+* User is also given the option to sort the columns of data alphabetically
+* User can also select unnecessary variables and delete them from the data using the delete button. A rest button is also provided to undo the delete operations in case of mistakes.
+* Option for adjusting the learning for interventional data is also provided. User can simply select the variable which holds the interventional classification and adjust the learning to it.
+
+In our case variable INT holds the interventional information and we adjust the data according to it.
+
+###Download
+
+This button is provided in case the user wants to download the dataset in current state as a .CSV file
+
+###Explore
+
+This section is provided to visualize the distribution of the variables in the dataset.
+Once the data has been pre-processes(Discretized and complete), the user can select a variable and visualize the plot of its factor distribution.
+
+##Association Network
+##Bayesian Network
+##Publish you dashboard
+
