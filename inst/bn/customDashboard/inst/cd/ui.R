@@ -99,6 +99,8 @@ dashboardPage(skin = "blue",
                                                                                 hr(),
                                                                                 shiny::h4("No. of resampling iterations for error bars"),
                                                                                 textInput("numInterval", label = NULL,placeholder = 25),
+                                                                                selectInput('plotFont',label = "axis label font size",choices = c(0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10),selected = 1.5),
+                                                                                selectInput('valueFont',label = "plot value font size",choices = c(0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10),selected = 1.5),
                                                                                 label = "Inference Learning",circle = F, status = "primary", icon = icon("bar-chart-o"), width = "500px",tooltip = tooltipOptions(title = "Learn Inferences")
                                                                               )),
                                                                               shiny::column(9,shinyWidgets::radioGroupButtons(inputId = "bayesianOption",
@@ -162,7 +164,8 @@ dashboardPage(skin = "blue",
                                                                                                                   hr(),
                                                                                                                   div(id="graphLayout",
                                                                                                                       h4("Select Graph Layout"),
-                                                                                                                      shiny::selectInput('graph_layout',label = NULL,"layout_nicely"))
+                                                                                                                      shiny::selectInput('graph_layout',label = NULL,"layout_nicely")),
+                                                                                                                  selectInput('bayesFont',label = "Node Font",choices = c(1:100),selected = 20)
                                                                                                               ),
                                                                                                               label = "Visual Settings",circle = F, status = "primary", icon = icon("gear"), width = "400px",tooltip = tooltipOptions(title = "graph settings")
                                                                                                             )

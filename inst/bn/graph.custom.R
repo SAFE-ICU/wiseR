@@ -1,4 +1,4 @@
-graph.custom <- function(NetworkGraph,nodeNames,shapeVector,EvidenceNode,EventNode,Ndegree,Tlayout,w,val)
+graph.custom <- function(NetworkGraph,nodeNames,shapeVector,EvidenceNode,EventNode,Ndegree,Tlayout,w,val,font)
 {
   defLeg<-TRUE
   if(!(EventNode %in% nodeNames))
@@ -14,7 +14,8 @@ graph.custom <- function(NetworkGraph,nodeNames,shapeVector,EvidenceNode,EventNo
     visNodes<- data.frame(id = nodeNames,
                           label = nodeNames,
                           group = nodes$group,
-                          shape = shapeVector)
+                          shape = shapeVector,
+                          font.size = font)
     visEdges<- data.frame(from = NetworkGraph$from,
                           to = NetworkGraph$to,
                           title=w,

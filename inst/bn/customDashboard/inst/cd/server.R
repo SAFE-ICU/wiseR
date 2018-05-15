@@ -79,7 +79,7 @@ shinyServer(function(input, output,session) {
   graph<-graph_from_edgelist(as.matrix(NetworkGraph),directed = TRUE)
   updateSelectInput(session,"neighbornodes",choices = "")
   updateSliderInput(session,"NumBar",min = 1, max = nlevels(DiscreteData[,nodeNames[1]]),value = nlevels(DiscreteData[,nodeNames[1]]))
-  output$netPlot<-renderVisNetwork({graph.custom(NetworkGraph,nodeNames,shapeVector,EvidenceNode,EventNode,input$degree,input$graph_layout)})
+  output$netPlot<-renderVisNetwork({graph.custom(NetworkGraph,nodeNames,shapeVector,EvidenceNode,EventNode,input$degree,input$graph_layout,input$bayesFont)})
   })
   #observe events
   observeEvent(input$paramSelect,{
@@ -220,8 +220,9 @@ shinyServer(function(input, output,session) {
                          xlab = "",
                          ylab = "Probabilities",
                          ylim = c(0,1),
-                         las=2)
-          text(x = barx,y = round(probs,digits = 4),label = round(probs,digits = 4), pos = 3, cex = 0.8, col = "black")
+                         las=2,
+                         cex.names=as.numeric(input$plotFont))
+          text(x = barx,y = round(probs,digits = 4),label = round(probs,digits = 4), pos = 3, cex = as.numeric(input$valueFont), col = "black")
         })
         updateRadioGroupButtons(session,'bayesianOption',selected = "Infer Decisions")
       },error = function(e){
@@ -284,8 +285,9 @@ shinyServer(function(input, output,session) {
                           xlab = "",
                           ylab = "Probabilities",
                           ylim = c(0,1),
-                          las=2)
-          text(x = barx,y = round(ee$mean[1:input$NumBar],digits = 4),label = round(ee$mean[1:input$NumBar],digits = 4), pos = 3, cex = 0.8, col = "black")
+                          las=2,
+                          cex.names=as.numeric(input$plotFont))
+          text(x = barx,y = round(ee$mean[1:input$NumBar],digits = 4),label = round(ee$mean[1:input$NumBar],digits = 4), pos = 3, cex = as.numeric(input$valueFont), col = "black")
           error.bar(barx,ee$mean[1:input$NumBar], 1.96*ee$sd[1:input$NumBar]/sqrt(input$plotStrengthBtn))})
         updateRadioGroupButtons(session,'bayesianOption',selected = "Infer Decisions")
 
@@ -343,8 +345,9 @@ shinyServer(function(input, output,session) {
                            xlab = "",
                            ylab = "Probabilities",
                            ylim = c(0,1),
-                           las=2)
-            text(x = barx,y = round(probs,digits = 4),label = round(probs,digits = 4), pos = 3, cex = 0.8, col = "black")
+                           las=2,
+                           cex.names=as.numeric(input$plotFont))
+            text(x = barx,y = round(probs,digits = 4),label = round(probs,digits = 4), pos = 3, cex = as.numeric(input$valueFont), col = "black")
           })
           updateRadioGroupButtons(session,'bayesianOption',selected = "Infer Decisions")
 
@@ -407,8 +410,9 @@ shinyServer(function(input, output,session) {
                             xlab = "",
                             ylab = "Probabilities",
                             ylim = c(0,1),
-                            las=2)
-            text(x = barx,y = round(ee$mean[nm],digits = 4),label = round(ee$mean[nm],digits = 4), pos = 3, cex = 0.8, col = "black")
+                            las=2,
+                            cex.names=as.numeric(input$plotFont))
+            text(x = barx,y = round(ee$mean[nm],digits = 4),label = round(ee$mean[nm],digits = 4), pos = 3, cex = as.numeric(input$valueFont), col = "black")
             error.bar(barx,ee$mean[nm], 1.96*ee$sd[nm]/sqrt(input$plotStrengthBtn))})
           updateRadioGroupButtons(session,'bayesianOption',selected = "Infer Decisions")
         },error = function(e){
@@ -465,7 +469,7 @@ shinyServer(function(input, output,session) {
           EvidenceNode <<- c()
           shapeVector<<- rep('dot',length(nodeNames))
           updateSelectInput(session,'event',choices = nodeNames)
-          output$netPlot<-renderVisNetwork({graph.custom(pruneGraph,nodeNames,shapeVector,EvidenceNode,EventNode,input$degree,input$graph_layout)})
+          output$netPlot<-renderVisNetwork({graph.custom(pruneGraph,nodeNames,shapeVector,EvidenceNode,EventNode,input$degree,input$graph_layout,input$bayesFont)})
           updateSelectizeInput(session,'varselect',choices = nodeNames)
           updateSelectInput(session,'varshape',choices = c( "dot","square", "triangle", "box", "circle", "star",
                                                             "ellipse", "database", "text", "diamond"))
@@ -506,7 +510,7 @@ shinyServer(function(input, output,session) {
           EvidenceNode <<- c()
           shapeVector<<- rep('dot',length(nodeNames))
           updateSelectInput(session,'event',choices = nodeNames)
-          output$netPlot<-renderVisNetwork({graph.custom(NetworkGraph,nodeNames,shapeVector,EvidenceNode,EventNode,input$degree,input$graph_layout)})
+          output$netPlot<-renderVisNetwork({graph.custom(NetworkGraph,nodeNames,shapeVector,EvidenceNode,EventNode,input$degree,input$graph_layout,input$bayesFont)})
           updateSelectInput(session,'event',choices = nodeNames)
           updateSelectizeInput(session,'varselect',choices = nodeNames)
           updateSelectInput(session,'varshape',choices = c( "dot","square", "triangle", "box", "circle", "star",
@@ -582,7 +586,7 @@ shinyServer(function(input, output,session) {
       {
         EventNode = input$event
       }
-      output$netPlot<-renderVisNetwork({graph.custom(NetworkGraph,nodeNames,shapeVector,EvidenceNode,EventNode,input$degree,input$graph_layout)})
+      output$netPlot<-renderVisNetwork({graph.custom(NetworkGraph,nodeNames,shapeVector,EvidenceNode,EventNode,input$degree,input$graph_layout,input$bayesFont)})
       updateSelectInput(session,"neighbornodes",choices = "")
     },error = function(e){
       shinyalert(toString(e), type = "error")
@@ -604,7 +608,7 @@ shinyServer(function(input, output,session) {
       {
         EventNode = input$event
       }
-      output$netPlot<-renderVisNetwork({graph.custom(NetworkGraph,nodeNames,shapeVector,EvidenceNode,EventNode,input$degree,input$graph_layout)})
+      output$netPlot<-renderVisNetwork({graph.custom(NetworkGraph,nodeNames,shapeVector,EvidenceNode,EventNode,input$degree,input$graph_layout,input$bayesFont)})
       updateSelectInput(session,"neighbornodes",choices = "")
     },error = function(e){
       shinyalert(toString(e), type = "error")
@@ -626,7 +630,7 @@ shinyServer(function(input, output,session) {
       {
         EventNode = input$event
       }
-      output$netPlot<-renderVisNetwork({graph.custom(NetworkGraph,nodeNames,shapeVector,EvidenceNode,EventNode,input$degree,input$graph_layout)})
+      output$netPlot<-renderVisNetwork({graph.custom(NetworkGraph,nodeNames,shapeVector,EvidenceNode,EventNode,input$degree,input$graph_layout,input$bayesFont)})
       updateSelectInput(session,"neighbornodes",choices = "")
     },error = function(e){
       shinyalert(toString(e), type = "error")
@@ -649,7 +653,7 @@ shinyServer(function(input, output,session) {
       {
         EventNode = input$event
       }
-      output$netPlot<-renderVisNetwork({graph.custom(NetworkGraph,nodeNames,shapeVector,EvidenceNode,EventNode,input$degree,input$graph_layout)})
+      output$netPlot<-renderVisNetwork({graph.custom(NetworkGraph,nodeNames,shapeVector,EvidenceNode,EventNode,input$degree,input$graph_layout,input$bayesFont)})
       updateSelectInput(session,"neighbornodes",choices = "")
     },error = function(e){
       shinyalert(toString(e), type = "error")
@@ -673,7 +677,7 @@ shinyServer(function(input, output,session) {
       {
         EventNode = input$event
       }
-      output$netPlot<-renderVisNetwork({graph.custom(NetworkGraph,nodeNames,shapeVector,EvidenceNode,EventNode,input$degree,input$graph_layout)})
+      output$netPlot<-renderVisNetwork({graph.custom(NetworkGraph,nodeNames,shapeVector,EvidenceNode,EventNode,input$degree,input$graph_layout,input$bayesFont)})
       updateSelectInput(session,"neighbornodes",choices = "")
     },error = function(e){
       shinyalert(toString(e), type = "error")
@@ -699,7 +703,7 @@ shinyServer(function(input, output,session) {
         {
           EventNode = input$event
         }
-        output$netPlot<-renderVisNetwork({graph.custom(NetworkGraph,nodeNames,shapeVector,EvidenceNode,EventNode,input$degree,input$graph_layout)})
+        output$netPlot<-renderVisNetwork({graph.custom(NetworkGraph,nodeNames,shapeVector,EvidenceNode,EventNode,input$degree,input$graph_layout,input$bayesFont)})
         updateSelectInput(session,"neighbornodes",choices = "")
       },error = function(e){
         shinyalert(toString(e), type = "error")
