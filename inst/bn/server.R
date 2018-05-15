@@ -4430,6 +4430,7 @@ shinyServer(function(input, output,session) {
       {
         if(reset==2)
         {
+          do.call(file.remove, list(list.files("customDashboard/R/", full.names = TRUE)))
           write.csv(input$name,file = "customDashboard/inst/cd/name.txt",row.names = FALSE)
           write.csv(input$theme,file="customDashboard/inst/cd/theme.txt",row.names = FALSE)
           customDashboardName <- input$name
@@ -4445,6 +4446,7 @@ shinyServer(function(input, output,session) {
       sink(fileName)
       cat(customString)
       sink()
+
       shinyalert::shinyalert("Custom Dashboard successfully built. You can now download it as an R package",type="success")
       }
       }

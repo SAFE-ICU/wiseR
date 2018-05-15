@@ -61,10 +61,10 @@ shinyServer(function(input, output,session) {
   #structure initialization
   bn.hc.boot.fit <<- bn.fit(bn.hc.boot.average,DiscreteData[,names(bn.hc.boot.average$nodes)],method = "bayes")
   NetworkGraph <<- data.frame(directed.arcs(bn.hc.boot.average))
-  nodeNames <<- names(bn.hc.boot.average$nodes)
-  EventNode <<- nodeNames[1]
-  EvidenceNode <<- c()
-  shapeVector<<- rep('dot',length(nodeNames))
+  nodeNames <- names(bn.hc.boot.average$nodes)
+  EventNode <- nodeNames[1]
+  EvidenceNode <- c()
+  shapeVector<- rep('dot',length(nodeNames))
   updateSelectInput(session,'event',choices = nodeNames)
   updateSelectizeInput(session,'varselect',choices = nodeNames)
   updateSelectInput(session,'varshape',choices = c( "dot","square", "triangle", "box", "circle", "star",

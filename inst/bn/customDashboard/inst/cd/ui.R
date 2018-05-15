@@ -99,7 +99,7 @@ dashboardPage(skin = "blue",
                                                                                 hr(),
                                                                                 shiny::h4("No. of resampling iterations for error bars"),
                                                                                 textInput("numInterval", label = NULL,placeholder = 25),
-                                                                                label = "Inference",circle = F, status = "primary", icon = icon("bar-chart-o"), width = "500px",tooltip = tooltipOptions(title = "Learn Inferences")
+                                                                                label = "Inference Learning",circle = F, status = "primary", icon = icon("bar-chart-o"), width = "500px",tooltip = tooltipOptions(title = "Learn Inferences")
                                                                               )),
                                                                               shiny::column(9,shinyWidgets::radioGroupButtons(inputId = "bayesianOption",
                                                                                                                               choices = c("Bayesian Network","Fitted Local Distributions", "Infer Decisions"),
@@ -114,20 +114,20 @@ dashboardPage(skin = "blue",
 
                                                                                               shiny::column(2,
                                                                                                             div(
-                                                                                                                h5("Nth Neigbors:"))),
+                                                                                                                h5("Nth Neigbors(of selection)"))),
 
-                                                                                              shiny::column(3,style="padding-right:0px",
+                                                                                              shiny::column(2,style="padding-right:0px",
                                                                                                             shiny::selectInput("neighbornodes",label = NULL,choices = "")),
                                                                                               shiny::column(1,
                                                                                                             div(style = "position:absolute;right:0em;",
                                                                                                                 h5("Modules:"))),
-                                                                                              shiny::column(2,style="padding-right:0px",
+                                                                                              shiny::column(1,style="padding-right:0px",
                                                                                                             shiny::selectInput("moduleSelection",label = NULL,"graph")),
-                                                                                              shiny::column(1,style="margin-right:20px",dropdownButton(
+                                                                                              shiny::column(2,style="margin-right:20px",dropdownButton(
                                                                                                 shiny::fluidRow(shiny::column(6,selectInput('moduleAlgo',label = NULL,choices = c("ward.D","ward.D2", "single", "complete", "average", "mcquitty", "median","centroid"))),shiny::column(1,bsButton("Bcommunities","Build Modules", style="primary"))),
-                                                                                                label = "Modules",circle = F, status = "primary", width = "300px",tooltip = tooltipOptions(title = "Build modules in the graph")
+                                                                                                label = "Module Detection",circle = F, status = "primary", width = "300px",tooltip = tooltipOptions(title = "Build modules in the graph")
                                                                                               )),
-                                                                                              shiny::column(1,style = "margin-right:8px",
+                                                                                              shiny::column(2,style = "margin-right:8px",
                                                                                                             dropdownButton(
                                                                                                               div(id="Bgraph",
                                                                                                                   h4('Group of variables:'),
@@ -164,7 +164,7 @@ dashboardPage(skin = "blue",
                                                                                                                       h4("Select Graph Layout"),
                                                                                                                       shiny::selectInput('graph_layout',label = NULL,"layout_nicely"))
                                                                                                               ),
-                                                                                                              label = "Settings",circle = F, status = "primary", icon = icon("gear"), width = "400px",tooltip = tooltipOptions(title = "graph settings")
+                                                                                                              label = "Visual Settings",circle = F, status = "primary", icon = icon("gear"), width = "400px",tooltip = tooltipOptions(title = "graph settings")
                                                                                                             )
                                                                                               ),
                                                                                               shiny::column(1, bsButton('graphBtn', 'Refresh', icon = icon("refresh"),style = "primary"))),
@@ -195,6 +195,7 @@ dashboardPage(skin = "blue",
                               )
 )
 )
+
 
 
 )
