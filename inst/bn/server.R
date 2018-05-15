@@ -2287,9 +2287,13 @@ shinyServer(function(input, output,session) {
             {
               bn.hc.boot <<- boot.strength(data = DiscreteData, R = input$boot, m = ceiling(nrow(DiscreteData)*input$SampleSize), algorithm = input$alg,algorithm.args=list(blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar,tabu=50),cluster = cl)
             }
-            else
+            else if(input$alg =="hc")
             {
               bn.hc.boot <<- boot.strength(data = DiscreteData, R = input$boot, m = ceiling(nrow(DiscreteData)*input$SampleSize), algorithm = input$alg,algorithm.args=list(blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar),cluster = cl)
+            }
+            else
+            {
+              bn.hc.boot <<- boot.strength(data = DiscreteData, R = input$boot, m = ceiling(nrow(DiscreteData)*input$SampleSize), algorithm = input$alg,algorithm.args=list(blacklist=blacklistEdges,whitelist=whitelistEdges),cluster = cl)
             }
             bn.hc.boot.pruned <<- bn.hc.boot[bn.hc.boot$strength >= input$edgeStrength & bn.hc.boot$direction >= input$directionStrength,]
             bn.hc.boot.average <<- cextend(averaged.network(bn.hc.boot.pruned))
@@ -2301,9 +2305,13 @@ shinyServer(function(input, output,session) {
             {
               bn.hc.boot <<- boot.strength(data = DiscreteData, R = input$boot, m = ceiling(nrow(DiscreteData)*input$SampleSize), algorithm = input$alg,algorithm.args=list(blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar,tabu=50))
             }
-            else
+            else if(input$alg =="hc")
             {
               bn.hc.boot <<- boot.strength(data = DiscreteData, R = input$boot, m = ceiling(nrow(DiscreteData)*input$SampleSize), algorithm = input$alg,algorithm.args=list(blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+            }
+            else
+            {
+              bn.hc.boot <<- boot.strength(data = DiscreteData, R = input$boot, m = ceiling(nrow(DiscreteData)*input$SampleSize), algorithm = input$alg,algorithm.args=list(blacklist=blacklistEdges,whitelist=whitelistEdges))
             }
             bn.hc.boot.pruned <<- bn.hc.boot[bn.hc.boot$strength >= input$edgeStrength & bn.hc.boot$direction >= input$directionStrength,]
             bn.hc.boot.average <<- cextend(averaged.network(bn.hc.boot.pruned))
@@ -2695,7 +2703,7 @@ shinyServer(function(input, output,session) {
             }
             else if(input$alg =="pc.stable")
             {
-              bn.hc.boot.average <<- cextend(bnlearn::pc.stable(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,cluster = cl,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              bn.hc.boot.average <<- cextend(bnlearn::pc.stable(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,cluster = cl))
             }
             else if(input$alg == 'tabu')
             {
@@ -2703,43 +2711,43 @@ shinyServer(function(input, output,session) {
             }
             else if(input$alg == 'gs')
             {
-              bn.hc.boot.average <<- cextend(bnlearn::gs(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,cluster=cl,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              bn.hc.boot.average <<- cextend(bnlearn::gs(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,cluster=cl))
             }
             else if(input$alg == 'iamb')
             {
-              bn.hc.boot.average <<- cextend(bnlearn::iamb(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,cluster=cl,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              bn.hc.boot.average <<- cextend(bnlearn::iamb(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,cluster=cl))
             }
             else if(input$alg == 'fast.iamb')
             {
-              bn.hc.boot.average <<- cextend(bnlearn::fast.iamb(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,cluster=cl,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              bn.hc.boot.average <<- cextend(bnlearn::fast.iamb(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,cluster=cl))
             }
             else if(input$alg=='inter.iamb')
             {
-              bn.hc.boot.average <<- cextend(bnlearn::inter.iamb(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,cluster=cl,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              bn.hc.boot.average <<- cextend(bnlearn::inter.iamb(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,cluster=cl))
             }
             else if(input$alg == 'mmhc')
             {
-              bn.hc.boot.average <<- cextend(bnlearn::mmhc(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,cluster=cl,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              bn.hc.boot.average <<- cextend(bnlearn::mmhc(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,cluster=cl))
             }
             else if(input$alg == 'rsmax2')
             {
-              bn.hc.boot.average <<- cextend(bnlearn::rsmax2(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,cluster = cl,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              bn.hc.boot.average <<- cextend(bnlearn::rsmax2(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,cluster = cl))
             }
             else if(input$alg == 'mmpc')
             {
-              bn.hc.boot.average <<- cextend(bnlearn::mmpc(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,cluster = cl,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              bn.hc.boot.average <<- cextend(bnlearn::mmpc(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,cluster = cl))
             }
             else if(input$alg == 'si.hiton.pc')
             {
-              bn.hc.boot.average <<- cextend(bnlearn::si.hiton.pc(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,cluster = cl,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              bn.hc.boot.average <<- cextend(bnlearn::si.hiton.pc(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,cluster = cl))
             }
             else if(input$alg == 'aracne')
             {
-              bn.hc.boot.average <<- cextend(bnlearn::aracne(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,cluster = cl,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              bn.hc.boot.average <<- cextend(bnlearn::aracne(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,cluster = cl))
             }
             else
             {
-              bn.hc.boot.average <<- cextend(bnlearn::chow.liu(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,cluster = cl,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              bn.hc.boot.average <<- cextend(bnlearn::chow.liu(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,cluster = cl))
             }
             #bn.hc.boot.average <<- bnlearn::hc(DiscreteData)
             bn.hc.boot.fit <<- bn.fit(bn.hc.boot.average,DiscreteData[,names(bn.hc.boot.average$nodes)],method = input$paramMethod2,cluster=cl)
@@ -2752,7 +2760,7 @@ shinyServer(function(input, output,session) {
             }
             else if(input$alg =="pc.stable")
             {
-              bn.hc.boot.average <<- cextend(bnlearn::pc.stable(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.star,score = input$algoscoret,iss=input$iss,exp = INTvar))
+              bn.hc.boot.average <<- cextend(bnlearn::pc.stable(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges))
             }
             else if(input$alg == 'tabu')
             {
@@ -2760,43 +2768,43 @@ shinyServer(function(input, output,session) {
             }
             else if(input$alg == 'gs')
             {
-              bn.hc.boot.average <<- cextend(bnlearn::gs(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              bn.hc.boot.average <<- cextend(bnlearn::gs(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges))
             }
             else if(input$alg == 'iamb')
             {
-              bn.hc.boot.average <<- cextend(bnlearn::iamb(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              bn.hc.boot.average <<- cextend(bnlearn::iamb(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges))
             }
             else if(input$alg == 'fast.iamb')
             {
-              bn.hc.boot.average <<- cextend(bnlearn::fast.iamb(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              bn.hc.boot.average <<- cextend(bnlearn::fast.iamb(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges))
             }
             else if(input$alg=='inter.iamb')
             {
-              bn.hc.boot.average <<- cextend(bnlearn::inter.iamb(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              bn.hc.boot.average <<- cextend(bnlearn::inter.iamb(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges))
             }
             else if(input$alg == 'mmhc')
             {
-              bn.hc.boot.average <<- cextend(bnlearn::mmhc(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              bn.hc.boot.average <<- cextend(bnlearn::mmhc(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges))
             }
             else if(input$alg == 'rsmax2')
             {
-              bn.hc.boot.average <<- cextend(bnlearn::rsmax2(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              bn.hc.boot.average <<- cextend(bnlearn::rsmax2(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges))
             }
             else if(input$alg == 'mmpc')
             {
-              bn.hc.boot.average <<- cextend(bnlearn::mmpc(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              bn.hc.boot.average <<- cextend(bnlearn::mmpc(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges))
             }
             else if(input$alg == 'si.hiton.pc')
             {
-              bn.hc.boot.average <<- cextend(bnlearn::si.hiton.pc(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              bn.hc.boot.average <<- cextend(bnlearn::si.hiton.pc(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges))
             }
             else if(input$alg == 'aracne')
             {
-              bn.hc.boot.average <<- cextend(bnlearn::aracne(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              bn.hc.boot.average <<- cextend(bnlearn::aracne(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges))
             }
             else
             {
-              bn.hc.boot.average <<- cextend(bnlearn::chow.liu(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              bn.hc.boot.average <<- cextend(bnlearn::chow.liu(DiscreteData,blacklist=blacklistEdges,whitelist=whitelistEdges))
             }
             #bn.hc.boot.average <<- bnlearn::hc(DiscreteData)
             bn.hc.boot.fit <<- bn.fit(bn.hc.boot.average,DiscreteData[,names(bn.hc.boot.average$nodes)],method = input$paramMethod2)
