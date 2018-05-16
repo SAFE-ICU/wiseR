@@ -2285,11 +2285,34 @@ shinyServer(function(input, output,session) {
           {
             if(input$alg=="tabu")
             {
-              bn.hc.boot <<- boot.strength(data = DiscreteData, R = input$boot, m = ceiling(nrow(DiscreteData)*input$SampleSize), algorithm = input$alg,algorithm.args=list(blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar,tabu=50),cluster = cl)
+              if(input$resampling == T)
+              {
+                startG = random.graph(nodes = names(DiscreteData),method = 'melancon',num = input$boot,every = 100,burn.in = 10^5)
+                netlist = lapply(startG, function(net) {
+                  tabu(DiscreteData,score = input$algoscore,blacklist=blacklistEdges,whitelist=whitelistEdges,exp = INTvar,iss=input$iss,start = net, tabu = 50,cluster = cl)
+                  })
+                bn.hc.boot<<- custom.strength(netlist, nodes = names(DiscreteData))
+              }
+              else
+              {
+                bn.hc.boot <<- boot.strength(data = DiscreteData, R = input$boot, m = ceiling(nrow(DiscreteData)*input$SampleSize), algorithm = input$alg,algorithm.args=list(blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar,tabu=50),cluster = cl)
+              }
+
             }
             else if(input$alg =="hc")
             {
-              bn.hc.boot <<- boot.strength(data = DiscreteData, R = input$boot, m = ceiling(nrow(DiscreteData)*input$SampleSize), algorithm = input$alg,algorithm.args=list(blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar),cluster = cl)
+              if(input$resampling == T)
+              {
+                startG = random.graph(nodes = names(DiscreteData),method = 'melancon',num = input$boot,every = 100,burn.in = 10^5)
+                netlist = lapply(startG, function(net) {
+                  hc(DiscreteData,score = input$algoscore,blacklist=blacklistEdges,whitelist=whitelistEdges,exp = INTvar,iss=input$iss,start = net,cluster = cl)
+                })
+                bn.hc.boot<<- custom.strength(netlist, nodes = names(DiscreteData))
+              }
+              else
+              {
+                bn.hc.boot <<- boot.strength(data = DiscreteData, R = input$boot, m = ceiling(nrow(DiscreteData)*input$SampleSize), algorithm = input$alg,algorithm.args=list(blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar),cluster = cl)
+              }
             }
             else
             {
@@ -2303,11 +2326,34 @@ shinyServer(function(input, output,session) {
           {
             if(input$alg=="tabu")
             {
-              bn.hc.boot <<- boot.strength(data = DiscreteData, R = input$boot, m = ceiling(nrow(DiscreteData)*input$SampleSize), algorithm = input$alg,algorithm.args=list(blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar,tabu=50))
+              if(input$resampling == T)
+              {
+                startG = random.graph(nodes = names(DiscreteData),method = 'melancon',num = input$boot,every = 100)
+                netlist = lapply(startG, function(net) {
+                  tabu(DiscreteData,score = input$algoscore,blacklist=blacklistEdges,whitelist=whitelistEdges,exp = INTvar,iss=input$iss,start = net, tabu = 50)
+                })
+                bn.hc.boot<<- custom.strength(netlist, nodes = names(DiscreteData))
+              }
+              else
+              {
+                bn.hc.boot <<- boot.strength(data = DiscreteData, R = input$boot, m = ceiling(nrow(DiscreteData)*input$SampleSize), algorithm = input$alg,algorithm.args=list(blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar,tabu=50))
+              }
+
             }
             else if(input$alg =="hc")
             {
-              bn.hc.boot <<- boot.strength(data = DiscreteData, R = input$boot, m = ceiling(nrow(DiscreteData)*input$SampleSize), algorithm = input$alg,algorithm.args=list(blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              if(input$resampling == T)
+              {
+                startG = random.graph(nodes = names(DiscreteData),method = 'melancon',num = input$boot,every = 100)
+                netlist = lapply(startG, function(net) {
+                  hc(DiscreteData,score = input$algoscore,blacklist=blacklistEdges,whitelist=whitelistEdges,exp = INTvar,iss=input$iss,start = net)
+                })
+                bn.hc.boot<<- custom.strength(netlist, nodes = names(DiscreteData))
+              }
+              else
+              {
+                bn.hc.boot <<- boot.strength(data = DiscreteData, R = input$boot, m = ceiling(nrow(DiscreteData)*input$SampleSize), algorithm = input$alg,algorithm.args=list(blacklist=blacklistEdges,whitelist=whitelistEdges,start=bn.start,score = input$algoscore,iss=input$iss,exp = INTvar))
+              }
             }
             else
             {
