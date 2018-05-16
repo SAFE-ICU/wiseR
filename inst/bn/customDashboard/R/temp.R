@@ -1,3 +1,3 @@
-AMR_Steward <- function(){
+temp <- function(){
                                 shiny::runApp(appDir = system.file('cd',package = 'customDashboard'),launch.browser = TRUE)
         }

@@ -1,2 +1,2 @@
 "x"
-"grey_light"
+"blue_gradient"
