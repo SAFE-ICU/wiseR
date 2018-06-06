@@ -1,6 +1,6 @@
 ---
 title: "wiseR: Helping your decisions from complex datasets"
-author: "Shubham Maheshwari, Anant Mittal, Tavpritesh Sethi"
+author: "Shubham Maheshwari, Tavpritesh Sethi"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
