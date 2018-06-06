@@ -26,9 +26,11 @@ To launch the app:
 ```c
 wiseR::wiser()
 ```
-#Bayesian Networks
+# Bayesian Networks
 
-##Why Bayesian Networks?
+## Why Bayesian Networks?
+
+
 Network analysis is a popular method which can help in visualization, representation and gaining useful insights from complex data which enables quantitative decision making from the same. However the most basic form of network analysis i.e association network are useful only to the extent of basic insights by forming correlation structures between different variables, but not good enough to produce quantitative insights as it is not a learning model. For this purpose we have bayesian networks.
 
 Bayesian Networks (BNs) are a probabilistic graphical models that can provide a single joint-multivariate fit on the data. The model structure is a list of conditional independencies represented as a directed acyclic graph. Fitting a joint multivariate graphical model accounts for conditional independencies, thus minimizing confounding effects. It also minimizes false discoveries by eliminating the need to conduct pairwise measures for constructing association networks. Finally, unlike black-box models, BN artificial intelligence models are interpretable, can be learnt directly from data, allow expert knowledge to be injected at all stages of model building and can reveal actionable measures through inference algorithms. Bayesian Network Inference can be effected on observing the state of a variable.Due to these properties, BNs have been extensively used as artificial intelligence expert systems for guiding decisions.
