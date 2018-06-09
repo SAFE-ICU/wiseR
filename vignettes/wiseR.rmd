@@ -53,7 +53,7 @@ These are one of the most interesting motifs in an Bayesian Network and are indi
 # Walkthrough of wiseR functionalities
 
 ## Pipeline
-<img src="1.png" height="400px" width="750px" />
+<img src="34.png" height="400px" width="750px" />
 
 ## Start
 
