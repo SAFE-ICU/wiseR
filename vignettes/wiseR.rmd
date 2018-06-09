@@ -181,7 +181,7 @@ Multiple features have been clubbed into the bayesian learning component of the 
 ### Structure learning
 The structure learning menu incorporates all the need for bayesian learning and has been divided into 5 sections based on use.
 
-####Initialize structure
+#### Initialize structure
 
 This section enables the user to upload a network graph as a .CSV file to initialize the bayesian learning graph. The section also provides the user the option to add, remove or reverse the direction of any arc, once the graph has been uploaded. (Only used in score-based learning)
 
