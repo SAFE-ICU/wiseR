@@ -124,7 +124,7 @@ Once the data has been pre-processes(Discretized and complete), the user can sel
 
 <img src="7.png" height="400px" width="750px" />
 
-##Association Network
+## Association Network
 
 Even though not directly related association networks are an essential part of bayesian learning. Bayesian networks are often large and complex, which makes the difficult to understand. Learning association networks on the data before bayesian learning can give useful insights from the simplistic structure produced and provides a more targeted approach to bayesian learning.
 
@@ -375,9 +375,9 @@ Exact Inference
 Approximate Inference with error bars
 <img src="33.png" height="400px" width="750px" />
 
-# Acknowledgements
+# Powered by
 
-The wiseR engine is powered by the following packages
+The wiseR engine depends upon the following awesome libraries
 
 * *RBGL* (Vince Carey, Li Long and R. Gentleman (2017). RBGL: An interface to the BOOST graph library.
   R package version 1.52.0. http://www.bioconductor.org)
