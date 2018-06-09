@@ -40,18 +40,17 @@ The flexibility provided by BNs in probabilistic reasoning and causal inference 
 ## What do the motifs (junctions) reveal about the data-generating process
 Carefully learnt BNs are representations of the generative process that produced the data. These generative processes are captured in the the form of three primary motifs present in the network: chains, forks and colliders. 
 
-### Chains or mediators
+### Chains or Mediators
 This motif is the simplest structure in a BN with a sequence of nodes pointing in the same direction. The intermediate nodes are called mediators and conditioning on any of the mediators makes the flanking nodes independent of each other. A mediator can be thought of as a mechanism, hence capturing the information about mechanism removes the need for capturing the triggering process, hence making the triggering process independent of the outcome.  
+
+### Fork or Confounders
+The second type of structure observed in a BN is a common parent pointing towards two or more child nodes. The parent represents the common cause and not accounting for the parent is a common source of error (confounding) in many statistical models built upon real world data. A folk example of such an effect is Age as a confounder (common cause) of IQ and shoe-size in children. Failure to condition upon age will lead to a spurious correlation between the IQ and shoe-size and change our reasoning (hence predictions) about the system being modeled.
 
 ### Collider or a V-structure
 These are one of the most interesting motifs in an Bayesian Network and are indicated by two nodes pointing towards a single child node. Although the two parent nodes are not causally connected, conditioning on the state of the common child opens up a ghost-path for probabilistic inference flow (inter-causal reasoning) which can explain many intriguing paradoxes (e.g. the Monty Hall problem). 
 
-### Chains and forks
-A chain represents sequential flow of belief and can be identified as a sequence of parent-child relationships from the start node to the end node.
 
-A fork indicates independent variables with a common parent and can be identified as single parent node to 2 or more children not connected to each other, thus any 2 children forming a fork structure are independent of each other.
-
-# wiseR Functionalities
+# Walkthrough of wiseR functionalities
 ## Start
 
 On launching the App we are greeted with the home page.The app then starts initializing UI components which may take 1-2 seconds. First time launch may experience more delay as the app checks and installs all the necessary dependencies required. 
