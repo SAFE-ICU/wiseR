@@ -381,7 +381,7 @@ dashboardPage(skin = "blue",
                                                                                       ),
                                                                                       h5("Use Expert Knowledge by Forcing/Prohibiting Edges"),
                                                                                       shiny::fluidRow(shiny::column(6,selectInput("listType",label = NULL,choices = c("Blacklist","Whitelist"))),shiny::column(6,shiny::fileInput('listFile',label = NULL,accept = c('.csv')))),
-                                                                                      hr("Bootstrap without resampling is avaliable only for score-based learning"),
+                                                                                      hr("Bootstrap without resampling is available only for score-based learning"),
                                                                                       fluidRow(column(4,materialSwitch(inputId = "resampling", label = "Disable resampling in bootstrap", status = "primary", right = F), style="margin:30px;")),
                                                                                       fluidRow(
                                                                                         column(6, h5("Bootstrap replicates"),
