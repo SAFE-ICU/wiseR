@@ -12,7 +12,7 @@ vignette: >
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-Wiser is an interactive,end-to-end Bayesian Network Analysis and publishing platform for learning cross-validated structure, inferences, topology, visualization in interventional and observational data. It is powered by shiny, bnlearn and visNetwork packages.
+wiseR is an interactive,end-to-end Bayesian Network Analysis and publishing platform for learning cross-validated structure, inferences, topology, visualization in interventional and observational data. It is powered by shiny, bnlearn and visNetwork packages.
 
 # Getting Started
 To install latest developmental version of wiseR in R
