@@ -37,8 +37,11 @@ A BN is a directed acyclic graph and provides a single joint-multivariate fit on
 
 The flexibility provided by BNs in probabilistic reasoning and causal inference has made these one of the most widely used artificial intelligence methods in Computer Science. However, the sophistication required to code all the features has limited their use by domain experts outside of computer science, e.g. clinicians. wiseR plugs this gap by creating a GUI for the domain experts and is an end-to-end solution for learning, decision making and deploying decision tools as dashboards, all from the wiseR platform.
 
-## What do the motifs reveal about the data-generating process
+## What do the motifs (junctions) reveal about the data-generating process
 Carefully learnt BNs are representations of the generative process that produced the data. These generative processes are captured in the the form of three primary motifs present in the network: chains, forks and colliders. 
+
+### Chains or mediators
+This motif is the simplest structure in a BN with a sequence of nodes pointing in the same direction. The intermediate nodes are called mediators and conditioning on any of the mediators makes the flanking nodes independent of each other. A mediator can be thought of as a mechanism, hence capturing the information about mechanism removes the need for capturing the triggering process, hence making the triggering process independent of the outcome.  
 
 ### Collider or a V-structure
 These are one of the most interesting motifs in an Bayesian Network and are indicated by two nodes pointing towards a single child node. Although the two parent nodes are not causally connected, conditioning on the state of the common child opens up a ghost-path for probabilistic inference flow (inter-causal reasoning) which can explain many intriguing paradoxes (e.g. the Monty Hall problem). 
