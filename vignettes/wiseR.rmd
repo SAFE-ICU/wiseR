@@ -51,6 +51,10 @@ These are one of the most interesting motifs in an Bayesian Network and are indi
 
 
 # Walkthrough of wiseR functionalities
+
+## Pipeline
+<img src="1.png" height="400px" width="750px" />
+
 ## Start
 
 On launching the App we are greeted with the home page.The app then starts initializing UI components which may take 1-2 seconds. First time launch may experience more delay as the app checks and installs all the necessary dependencies required. 
