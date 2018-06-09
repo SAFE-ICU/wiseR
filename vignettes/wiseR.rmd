@@ -41,7 +41,7 @@ The flexibility provided by BNs in probabilistic reasoning and causal inference 
 Carefully learnt BNs are representations of the generative process that produced the data. These generative processes are captured in the the form of three primary motifs present in the network: chains, forks and colliders. 
 
 ### Collider or a V-structure
-These are one of the most interesting motifs in an Bayesian Network. which can explain intriguing paradoxes (e.g. the Monty Hall problem) 
+These are one of the most interesting motifs in an Bayesian Network and are indicated by two nodes pointing towards a single child node. Although the two parent nodes are not causally connected, conditioning on the state of the common child opens up a ghost-path for probabilistic inference flow (inter-causal reasoning) which can explain many intriguing paradoxes (e.g. the Monty Hall problem). 
 
 ### Chains and forks
 A chain represents sequential flow of belief and can be identified as a sequence of parent-child relationships from the start node to the end node.
