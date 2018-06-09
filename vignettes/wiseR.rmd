@@ -1,6 +1,6 @@
 ---
 title: "wiseR: Helping your decisions from complex datasets"
-author: "Shubham Maheshwari, Tavpritesh Sethi"
+author: "Tavpritesh Sethi, Shubham Maheshwari"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -35,7 +35,7 @@ Network analysis is a popular method which can help in visualization, representa
 
 Bayesian Networks (BNs) are a probabilistic graphical models that can provide a single joint-multivariate fit on the data. The model structure is a list of conditional independencies represented as a directed acyclic graph. Fitting a joint multivariate graphical model accounts for conditional independencies, thus minimizing confounding effects. It also minimizes false discoveries by eliminating the need to conduct pairwise measures for constructing association networks. Finally, unlike black-box models, BN artificial intelligence models are interpretable, can be learnt directly from data, allow expert knowledge to be injected at all stages of model building and can reveal actionable measures through inference algorithms. Bayesian Network Inference can be effected on observing the state of a variable.Due to these properties, BNs have been extensively used as artificial intelligence expert systems for guiding decisions.
 
-##Actionable points in bayesian structure
+## Actionable points in bayesian structure
 People sometimes find it difficult to understand bayesian structures and often misinterpret it to function like association networks. That is quite not the case. While association networks represents basic correlations between variables it is not the same with bayesian networks. Bayesian networks are directed graph and hence represent parent child relationships between variables based on the direction of the arc. The graph is also used to understand conditional independence between variables. These properties along with inference learning from the final structure make them such a useful tool in decision making.
 
 Some of the key structures to look for in bayesian network are:
@@ -48,8 +48,8 @@ A chain represents sequential flow of belief and can be identified as a sequence
 
 A fork indicates independent variables with a common parent and can be identified as single parent node to 2 or more children not connected to each other, thus any 2 children forming a fork structure are independent of each other.
 
-#wiseR Functionalities
-##Start
+# wiseR Functionalities
+## Start
 
 On launching the App we are greeted with the home page.The app then starts initializing UI components which may take 1-2 seconds. First time launch may experience more delay as the app checks and installs all the necessary dependencies required. 
 
@@ -65,7 +65,7 @@ This tab is used to set the computational settings of the app. Bayesian learning
 
 <img src="2.png" height="100px" width="750px" />
 
-##Data
+## Data
 
 This tab is used to load, pre-process and explore the dataset user wants to work with before learning begins.
 
@@ -73,7 +73,7 @@ The dataset panel contains the upload and preprocess menu while explore panel is
 
 <img src="3.png" height="400px" width="750px" />
 
-###Upload
+### Upload
 
 Using upload menu user can either load pre-existing data or upload data of their own. Available file formats of data are '.CSV','.RData' & '.txt'. For '.txt' files different options of file formatting are provided such as:
 
@@ -88,7 +88,7 @@ Current limit of file upload is 8000 mb, however it is recommended to use .RData
 
 <img src="4.png" height="400px" width="750px" />
 
-###Pre-process
+### Pre-process
 
 The preprocess menu is used to edit the data before using through the app. It is essential that data is discrete and complete for learning association network and bayesian network. Multiple options to pre-process the data have been provided.
 
@@ -104,13 +104,13 @@ The preprocess menu is used to edit the data before using through the app. It is
 <img src="5.png" height="400px" width="750px" />
 
 
-###Download
+### Download
 
 This button is provided in case the user wants to download the dataset in current state as a .CSV file
 
 <img src="6.png" height="400px" width="750px" />
 
-###Explore
+### Explore
 
 
 This section is provided to visualize the distribution of the variables in the dataset.
@@ -126,7 +126,7 @@ The app provides multiple options to build and explore association networks.
 
 <img src="8.png" height="400px" width="750px" />
 
-###Build
+### Build
 
 
 The build menu is used to build association networks. It consists of different metrics for association strength which are used to build association networks like
@@ -140,7 +140,7 @@ Each method returns a value between 0 and 1. 0 being two variables are not assoc
 
 <img src="9.png" height="400px" width="750px" />
 
-###Detect Modules
+### Detect Modules
 
 Often large graphs are difficult to explore and contain redundant information. To enable a clutter less analysis feature for module/community detection is provided which highlights different important groups of subgraphs in the original graph. These graphs can be individually explored and analysed.
 
@@ -148,7 +148,7 @@ There are different clustering algorithms available in the app for module/commun
 
 <img src="10.png" height="400px" width="750px" />
 
-###Visual settings
+### Visual settings
 
 The visual settings menu is used to exploit the graph for better exploration. It comes equipped with many features like variable grouping, which enables the user to group different nodes, by selecting variable names/vector of variable indices/variables belonging to a module and selecting a node shape they want to give these variables.
 
@@ -164,19 +164,19 @@ User also has the option to download the network graph in its current state usin
 
 <img src="11.png" height="400px" width="750px" />
 
-###Export tables
+### Export tables
 
 This section is used to visualize the association network produced in a tabular form and also to download it as a .CSV file if needed.
 
 <img src="12.png" height="400px" width="750px" />
 
-##Bayesian Network
+## Bayesian Network
 
 Multiple features have been clubbed into the bayesian learning component of the app to make it as useful as possible. This component of the app is powered by the bnlearn package and tries to cover all the innovative and efficient methods for structure learning as explained in the book.
 
 <img src="13.png" height="400px" width="750px" />
 
-###Structure learning
+### Structure learning
 The structure learning menu incorporates all the need for bayesian learning and has been divided into 5 sections based on use.
 
 ####Initialize structure
@@ -185,7 +185,7 @@ This section enables the user to upload a network graph as a .CSV file to initia
 
 <img src="14.png" height="400px" width="750px" />
 
-####Learn Structure
+#### Learn Structure
 
 This section is used to learn new bayesian structure through the app.
 
@@ -216,7 +216,7 @@ User can also save the learned structure as a bnlearn object in .RData format th
 
 <img src="15.png" height="400px" width="750px" />
 
-####Upload pre-learnt structure
+#### Upload pre-learnt structure
 
 This section enables the user to upload an already bayesian structure to be explore through the app. This save the user hassle of learning the structure again and again. The upload structure has to be a bnlearn object uploaded as a .RData file.
 
@@ -224,13 +224,13 @@ User has option to upload both simple and bootstrap structure and adjust there p
 
 <img src="16.png" height="400px" width="750px" />
 
-####Edit structure
+#### Edit structure
 
 This section enables the user to edit the structure after learning to incorporate additional expert knowledge. User can add new arcs to the structure and remove, reverse the existing ones.
 
 <img src="17.png" height="400px" width="750px" />
 
-####Validate structure
+#### Validate structure
 
 This section enable user the option to validate the learned structure, and check the accuracy of the network. User can choose various parameters such as
 
@@ -243,7 +243,7 @@ to validate the network. The log-likelihood loss and network score outputs produ
 
 <img src="18.png" height="400px" width="750px" />
 
-###Inference Learning
+### Inference Learning
 
 The inference learning menu enables the user to learn and explore conditional probability plots on the learned structure. The user can set an event  and multiple evidences can be inserted and removed as per need. This crucial feature enables the user to explore probability plots on event nodes in the network conditionalized on chain of evidences, which is the essence of decision making through bayesian networks.
 
@@ -277,7 +277,7 @@ Apart from structure learning and inference learning the bayesian network tab is
 
 <img src="23.png" height="400px" width="750px" />
 
-##Publish your dashboard
+## Publish your dashboard
 
 This section is one of the key highlights of the app. Often user find it difficult effectively communicate their results on bayesian learning. This app enables the user to produce a custom dashboard of their results as an R package.
 
@@ -287,7 +287,7 @@ This feature save author hassle of creating a dashboard for their findings, and 
 
 <img src="24.png" height="400px" width="750px" />
 
-#Comparison
+# Comparison
 
 We draw a simple comparison of the wiseR app with existing bayesian learning and present it in the table below
 
@@ -319,7 +319,7 @@ knitr::kable(table,caption = 'A comparison of wiseR and other bayesian learning 
 ```
 
 
-#Example
+# Example
 We explain the usefulness of bayesian networks by replicating the results presented in Sachs et al. (2005), which utilizes bayesian learning on complex interventional data.
 
 We upload the sachs interventional data which is in a space separated text file into the app.
@@ -369,7 +369,7 @@ Exact Inference
 Approximate Inference with error bars
 <img src="33.png" height="400px" width="750px" />
 
-#Acknowledgement
+# Acknowledgements
 
 The wiseR engine is powered by the following packages
 
