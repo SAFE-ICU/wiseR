@@ -163,8 +163,8 @@ dashboardPage(skin = "blue",
                                                                                     shiny::fluidRow(shiny::column(6,selectInput('delSelect',label = NULL,"",multiple = T)),shiny::column(3,actionButton('delete','Delete', class = "butt")),shiny::column(3,actionButton('reset','Reset', class = "butt")))
                                                                                 ),
                                                                                 div(id="dataIntervention",
-                                                                                    shiny::h4("Adjust Interventional Data"),
-                                                                                    shiny::fluidRow(shiny::column(4,selectInput('intSelect',label = NULL,"")),shiny::column(8,actionButton('intervention','Adjust', class = "butt")))
+                                                                                    shiny::h4("Specify Intervention Variable"),
+                                                                                    shiny::fluidRow(shiny::column(4,selectInput('intSelect',label = NULL,"")),shiny::column(8,actionButton('intervention','Select', class = "butt")))
                                                                                 ),
                                                                                 label = "Pre-Process",circle = F, status = "primary", icon = icon("edit"), width = "500px",tooltip = tooltipOptions(title = "prepare data for bayesian network analysis")
                                                                               )),
