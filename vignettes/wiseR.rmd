@@ -51,7 +51,7 @@ The second type of structure observed in a BN is a common parent pointing toward
 These are one of the most interesting motifs in an Bayesian Network and are indicated by two nodes pointing towards a single child node. Although the two parent nodes are not causally connected, conditioning on the state of the common child opens up a ghost-path for probabilistic inference flow (inter-causal reasoning) which can explain many intriguing paradoxes (e.g. the Monty Hall problem). 
 
 
-# Walkthrough of wiseR functionalities
+# Walkthrough of _wiseR_ functionalities
 
 ## Pipeline
 
@@ -63,22 +63,25 @@ The logical flow of analysis and reasoning conducted with **_wiseR_** is shown i
 
 ## Start
 
-Calling the wiseR() function from the wiseR package launches the application in the default browser. The recommended browser for wiseR is Chrome. On launching the application for the first time, it conducts background checks, which takes 5-10 seconds depending upon the machine. This delay only happens on the first launch and all subsequent launches take less than a couple of seconds to initialize the user interface.  
+Calling the wiseR() function from the **_wiseR_** package launches the application in the default browser. The recommended browser for wiseR is Chrome. On launching the application for the first time, it conducts background checks, which takes 5-10 seconds depending upon the machine. This delay only happens on the first launch and all subsequent launches take less than a couple of seconds to initialize the user interface.  
 
 The toolbar on the left side of the page has icons for navigating to home, analysis engine, github development version and team information at any point of time.
 
 Click "Start Analyzing" for  navigating to the analysis engine with tabs specifying the functions. Hovering over most of the tabs brings up a tool-tip that briefly describes the function performed on that action.
 
-An intuitive left-to-right ordering of tabs guides the user into the analysis. The main page has 5 tabs named 'App Settings','Data','Association Network','Bayesian Network' and 'Publish your dashboard', each tab covering a specific functionality (Figure 1). Each of these is described next.
+An intuitive left-to-right ordering of tabs guides the user into the analysis. The main page of the **_wiseR_** engine has 5 tabs named 'App Settings','Data','Association Network','Bayesian Network' and 'Publish your dashboard', each tab covering a specific functionality (Figure S2). Each of these is described next.
 
 <img src="1.png" height="400px" width="750px" />
 
+#### Figure S2. Functional tabs on the main page of the **_wiser_** engine.
 
 ## App Settings
 
-This tab is used to set the computational settings of the app. Bayesian learning on complex data is often computationally expensive and time consuming, thus we enable the user to run computationally expensive processes in parallel, and also to choose the number of clusters (Parallel nodes) to form which they can select based on their hardware.
+This tab (Figure S3) is used to set the parallel computing option (number of cores) for learning BN structure. Learning structure is known to be NP-hard problem and may be time consuming on large datasets. Setting the number of clusters allows each core to learn a structure when bootstrap learning is performed. Since learning one structure cannot be parallelized, this is an example of task parallelization.
 
 <img src="2.png" height="100px" width="750px" />
+
+#### Figure S3. Setting the number of clusters to be used for task parallelization in Bootstrap Structure Learning.
 
 ## Data
 
