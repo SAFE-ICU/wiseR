@@ -55,11 +55,11 @@ These are one of the most interesting motifs in an Bayesian Network and are indi
 
 ## Pipeline
 
-The logical flow of analysis and reasoning conducted with wiseR is shown in Figure S1. 
+The logical flow of analysis and reasoning conducted with **_wiseR_** is shown in Figure S1. 
 
 <img src="34.png" height="400px" width="750px" />
 
-#### Figure S1. Flowchart showing logic of wiseR
+#### Figure S1. Flowchart showing logic of _wiseR_
 
 ## Start
 
