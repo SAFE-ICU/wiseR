@@ -69,11 +69,16 @@ The toolbar on the left side of the page has icons for navigating to home, analy
 
 Click "Start Analyzing" for  navigating to the analysis engine with tabs specifying the functions. Hovering over most of the tabs brings up a tool-tip that briefly describes the function performed on that action.
 
-An intuitive left-to-right ordering of tabs guides the user into the analysis. The main page of the **_wiseR_** engine has 5 tabs named 'App Settings','Data','Association Network','Bayesian Network' and 'Publish your dashboard', each tab covering a specific functionality (Figure S2). Each of these is described next.
 
 <img src="1.png" height="400px" width="750px" />
 
-#### Figure S2. Functional tabs on the main page of the **_wiser_** engine.
+#### Figure S2. Homepage of the **_wiseR_** application
+
+## Main page of the **_wiseR_** engine
+
+"Start Analyzing" takes us to the main page of the **_wiseR_** engine. An intuitive left-to-right ordering of tabs guides the user into the analysis. This page has 5 tabs named 'App Settings','Data','Association Network','Bayesian Network' and 'Publish your dashboard', each tab covering a specific functionality (Figure S3). Each of these is described next.
+
+#### Figure S3. Functional tabs on the main page of the **_wiser_** engine.
 
 ## App Settings
 
