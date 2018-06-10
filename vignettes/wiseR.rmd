@@ -19,7 +19,7 @@ wiseR is an interactive,end-to-end Bayesian Network Analysis and publishing plat
 To install latest developmental version of wiseR in R
 
 ```c
-devtools::install_github('SAFE-ICU/wiseR')
+devtools::install_github('SAFE-ICU/wiseR',build_vignettes=TRUE)
 ```
 
 To launch the app:
