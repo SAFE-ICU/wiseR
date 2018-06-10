@@ -78,39 +78,42 @@ Click "Start Analyzing" for  navigating to the analysis engine with tabs specify
 
 "Start Analyzing" takes us to the main page of the **_wiseR_** engine. An intuitive left-to-right ordering of tabs guides the user into the analysis. This page has 5 tabs named 'App Settings','Data','Association Network','Bayesian Network' and 'Publish your dashboard', each tab covering a specific functionality (Figure S3). Each of these is described next.
 
-#### Figure S3. Functional tabs on the main page of the **_wiser_** engine.
+<img src="2.png" height="100px" width="750px" />
+
+#### Figure S3. Functional tabs on the main page of the **_wiser_** engine and the first tab (App Settings) for parallel computation.
 
 ## App Settings
 
 This tab (Figure S3) is used to set the parallel computing option (number of cores) for learning BN structure. Learning structure is known to be NP-hard problem and may be time consuming on large datasets. Setting the number of clusters allows each core to learn a structure when bootstrap learning is performed. Since learning one structure cannot be parallelized, this is an example of task parallelization.
 
-<img src="2.png" height="100px" width="750px" />
-
-#### Figure S3. Setting the number of clusters to be used for task parallelization in Bootstrap Structure Learning.
-
 ## Data
 
-This tab is used to load, pre-process and explore the dataset user wants to work with before learning begins.
+This tab is used to load, pre-process and explore the dataset (Figure S4.)
 
 The dataset panel contains the upload and preprocess menu while explore panel is used to visualize the distribution of the data.
 
 <img src="3.png" height="400px" width="750px" />
 
+#### Figure S4. Data upload, exploration and pre-processing functions. 
+
 ### Upload
 
-Using upload menu user can either load pre-existing data or upload data of their own. Available file formats of data are '.CSV','.RData' & '.txt'. For '.txt' files different options of file formatting are provided such as:
+Users can upload their own data in one of the '.CSV','.RData' & '.txt' formats. For large data, saving the data as .RData is recommended for its compression of data, hence efficient storage. For '.txt' files different options of file formatting are provided such as:
 
 * Comma Separated
 * Semi-colon Seperated
 * Tab separated
 * Space Separated
 
-The default setting of the app is to consider variables in the dataset as factors by default. This can be un-selected based on user need.
+Users trying the app can work with the pre-loaded datasets (Alarm, Hailfinder, Asia, Coronary) to replicate BN analysis commonly demonstrated with these datasets.
+
+Users must note that the default setting of the app is to treat all variables with less than 53 levels as factor variables. Variables with more than 53 levels are treated as numeric variables and the user is prompted for discretization of such numeric variables to factors. While this is a convenient general option, it may be true that a numeric variable may have less than 53 levels in a particular dataset. In such cases, the user can un-check this option and specify the numeric variables explicitly to be converted to factors in the next step. 
 
 Current limit of file upload is 8000 mb, however it is recommended to use .RData for large datasets.
 
 <img src="4.png" height="400px" width="750px" />
 
+#### Figure S5. 
 ### Pre-process
 
 The preprocess menu is used to edit the data before using through the app. It is essential that data is discrete and complete for learning association network and bayesian network. Multiple options to pre-process the data have been provided.
