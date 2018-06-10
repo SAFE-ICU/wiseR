@@ -10,7 +10,7 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ```{r functions, include=FALSE}
@@ -83,7 +83,10 @@ Click "Start Analyzing" for  navigating to the analysis engine with tabs specify
 An intuitive left-to-right ordering of tabs guides the user into the analysis. The main page has 5 tabs named 'App Settings','Data','Association Network','Bayesian Network' and 'Publish your dashboard', each tab covering a specific functionality (Figure 1). Each of these is described next.
 
 <img src="1.png" height="400px" width="750px" />
+
 ```{r, fig.cap = paste("Testing.")}
+```
+
 ## App Settings
 
 This tab is used to set the computational settings of the app. Bayesian learning on complex data is often computationally expensive and time consuming, thus we enable the user to run computationally expensive processes in parallel, and also to choose the number of clusters (Parallel nodes) to form which they can select based on their hardware.
