@@ -54,9 +54,12 @@ These are one of the most interesting motifs in an Bayesian Network and are indi
 # Walkthrough of wiseR functionalities
 
 ## Pipeline
+
+The logical flow of analysis and reasoning conducted with wiseR is shown in Figure S1. 
+
 <img src="34.png" height="400px" width="750px" />
 
-#### Figure 1. Flowchart showing logic of wiseR
+#### Figure S1. Flowchart showing logic of wiseR
 
 ## Start
 
@@ -70,8 +73,6 @@ An intuitive left-to-right ordering of tabs guides the user into the analysis. T
 
 <img src="1.png" height="400px" width="750px" />
 
-```{r, fig.cap = paste("Testing.")}
-```
 
 ## App Settings
 
