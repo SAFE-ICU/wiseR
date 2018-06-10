@@ -113,7 +113,7 @@ Current limit of file upload is 8000 mb, however it is recommended to use .RData
 
 <img src="4.png" height="400px" width="750px" />
 
-#### Figure S5. Features of the upload subsection
+#### Figure S5. Features of the upload sub-section of Data tab.
 
 ### Pre-process
 
@@ -130,7 +130,7 @@ The preprocess menu is used to edit the data before using through the app. It is
 
 <img src="5.png" height="400px" width="750px" />
 
-#### Figure S6. Features of the pre-process subsection
+#### Figure S6. The data pre-processing sub-section of Data tab allows imputation, discretization, type-conversion, variable deletion and transpose.
 
 ### Download
 
@@ -138,23 +138,19 @@ This button is provided in case the user wants to download the dataset in curren
 
 <img src="6.png" height="400px" width="750px" />
 
-#### Figure S7. Button to download dataset
+#### Figure S7. Users can download the pre-processed data as CSV files.
 
 ### Explore
 
-
-This section is provided to visualize the distribution of the variables in the dataset.
-Once the data has been pre-processes(Discretized and complete), the user can select a variable and visualize the plot of its factor distribution.
+Pre-processed data can be explored by looking at their frequency distributions visualized as barplots. This is an important step in the analysis as it allows the users to catch any anomalies that may bias the downstream analysis. 
 
 <img src="7.png" height="400px" width="750px" />
 
-#### Figure S8. Explore subsection of the datatab to visualize distrubutions
+#### Figure S8. Exploratory data analysis such as barplots of distributions.
 
 ## Association Network
 
-Even though not directly related association networks are an essential part of bayesian learning. Bayesian networks are often large and complex, which makes the difficult to understand. Learning association networks on the data before bayesian learning can give useful insights from the simplistic structure produced and provides a more targeted approach to bayesian learning.
-
-The app provides multiple options to build and explore association networks.
+Before going to Bayesian Network analysis, it is instructive to visualize the association graph constructed upon the data. Learning association networks on the data before bayesian learning can give useful insights. Additionally the association network can serve as a starting structure for Bayesian Network structure learning. This can be achieved by using the edgelist downloaded from association network analysis in the structure learning part of the app. Various association scores are provided in the app as explained in the next section.
 
 <img src="8.png" height="400px" width="750px" />
 
@@ -163,14 +159,14 @@ The app provides multiple options to build and explore association networks.
 ### Build
 
 
-The build menu is used to build association networks. It consists of different metrics for association strength which are used to build association networks like
+The build menu is used to build association networks. It consists of different metrics for association strength which are used to build association networks including,
 
 * cramer's V(Recommended)
 * cohen's D
 * Goodman kruskal lambda
 * Tschuprow's T
 
-Each method returns a value between 0 and 1. 0 being two variables are not associated and 1 being highly associated. A threshold value between 0 and 1 can then be set to choose the edges that remain in the association graph based on strength of association.
+Each method returns a value between 0 and 1. 0 being two variables are not associated and 1 being highly associated. Users can select a threshold value between 0 and 1 for eliminating edges below the threshold. 
 
 <img src="9.png" height="400px" width="750px" />
 
@@ -178,27 +174,27 @@ Each method returns a value between 0 and 1. 0 being two variables are not assoc
 
 ### Detect Modules
 
-Often large graphs are difficult to explore and contain redundant information. To enable a clutter less analysis feature for module/community detection is provided which highlights different important groups of subgraphs in the original graph. These graphs can be individually explored and analysed.
+Most real world networks have communities. These may form due to preferential attachment to hub nodes, often leading to a scale free network structure. To leverage this phenomenon, the app has a module/community detection pipeline revealing sub-graphs in the original graph. These graphs can be individually explored and analysed from the drop-down menu.
 
 There are different clustering algorithms available in the app for module/community detection which is powered by linkcomm package, like ward.D (Recommended),ward.D2,single,complete,average,mcquitty, median,centroid for user to choose from.
 
 <img src="10.png" height="400px" width="750px" />
 
-#### Figure S11. Module detection on assocation networks
+#### Figure S11. Detection of communities within the association network.
 
 ### Visual settings
 
-The visual settings menu is used to exploit the graph for better exploration. It comes equipped with many features like variable grouping, which enables the user to group different nodes, by selecting variable names/vector of variable indices/variables belonging to a module and selecting a node shape they want to give these variables.
+Visualization is often key in deriving useful inferences from a complex dataset and these functions are provided through the "Visual Settings" menu.
 
-To ease the exploration of large graphs a threshold for visible neighbor chain is provided, such that clicking on a node only display its neighbors upto that degree.
+**Color/Shape attributes**: The user can either select variable names or provide a vector of variable indices that need to be grouped for node sape and color. These tools are useful in analyzing bipartite or multi-partite networks.
 
-Another neighborhood variable exploration mechanism is setting value for nth order neighbors, such that clicking on a variable return a list of nth degree neighbors.
+**n-Nearest Neighbor Visualization**:To ease the exploration of large graphs a threshold for visible neighbor chain is provided, such that clicking on a node only display its neighbors upto that degree. Alternatively, a user can see the list of n-th degree neighbors by clicking on a variable return. This returns a list of nth degree neighbors. n can be interactively set.
 
-User  has the option to arrange the graph nodes using different graph layouts.Depending on the graph different layout setups enable ease of exploration. Some useful layouts include mds, tree, sugiyama
+**Graph layout**: Further, the app allows various graph layout options, some of which are more suitable for particular kinds of data. Useful layouts include tree (for directed), Sugiyama (for directed), star and circle (both for undirected graphs). 
 
-User can adjust the font size of the node labels to improve visibility
+**Font Size**: User can adjust the font size of the node labels to improve visibility
 
-User also has the option to download the network graph in its current state using the save network option present in the bottom right corner of the graph.
+**Download graph**:User also has the option to download the network graph in its current state using the save network option present in the bottom right corner of the graph.
 
 <img src="11.png" height="400px" width="750px" />
 
@@ -206,36 +202,34 @@ User also has the option to download the network graph in its current state usin
 
 ### Export tables
 
-This section is used to visualize the association network produced in a tabular form and also to download it as a .CSV file if needed.
+The data obtained from association networks analysis can be exported as an edgelist in tabular form and can also be downloaded it as a .CSV file.
 
 <img src="12.png" height="400px" width="750px" />
 
 #### Figure S13. Export the assocation graph
 
-## Bayesian Network
+## Bayesian Network Analysis
 
-Multiple features have been clubbed into the bayesian learning component of the app to make it as useful as possible. This component of the app is powered by the bnlearn package and tries to cover all the innovative and efficient methods for structure learning as explained in the book.
+This is the core functionality of the **_wiseR_** app. Multiple features have been added to state-of-the-art practices including bootstrapping, ensemble averaging, error bars of approximate inference etc. These ensure robustness of reasoning and decisions derived from the BN.
 
 <img src="13.png" height="400px" width="750px" />
 
 #### Figure S14. Build and Explore Bayesian Networks
 
 ### Structure learning
-The structure learning menu incorporates all the need for bayesian learning and has been divided into 5 sections based on use.
+The structure of a graphical models reveals the possible "blue-print" that generated the data at hand. For this reason, BNs are interpretable and intuitive. Learning the structure from data is the most challenging yet insightful step in a BN analysis. However, if the structure is already known, or can be guessed, this can be pre-specified by an expert. In this way, BNs represent a perfect hybrid of expert and data-driven learning.
 
 #### Initialize structure
 
-This section enables the user to upload a network graph as a .CSV file to initialize the bayesian learning graph. The section also provides the user the option to add, remove or reverse the direction of any arc, once the graph has been uploaded. (Only used in score-based learning)
+This section relies on expert/prior knowledge and enables the user to upload a network graph as a .CSV file to initialize the bayesian learning graph. The user can also add, remove or reverse the direction of any arc, once the graph has been uploaded. (Only used in score-based learning)
 
 <img src="14.png" height="400px" width="750px" />
 
-#### Figure S15. graph initialization settings
+#### Figure S 15. Graph initialization settings
 
 #### Learn Structure
 
-This section is used to learn new bayesian structure through the app.
-
-The user can choose from a number of bayesian learning algorithms such as
+In the absence of expert knowledge, independencies can be directly learnt from the data itself. The computational learning of structure can be done using a number of bayesian learning algorithms such as
 
 * Score-based (Recommended):- Hill Climbing, Tabu
 * Constraint-based:- Grow-Shrink, Incremental Association, Fast IAMB, Inter IAMB,PC
@@ -254,7 +248,7 @@ and can also adjust other bayesian learning parameters such as:
 * Edge strength:- Set a threshold value between 0 and 1 to remove edges below that strength from the final structure. Edge strength is basically the probability of occurrence of an edge in each iteration of bootstrap learning
 _ Edge direction:- set threshold value between o and 1 to remove edges below that direction confidence from the final structure. Edge direction is basically the confidence of direction of a learned arc in bootstrap learning.
 
-The user can simple choose the do direct learning or do a bootstrapped one(in which case bootstrap parameters will be used) for more robust structure learning.
+The user may simply choose the "Direct Learning" tab for learning the structure without bootstraps, however this is conisdered lesss or do a bootstrapped one(in which case bootstrap parameters will be used) for more robust structure learning.
 
 Once structure has been learned, parameters such as parameter fitting algorithm and edge strength and direction threshold(For bootstrap learning) can be adjusted without having to re learn the structure through parameter tuning option.
 
