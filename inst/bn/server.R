@@ -622,6 +622,18 @@ shinyServer(function(input, output,session) {
       }
     }
   )
+  output$bSave<-downloadHandler(
+    filename = function(){
+      paste('bayesian graph',".html",sep = "")
+    },
+    content = function(filename){
+      if(load==2)
+      {
+          bgNet <- graph.custom(NetworkGraph,nodeNamesB,shapeVector,EvidenceNode,EventNode,input$degree,input$graph_layout,weight,value,input$bayesFont)
+          visSave(bgNet, file = filename)
+      }
+    }
+  )
   output$downloadData <- downloadHandler(
     filename = function() {
       paste(input$tableName, ".csv", sep = "")

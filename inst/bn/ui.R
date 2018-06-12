@@ -519,6 +519,7 @@ dashboardPage(skin = "blue",
                                                                                                                       shiny::selectInput('graph_layout',label = NULL,"layout_nicely")),
                                                                                                                   selectInput('bayesFont',label = "Node Font",choices = c(1:100),selected = 20)
                                                                                                               ),
+                                                                                                              downloadButton("bSave","Save Graph as html"),
                                                                                                               label = "Visual Settings",circle = F, status = "primary", icon = icon("gear"), width = "400px",tooltip = tooltipOptions(title = "graph settings")
                                                                                                             )
                                                                                               ),
