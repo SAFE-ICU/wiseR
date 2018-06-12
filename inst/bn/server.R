@@ -634,6 +634,18 @@ shinyServer(function(input, output,session) {
       }
     }
   )
+  output$aSave<-downloadHandler(
+    filename = function(){
+      paste('association graph',".html",sep = "")
+    },
+    content = function(filename){
+      if(load==2)
+      {
+        agNet <- graph.custom.assoc(assocNetworkprune,unique(c(assocNetworkprune[,1],assocNetworkprune[,2])),input$Adegree,input$Agraph_layout,shapeVectorAssoc,input$assocFont)
+        visSave(agNet, file = filename)
+      }
+    }
+  )
   output$downloadData <- downloadHandler(
     filename = function() {
       paste(input$tableName, ".csv", sep = "")

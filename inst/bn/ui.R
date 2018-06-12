@@ -242,6 +242,7 @@ dashboardPage(skin = "blue",
                                                                                                       shiny::selectInput('Agraph_layout',label = NULL,"layout_nicely")),
                                                                                                   selectInput('assocFont',label = "Node Font",choices = c(1:100),selected = 20)
                                                                                               ),
+                                                                                              downloadButton("aSave","Save Graph as html"),
                                                                                               label = "Visual Settings",circle = F, status = "primary", icon = icon("gear"), width = "500px",tooltip = tooltipOptions(title = "graph visualization settings")
                                                                                             )
                                                                               ),
