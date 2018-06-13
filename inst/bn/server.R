@@ -2527,11 +2527,12 @@ shinyServer(function(input, output,session) {
       {
         if(type == 2)
         {
-          output$consensusPlot<-renderPlot({strength.plot(bn.hc.boot.average,bn.hc.boot)})
+          p = strength.plot(bn.hc.boot.average,bn.hc.boot)
+          output$consensusPlot<-renderPlot({p})
         }
       }
     },error=function(e){
-      shinyalert::shinyalert(toString(e), type = "error")})
+      shinyalert::shinyalert("graph can't be constructed because some nodes were dropped at the set threshold", type = "error")})
   })
   observeEvent(input$PruneBtn,{
     if(load==2)
