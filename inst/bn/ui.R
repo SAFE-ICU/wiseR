@@ -458,7 +458,7 @@ dashboardPage(skin = "blue",
                                                                                 label = "Inference Learning",circle = F, status = "primary", icon = icon("bar-chart-o"), width = "500px",tooltip = tooltipOptions(title = "Learn Inferences")
                                                                               )),
                                                                               shiny::column(7,shinyWidgets::radioGroupButtons(inputId = "bayesianOption",
-                                                                                                                              choices = c("Bayesian Network","Fitted Local Distributions", "Infer Decisions","Export Tables"),
+                                                                                                                              choices = c("Bayesian Network","Consensus Plot","Fitted Local Distributions", "Infer Decisions","Export Tables"),
                                                                                                                               selected = "Bayesian Network",
                                                                                                                               justified = FALSE
                                                                               ))
@@ -547,6 +547,11 @@ dashboardPage(skin = "blue",
                                                                               "input.bayesianOption=='Export Tables'",
                                                                               shiny::fluidRow(shiny::column(4,selectInput("tableName",label = NULL,"")),shiny::column(1,downloadButton("downloadData", "Download", class = "butt"))),
                                                                               shinycssloaders::withSpinner(DT::dataTableOutput("tableOut"),color = "#2E86C1")
+                                                                            ),
+                                                                            conditionalPanel(
+                                                                              "input.bayesianOption=='Consensus Plot'",
+                                                                              shiny::fluidRow(shiny::column(1,actionButton("consensus", "Build Plot", class = "butt"))),
+                                                                              shinycssloaders::withSpinner(plotOutput("consensusPlot",height = "450px"),color="#2E86C1")
                                                                             )
                                                                             )
                                                                          ),

@@ -100,6 +100,7 @@ shinyServer(function(input, output,session) {
   output$assocPlot<-renderVisNetwork({validate("Explore the association network on your data")})
   output$netPlot<-renderVisNetwork({validate("Construct bayesian network for taking decision")})
   output$parameterPlot<-renderPlot({validate("Construct bayesian network for taking decision")})
+  output$consensusPlot<-renderPlot({validate("Construct bayesian network(Bootstap Learning) for taking decision")})
   output$distPlot<-renderPlot({validate("Construct bayesian network for taking decision")})
   output$freqPlot<-renderPlot({validate("You have to preprocess data to built the plot")})
   output$tableOut<-DT::renderDataTable({NULL},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'))
@@ -166,6 +167,7 @@ shinyServer(function(input, output,session) {
     output$assocPlot<<-renderVisNetwork({validate("Explore the association network on your data")})
     output$netPlot<<-renderVisNetwork({validate("Construct bayesian network for taking decisions")})
     output$parameterPlot<<-renderPlot({validate("Construct bayesian network for taking decisions")})
+    output$consensusPlot<-renderPlot({validate("Construct bayesian network(Bootstap Learning) for taking decision")})
     output$distPlot<<-renderPlot({validate("Construct bayesian network for taking decision")})
     output$datasetTable<-DT::renderDataTable({DiscreteData},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'))
     output$priorout<-DT::renderDataTable({NULL},options = list(scrollX = TRUE,pageLength = 10),selection = 'single')
@@ -260,6 +262,7 @@ shinyServer(function(input, output,session) {
         output$assocPlot<<-renderVisNetwork({validate("Explore the association network on your data")})
         output$netPlot<<-renderVisNetwork({validate("Construct bayesian network for taking decisions")})
         output$parameterPlot<<-renderPlot({validate("Construct bayesian network for taking decisions")})
+        output$consensusPlot<-renderPlot({validate("Construct bayesian network(Bootstap Learning) for taking decision")})
         output$distPlot<<-renderPlot({validate("Construct bayesian network for taking decision")})
         output$datasetTable<-DT::renderDataTable({DiscreteData},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'))
         NetworkGraph <<- NULL
@@ -788,6 +791,7 @@ shinyServer(function(input, output,session) {
         output$assocPlot<<-renderVisNetwork({validate("Explore the association network on your data")})
         output$netPlot<<-renderVisNetwork({validate("Construct a Bayesian Network for taking decisions")})
         output$parameterPlot<<-renderPlot({validate("Construct a Bayesian Network for taking decisions")})
+        output$consensusPlot<-renderPlot({validate("Construct bayesian network(Bootstap Learning) for taking decision")})
         output$distPlot<<-renderPlot({validate("Construct a Bayesian Network for taking decisions")})
         output$datasetTable<-DT::renderDataTable({DiscreteData},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'))
         NetworkGraph <<- NULL
@@ -879,6 +883,7 @@ shinyServer(function(input, output,session) {
         output$assocPlot<<-renderVisNetwork({validate("Explore the association network on your data")})
         output$netPlot<<-renderVisNetwork({validate("Construct bayesian network for taking decisions")})
         output$parameterPlot<<-renderPlot({validate("Construct bayesina network for taking decisions")})
+        output$consensusPlot<-renderPlot({validate("Construct bayesian network(Bootstap Learning) for taking decision")})
         output$distPlot<<-renderPlot({validate("Construct bayesian netowrk for takinng decision")})
         output$datasetTable<-DT::renderDataTable({DiscreteData},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'))
         NetworkGraph <<- NULL
@@ -1012,6 +1017,7 @@ shinyServer(function(input, output,session) {
         output$assocPlot<<-renderVisNetwork({validate("Explore the association network on your data")})
         output$netPlot<<-renderVisNetwork({validate("Construct bayesian network for taking decisions")})
         output$parameterPlot<<-renderPlot({validate("Construct bayesina network for taking decisions")})
+        output$consensusPlot<-renderPlot({validate("Construct bayesian network(Bootstap Learning) for taking decision")})
         output$distPlot<<-renderPlot({validate("Construct bayesian netowrk for takinng decision")})
         output$datasetTable<-DT::renderDataTable({DiscreteData},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'))
         NetworkGraph <<- NULL
@@ -1139,6 +1145,7 @@ shinyServer(function(input, output,session) {
             output$assocPlot<<-renderVisNetwork({validate("Explore the association network on your data")})
             output$netPlot<<-renderVisNetwork({validate("Construct bayesian network for taking decisions")})
             output$parameterPlot<<-renderPlot({validate("Construct bayesina network for taking decisions")})
+            output$consensusPlot<-renderPlot({validate("Construct bayesian network(Bootstap Learning) for taking decision")})
             output$distPlot<<-renderPlot({validate("Construct bayesian netowrk for takinng decision")})
             output$datasetTable<-DT::renderDataTable({DiscreteData},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'))
             NetworkGraph <<- NULL
@@ -1235,6 +1242,7 @@ shinyServer(function(input, output,session) {
           output$assocPlot<<-renderVisNetwork({validate("Explore the association network on your data")})
           output$netPlot<<-renderVisNetwork({validate("Construct bayesian netowrk for taking decision")})
           output$parameterPlot<<-renderPlot({validate("Construct bayesian network for taking decision")})
+          output$consensusPlot<-renderPlot({validate("Construct bayesian network(Bootstap Learning) for taking decision")})
           output$distPlot<<-renderPlot({validate("Construct bayesian network for taking decision")})
           output$datasetTable<-DT::renderDataTable({DiscreteData},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'))
           NetworkGraph <<- NULL
@@ -1322,6 +1330,7 @@ shinyServer(function(input, output,session) {
         output$assocPlot<<-renderVisNetwork({validate("Explore the association network on your data")})
         output$netPlot<<-renderVisNetwork({validate("Construct bayesian netowrk for taking decision")})
         output$parameterPlot<<-renderPlot({validate("Construct bayesian network for taking decision")})
+        output$consensusPlot<-renderPlot({validate("Construct bayesian network(Bootstap Learning) for taking decision")})
         output$distPlot<<-renderPlot({validate("Construct bayesian network for taking decision")})
         output$datasetTable<-DT::renderDataTable({DiscreteData},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'))
         NetworkGraph <<- NULL
@@ -1407,6 +1416,7 @@ shinyServer(function(input, output,session) {
       output$assocPlot<<-renderVisNetwork({validate("Explore the association network on your data")})
       output$netPlot<<-renderVisNetwork({validate("Construct bayesian netowrk for taking decision")})
       output$parameterPlot<<-renderPlot({validate("Construct bayesian network for taking decision")})
+      output$consensusPlot<-renderPlot({validate("Construct bayesian network(Bootstap Learning) for taking decision")})
       output$distPlot<<-renderPlot({validate("Construct bayesian network for taking decision")})
       output$datasetTable<-DT::renderDataTable({DiscreteData},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'))
       NetworkGraph <<- NULL
@@ -1488,6 +1498,7 @@ shinyServer(function(input, output,session) {
         output$assocPlot<<-renderVisNetwork({validate("Explore the association network on your data")})
         output$netPlot<<-renderVisNetwork({validate("Construct bayesian netowrk for taking decision")})
         output$parameterPlot<<-renderPlot({validate("Construct bayesian network for taking decision")})
+        output$consensusPlot<-renderPlot({validate("Construct bayesian network(Bootstap Learning) for taking decision")})
         output$distPlot<<-renderPlot({validate("Construct bayesian network for taking decision")})
         output$datasetTable<-DT::renderDataTable({DiscreteData},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'))
         NetworkGraph <<- NULL
@@ -1587,6 +1598,7 @@ shinyServer(function(input, output,session) {
             output$assocPlot<<-renderVisNetwork({validate("Explore the association network on your data")})
             output$netPlot<<-renderVisNetwork({validate("Construct bayesian netowrk for taking decision")})
             output$parameterPlot<<-renderPlot({validate("Construct bayesian network for taking decision")})
+            output$consensusPlot<-renderPlot({validate("Construct bayesian network(Bootstap Learning) for taking decision")})
             output$distPlot<<-renderPlot({validate("Construct bayesian network for taking decision")})
             output$datasetTable<-DT::renderDataTable({DiscreteData},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'))
             NetworkGraph <<- NULL
@@ -2508,6 +2520,18 @@ shinyServer(function(input, output,session) {
       }
       tooltip(session)
     }
+  })
+  observeEvent(input$consensus,{
+    tryCatch({
+      if(reset == 2)
+      {
+        if(type == 2)
+        {
+          output$consensusPlot<-renderPlot({strength.plot(bn.hc.boot.average,bn.hc.boot)})
+        }
+      }
+    },error=function(e){
+      shinyalert::shinyalert(toString(e), type = "error")})
   })
   observeEvent(input$PruneBtn,{
     if(load==2)
