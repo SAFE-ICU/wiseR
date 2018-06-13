@@ -2528,7 +2528,7 @@ shinyServer(function(input, output,session) {
         if(type == 2)
         {
           p = strength.plot(bn.hc.boot.average,bn.hc.boot)
-          output$consensusPlot<-renderPlot({p})
+          output$consensusPlot<-renderPlot({strength.plot(bn.hc.boot.average,bn.hc.boot)})
         }
       }
     },error=function(e){
