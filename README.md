@@ -1,8 +1,9 @@
 # wiseR
-*wiseR* Networks helping your decisions with Bayesian Network structure learning, inference and visualization.
+An end-to-end Bayesian Networks interface enabling users for observational and causal reasoning, learning, inference, statistical validation and dashboard deployment. 
 
 (Link to pre-print coming soon)
 
-Team: [Tavpritesh Sethi](https://github.com/Tavpritesh), [Shubham Maheshwari](https://github.com/shubham14101), [Anant Mittal](https://github.com/anant15)
+## Contact (Package DESCRIPTION for more details) 
+Tavpritesh Sethi <tavsethi@stanford.edu; tavpriteshsethi@iiitd.ac.in?>
+Shubham Maheshwari <shubham14101@iiitd.ac.in>
 
-Correspondence: tavsethi@stanford.edu; tavpriteshsethi@iiitd.ac.in
