@@ -297,22 +297,20 @@ Inferences can be learnt through two methods using **_wiseR_**
 * Approximate Inference (Fast, Monte Carlo sampling of local structure). This option is useful for large datasets where exact inference is intractable. However, the sampling is implemented every time, hence adding incrementally to computational overhead over time. Also it yields slightly different results on each iteration. The app has the feature to re-compute approximate inferences for a specified number of times and to plot error bars in the inference.
 * Exact inference (Fast for small networks, slow for large networks, one-time computation)
 
-Assuming that the User is working with large datasets, approximate inference is the default setting. This can be switched in the app.
-
-To compensate for wavering accuracy of approximate inference while retaining its speed, option for inference with error bars is given. User can provide the no. of iterations for error plot (Recommended 25). It is observed that the inference plots produced using approximate inference with error bars, is almost as accurate as exact inference, without the time constraint of exact inferences on large networks.
+Assuming that the User is working with large datasets, approximate inference is the default setting. This can be switched in the app. It is observed that the inference plots produced using approximate inference with error bars, is almost as accurate as exact inference, hence can enable robust reasoning and decisions on large datasets where exact inference is not possible.
 
 <img src="19.png" height="400px" width="750px" />
 
-#### Figure S20. learn and make inferences
+#### Figure S20. BN Inference. Approximate, Exact and Robustness.
 
-Apart from structure learning and inference learning the bayesian network tab is divided into 4 sections for visualization and exploration
+Apart from structure and inference learning which are the workhorse of a BN analysis, the bayesian network tab allows options for visualization and exploration
 
 
 * Bayesian network panel is used to explore the learned structure and is equipped with all the graph exploration features as available in association graph
 
 <img src="20.png" height="400px" width="750px" />
 
-#### Figure S21. learned bayesian graph
+#### Figure S21. Example of a learnt bayesian graph
 
 * Fitted local distribution panel is used to explore the local probability distribution tables of variables in the learned network structure
 
@@ -330,24 +328,23 @@ Apart from structure learning and inference learning the bayesian network tab is
 
 <img src="23.png" height="400px" width="750px" />
 
-#### Figure S24. tables containing network graph, validation results etc
+#### Figure S24. Visualiation and tables available to be exported from the application.
 
 ## Publish your dashboard
 
-This section is one of the key highlights of the app. Often user find it difficult effectively communicate their results on bayesian learning. This app enables the user to produce a custom dashboard of their results as an R package.
+We consider this section to be a key highlight of **_wiseR_**. Publishing the analysis as an interactive dashboard helps reproducibility and effective communication.  **_wiseR_** enables the user to produce a custom dashboard of their results as an R package.
 
-The user has options to select the name and theme for the dashboard, the app simply builds the dashboard for them which is downloadable as an R package through the app. The custom dashboard is equipped with flagship features of wiseR like the interactive graph exploration and inference learning and visualization.
+The user has options to select the name and theme for the dashboard, and select the build option. **_wiseR_** builds the dashboard as a downloadable R/Shiny package which can be served as a web-application or launched as a local Shiny app. The custom dashboard is equipped with the most useful features of wiseR such as the interactive graph exploration and inference learning and visualization.
 
-This feature save author hassle of creating a dashboard for their findings, and helps propagating research output to the community in an efficient manner, which is the main motive behind wiser i.e bridging the gap between the research community and technology.
+This feature save author hassle of creating a dashboard for their findings, and helps propagating research output to the community in an efficient manner, thus helping bridging the gap between the research and actual use.
 
 <img src="24.png" height="400px" width="750px" />
 
-#### Figure S25. Publish your dashboard
+#### Figure S25. Publish your dashboard as a web-application or a local package
 
 # Comparison
 
-We draw a simple comparison of the wiseR app with existing bayesian learning and present it in the table below
-
+This section compares the features of **_wiseR_** with other existing Bayesian Networks tools (Table)
 Table Key:
 * Open source (OS): Is the source code available ? If yes what programming language?
 * Target Audience (TA) :What is the target audience? Based on the source code availability and programming language used, the app can be target to end user, data scientist or both.
@@ -377,14 +374,16 @@ knitr::kable(table,caption = 'A comparison of wiseR and other bayesian learning 
 
 
 # Example
-We explain the usefulness of bayesian networks by replicating the results presented in Sachs et al. (2005), which utilizes bayesian learning on complex interventional data.
+This section provides a hands-on example to conduct a step by step analysis to replicate one of the landmark results obtained using data-driven Bayesian Network learning and Inference, the Sachs dataset on yeast pathway modeling presented in Sachs et al. (2005), which utilizes bayesian learning on complex interventional data.
+
+#### Steps
 
 We upload the sachs interventional data which is in a space separated text file into the app.
 Variables are read as factors as it is a numerically encoded discrete data.
 
 <img src="25.png" height="400px" width="750px" />
 
-#### Figure S26. Data uploaded
+#### Figure S26. Sachs data uploaded
 
 The variable INT holds interventional information, adjustment is made for the same in the preprocess menu. This will now be used as a part of bayesian structure learning.
 
@@ -393,37 +392,37 @@ The variable INT holds interventional information, adjustment is made for the sa
 #### Figure S27. Handling interventional information
 
 
-We now learn a simple bayesian network on the data using Hill climbing algorithm and mbde network score. This graph will now be used to initialize structure learning using tabu algorithm. This mechanism of graph initialization in structure learning is especially useful in score-based learning like Tabu, which prevents it from getting stuck in local maxima.
+Next we learn a simple bayesian network on the data using Hill climbing algorithm and mbde network score. This graph will now be used to initialize structure learning using tabu algorithm. This mechanism of graph initialization in structure learning is especially useful in score-based learning like Tabu, which prevents it from getting stuck in local maxima.
 
 <img src="27.png" height="400px" width="750px" />
 
-#### Figure S28. Learn strucure using hill climbing
+#### Figure S28. Learn structure using hill climbing
 
 
 <img src="28.png" height="400px" width="750px" />
 
-#### Figure S29. Download netowrk graph as csv
+#### Figure S29. Download network graph as CSV file.
 
 We now upload the graph as initialization for structure learning.
 
 <img src="29.png" height="400px" width="750px" />
 
-#### Figure S30. Initialize a new structure using the previous graph
+#### Figure S30. Initialize a new structure using the previously learnt graph
 
 
-We now set the appropriate parameters for structure learning.
+Next, we set the appropriate parameters for structure learning.
 * Algorithm: tabu
 * Network score: modified bayesian dirichlet equivalent
 * ISS(imaginary sample size): 15
 * Parameter fitting algorithm: bayesian parameter estimation
 
-We perform a simple bayesian learning using tabu, to replicate the results. User can select the bootstrap parameters and do a bootstrap learning, to produce more robust structures.
+This performed a direct structure learning without bootstraps using tabu, to replicate the results as it was published in the study. However, we recommend that the user should select the bootstrap parameters and do a bootstrap learning, to produce more robust structures.
 
 <img src="30.png" height="400px" width="750px" />
 
-#### Figure S31. Structure learning using tabu algorithm
+#### Figure S31. Structure learning using tabu algorithm on Sachs data
 
-As we can see, the final produced structure has all the validated arcs that are present in the original paper even though a few have been reversed. The structure contains some unvalidated arcs as well which were discovered in the original paper but discarded due to low confidence.
+The final learnt structure replicates the results of the original paper and has all the validated arcs presented therein. It also discovered additional arcs which were not present in the original paper and may be useful for future research and exploration.
 
 <img src="31.png" height="400px" width="750px" />
 
@@ -432,19 +431,19 @@ As we can see, the final produced structure has all the validated arcs that are 
 We now confirm exact inference results with approximate inference with error bar to show that the unique approximate inference mechanism provided in the app produces as accurate results as exact inference without computational constraints in case of large structures. For this purpose we set the node 'Akt' as event conditional on 'Erk = 1'. In the probability plots produced we can clearly see that approximate inference with error bars produces as accurate results as exact inference within 0.05 range of error, which is negligible
 
 
-Exact Inference
+### Exact Inference
 <img src="32.png" height="400px" width="750px" />
 
 #### Figure S33. Exact inference plot
 
-Approximate Inference with error bars
+### Approximate Inference with error bars
 <img src="33.png" height="400px" width="750px" />
 
 #### Figure S34. Approximate inference plot
 
-# Powered by
+This concludes the walk-through example for replicating a BN analysis using **_wiseR_**
 
-The wiseR engine depends upon the following awesome libraries
+# **_wiseR_** is powered by the following libraries:-
 
 * *RBGL* (Vince Carey, Li Long and R. Gentleman (2017). RBGL: An interface to the BOOST graph library.
   R package version 1.52.0. http://www.bioconductor.org)
