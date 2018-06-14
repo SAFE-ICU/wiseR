@@ -1,6 +1,6 @@
 Package: wiseR
 Type: Package
-Title: A Shiny application for learning, reasoning, inference, validation, visualization and web-deployment of Bayesian Network Models.
+Title: An R/Shiny application for learning, reasoning, inference, validation, visualization and web-deployment of Bayesian Network Models.
 Version: 1.0.1
 Author: Tavpritesh Sethi, Shubham Maheshwari
 Authors@R: c(
