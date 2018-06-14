@@ -1,5 +1,5 @@
 # wiseR
-An interactive Bayesian Networks GUI enabling users for observational and causal reasoning, learning, inference, statistical validation and dashboard deployment. 
+A R/Shiny application for learning, reasoning, inference, validation, visualization and web-deployment of Bayesian Network Models. 
 
 (Link to pre-print coming soon)
 
