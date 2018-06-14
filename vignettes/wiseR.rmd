@@ -441,7 +441,7 @@ We now confirm exact inference results with approximate inference with error bar
 
 This concludes the walk-through example for replicating a BN analysis using **_wiseR_**
 
-# **_wiseR_** is powered by the following libraries:-
+## **_wiseR_** is powered by the following libraries:-
 
 * *RBGL* (Vince Carey, Li Long and R. Gentleman (2017). RBGL: An interface to the BOOST graph library.
   R package version 1.52.0. http://www.bioconductor.org)
