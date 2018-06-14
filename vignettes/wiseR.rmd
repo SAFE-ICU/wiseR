@@ -63,7 +63,7 @@ The logical flow of analysis and reasoning conducted with **_wiseR_** is shown i
 
 ## Start
 
-Calling the wiseR() function from the **_wiseR_** package launches the application in the default browser. The recommended browser for wiseR is Chrome. On launching the application for the first time, it conducts background checks, which takes 5-10 seconds depending upon the machine. This delay only happens on the first launch and all subsequent launches take less than a couple of seconds to initialize the user interface.  
+Calling the wiseR() function from the **_wiseR_** package launches the application in the default browser. The recommended browser for **_wiseR_** is Chrome. On launching the application for the first time, it conducts background checks, which takes 5-10 seconds depending upon the machine. This delay only happens on the first launch and all subsequent launches take less than a couple of seconds to initialize the user interface.  
 
 The toolbar on the left side of the page has icons for navigating to home, analysis engine, github development version and team information at any point of time.
 
@@ -105,7 +105,7 @@ Users can upload their own data in one of the '.CSV','.RData' & '.txt' formats. 
 * Tab separated
 * Space Separated
 
-Users trying the app can work with the pre-loaded datasets (Alarm, Hailfinder, Asia, Coronary) to replicate BN analysis commonly demonstrated with these datasets.
+New users trying to learn about BNs or testing the functionality of the app can work with the pre-loaded datasets (Alarm, Hailfinder, Asia, Coronary) to replicate BN analysis commonly demonstrated with these datasets.
 
 Users must note that the default setting of the app is to treat all variables with less than 53 levels as factor variables. Variables with more than 53 levels are treated as numeric variables and the user is prompted for discretization of such numeric variables to factors. While this is a convenient general option, it may be true that a numeric variable may have less than 53 levels in a particular dataset. In such cases, the user can un-check this option and specify the numeric variables explicitly to be converted to factors in the next step. 
 
@@ -122,25 +122,26 @@ The preprocess menu is used to edit the data before using through the app. It is
 * User can convert any variable which has been misclassified as numeric to factor
 * User can convert any variable which has been misclassified as factor to numeric
 * User can choose from a number of algorithms to discretize their data -                       Hybrid(Recommended),Hartemink(Recommended),K-means,Quantile,Frequency,Interval
+* Hybrid discretization is the default and it automatically chooses the best option for discretizing the variable. If discretization fails with the current method, it uses the next preferable method in the following sequence- k-means, quantile and interval discretization in that order of preference.
 * Hartemink requires 2 parameters 'break' and 'ibreak' which can be passed using the text input boxes.
-* user can also transpose their data frame, which is especially useful in case of gene expression data
-* User is also given the option to sort the columns of data alphabetically
-* User can also select unnecessary variables and delete them from the data using the delete button. A rest button is also provided to undo the delete operations in case of mistakes.
-* Option for adjusting the learning for interventional data is also provided. User can simply select the variable which holds the interventional classification and adjust the learning to it.
+* Transpose the data frame if necessary.
+* Sort variables alphabetically.
+* Drop/Reset variables from the analysis. Using the delete button after entering variable names drops these from the analysis and reset button restores the original data.them from the data using the delete button. 
+* Select Interventions. The learning algorithm will recognize the selected variable as intervention, and will use modified Bayesian Dirichlet Equivalent score for structure calculation after accounting for the intervention.
 
 <img src="5.png" height="400px" width="750px" />
 
-#### Figure S6. The data pre-processing sub-section of Data tab allows imputation, discretization, type-conversion, variable deletion and transpose.
+#### Figure S6. The data pre-processing sub-section of Data tab allows imputation, discretization, type-conversion, variable deletion and transposing and setting of interventional variables.
 
 ### Download
 
-This button is provided in case the user wants to download the dataset in current state as a .CSV file
+Users can download the pre-processed dataset in current state as a .CSV file
 
 <img src="6.png" height="400px" width="750px" />
 
 #### Figure S7. Users can download the pre-processed data as CSV files.
 
-### Explore
+### Exploratory Data Analysis
 
 Pre-processed data can be explored by looking at their frequency distributions visualized as barplots. This is an important step in the analysis as it allows the users to catch any anomalies that may bias the downstream analysis. 
 
@@ -194,15 +195,15 @@ Visualization is often key in deriving useful inferences from a complex dataset 
 
 **Font Size**: User can adjust the font size of the node labels to improve visibility
 
-**Download graph**:User also has the option to download the network graph in its current state using the save network option present in the bottom right corner of the graph.
+**Download graph**:User also has the option to download the network graph in html format from the current tab or using the save network option present in the bottom right corner of the graph.
 
 <img src="11.png" height="400px" width="750px" />
 
-#### Figure S12. Visual settings to explore assocation graphs
+#### Figure S12. Visual settings to explore assocation graphs.
 
 ### Export tables
 
-The data obtained from association networks analysis can be exported as an edgelist in tabular form and can also be downloaded it as a .CSV file.
+Association networks are essentially a list of edges with corresponding weights. This data obtained from association networks analysis can be exported as an edgelist in tabular form and can also be downloaded it as a .CSV file to allow user to switch between different networks analysis tools that can utilize edgelists.
 
 <img src="12.png" height="400px" width="750px" />
 
@@ -217,7 +218,7 @@ This is the core functionality of the **_wiseR_** app. Multiple features have be
 #### Figure S14. Build and Explore Bayesian Networks
 
 ### Structure learning
-The structure of a graphical models reveals the possible "blue-print" that generated the data at hand. For this reason, BNs are interpretable and intuitive. Learning the structure from data is the most challenging yet insightful step in a BN analysis. However, if the structure is already known, or can be guessed, this can be pre-specified by an expert. In this way, BNs represent a perfect hybrid of expert and data-driven learning.
+The structure of a graphical models reveals the generative process of the data at hand. For this reason, BNs are interpretable and intuitive. Learning the structure from data is the most challenging yet insightful step in a BN analysis. However, if the structure is already known, or can be guessed, this can be pre-specified by an expert. In this way, BNs represent a perfect hybrid of expert and data-driven learning.
 
 #### Initialize structure
 
@@ -236,21 +237,21 @@ In the absence of expert knowledge, independencies can be directly learnt from t
 * Hybrid Learning:- Max-Min Hill Climbing, 2-phase Restricted Maximization
 * Local Discovery:- Max-Min Parents and Children,Semi-Interleaved HITON-PC, ARACNE, Chow-Liu
 
-and can also adjust other bayesian learning parameters such as:
+Options used in structure learning include:-
 
-* Parameter fitting algorithm:- Bayesian parameter estimation, maximum likelihood parameter estimation
-* Network score:- Bayesian Information Criterion,Bayesian Dirichlet Equivalent,modified Bayesian Dirichlet Equivalent,log-likelihood,Akaike Information Criterion,Bayesian Dirichlet Sparse,Locally Averaged Bayesian Dirichlet (Only used in score-based learning)
+* Parameter fitting algorithm:- Bayesian parameter estimation (recommended), maximum likelihood parameter estimation
+* Network score:- Bayesian Information Criterion, Bayesian Dirichlet Equivalent, modified Bayesian Dirichlet Equivalent, log-likelihood,Akaike Information Criterion,Bayesian Dirichlet Sparse,Locally Averaged Bayesian Dirichlet (Only used in score-based learning)
 * Imaginary sample size (Only used in score-based learning)
-* Blacklist(explicitly restrict edges in structure learning) and whitelist(explicitly enforce edges in structure learning) edges by uploading a .CSV file for the same
-* Disabling data resampling in bootstrap learning. This is particularly useful for data with very less no. of samples, such that resampling may lead to information loss.  This method is only possible for score based algorithms as it requires random graph initialization.
-* Bootstrap iterations:- No. of bootstrap iteration to run in case user decided to opt for bootstrapped structure learning
-* Bootstrap sample size:- Proportion of data to be used as sample for bootstrap learning
-* Edge strength:- Set a threshold value between 0 and 1 to remove edges below that strength from the final structure. Edge strength is basically the probability of occurrence of an edge in each iteration of bootstrap learning
-_ Edge direction:- set threshold value between o and 1 to remove edges below that direction confidence from the final structure. Edge direction is basically the confidence of direction of a learned arc in bootstrap learning.
+* Incorporate expert knowledge via blacklisting (explicitly restrict edges in structure learning) and whitelisting (explicitly enforce edges in structure learning) edges by uploading a .CSV file for the same
+* Disabling data resampling in bootstrap learning. This is particularly useful for data with low sample size. In this case, the data remain same  but the graph is re-initialized every time. This method is only possible for score based algorithms as it requires random graph initialization.
+* Bootstrap iterations:- Bootstrapping means sampling the data with replacement. This parameter specifies the number of bootstrap iterations to run for bootstrapped structure learning.
+* Bootstrap sample size:- Proportion of data to be used as sample for bootstrap learning.
+* Edge strength:- Set a threshold value between 0 and 1 to remove edges below specified strength from the final structure. Edge strength can be interpreted as the probability of occurrence of an edge in bootstrap learning.
+* Edge direction:- Set a threshold value between 0 and 1 to remove edges below specified direction confidence from the final structure. Edge direction can be interpreted the confidence of direction of a learned arc in bootstrap learning.
 
-The user may simply choose the "Direct Learning" tab for learning the structure without bootstraps, however this is conisdered lesss or do a bootstrapped one(in which case bootstrap parameters will be used) for more robust structure learning.
+If the user does not wish to run bootstraps, they may choose the "Direct Learning" tab for learning the structure without bootstraps, however this may give less robust results structure learning.
 
-Once structure has been learned, parameters such as parameter fitting algorithm and edge strength and direction threshold(For bootstrap learning) can be adjusted without having to re learn the structure through parameter tuning option.
+The user does not have to do the bootstrap learning every time if they wish to explore different thresholds for edge and direction strength. This can be achieved by using the parameter tuning option.
 
 User can also save the learned structure as a bnlearn object in .RData format through the save option.
 
