@@ -1,5 +1,5 @@
 Name,OS,TA,MLE,SL,BL,INT,CV,PL,IL,CD,IC,CI,EI,AIE,PP,Free
-ShinyBN,Yes (R),"Data Scientists,End users",Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+wiseR,Yes (R),"Data Scientists,End users",Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
 Bayesian Networks,Yes (R),"Data Scientists, End users",Yes,Yes,No,No,No,Yes,No,No,No,No,No,No,No,Yes
 BayesiaLab,No,End Users,No,Yes,No,No,No,Yes,No,No,No,Yes,Yes,No,No,No
 Bayes Server,No,End Users,No,Yes,No,No,No,Yes,No,No,No,Yes,Yes,No,No,No
