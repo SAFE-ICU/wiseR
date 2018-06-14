@@ -1,7 +1,7 @@
 Package: wiseR
 Type: Package
 Title: Enabling Decisions with Bayesian Networks Artificial Intelligence
-Version: 0.1.0
+Version: 1.0.1
 Author: Tavpritesh Sethi, Shubham Maheshwari
 Authors@R: c(
               person("Tavpritesh", "Sethi", role = c("aut", "cre"), email = "tavsethi@stanford.edu, tavpriteshsethi@iiitd.ac.in"),
