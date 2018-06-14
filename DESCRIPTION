@@ -1,6 +1,6 @@
 Package: wiseR
 Type: Package
-Title: Enabling Decisions with Bayesian Networks Artificial Intelligence
+Title: An Interactive App for learning, reasoning, inference, statistical validation with Bayesian Networks and web-deployment.
 Version: 1.0.1
 Author: Tavpritesh Sethi, Shubham Maheshwari
 Authors@R: c(
