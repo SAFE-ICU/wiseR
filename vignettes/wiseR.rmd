@@ -248,12 +248,13 @@ Options used in structure learning include:-
 * Bootstrap sample size:- Proportion of data to be used as sample for bootstrap learning.
 * Edge strength:- Set a threshold value between 0 and 1 to remove edges below specified strength from the final structure. Edge strength can be interpreted as the probability of occurrence of an edge in bootstrap learning.
 * Edge direction:- Set a threshold value between 0 and 1 to remove edges below specified direction confidence from the final structure. Edge direction can be interpreted the confidence of direction of a learned arc in bootstrap learning.
+* Although not recommended, bootstrap based structure learning may be by-passed via the "Direct Learning" option for learning the structure without bootstraps. Please note that this is suitable only for quick exploration and may give less robust structure.
 
-If the user does not wish to run bootstraps, they may choose the "Direct Learning" tab for learning the structure without bootstraps, however this may give less robust results structure learning.
+**Important Notes**
 
 The user does not have to do the bootstrap learning every time if they wish to explore different thresholds for edge and direction strength. This can be achieved by using the parameter tuning option.
 
-User can also save the learned structure as a bnlearn object in .RData format through the save option.
+The final learnt structure can be saved as a as a bnlearn object in .RData format through the save option.
 
 <img src="15.png" height="400px" width="750px" />
 
@@ -261,9 +262,9 @@ User can also save the learned structure as a bnlearn object in .RData format th
 
 #### Upload pre-learnt structure
 
-This section enables the user to upload an already bayesian structure to be explore through the app. This save the user hassle of learning the structure again and again. The upload structure has to be a bnlearn object uploaded as a .RData file.
+A user returning to analysis should not need to repeat the above steps. An already learnt and saved bayesian network structure can be uploaded as an .RData file.
 
-User has option to upload both simple and bootstrap structure and adjust there parameters accordingly
+Options to upload both bootstrapped and direct structure and adjusting their parameters are available in the app.
 
 <img src="16.png" height="400px" width="750px" />
 
@@ -271,37 +272,32 @@ User has option to upload both simple and bootstrap structure and adjust there p
 
 #### Edit structure
 
-This section enables the user to edit the structure after learning to incorporate additional expert knowledge. User can add new arcs to the structure and remove, reverse the existing ones.
+**_wiseR_**  allows expert checks at every step and an expert can identify edges and directions that are not plausible in the real world (e.g. smoking cannot influence natural gender, but the reverse can happen). An expert can add/remove arcs, or reverse the direction of the existing ones on the basis of plausibility.
 
 <img src="17.png" height="400px" width="750px" />
 
-#### Figure S18. Edit learned structure
+#### Figure S18. Edit learned structure via adding, removing or reversing directions based upon expert knowledge and plausibility.
 
 #### Validate structure
 
-This section enable user the option to validate the learned structure, and check the accuracy of the network. User can choose various parameters such as
+This section enables the analyst to validate the learnt structure using 10-fold cross-validation or hold-out testing. 
 
-* Parameter fitting algorithm
-* Network score
-* Loss function
-* Validation algorithm:- 10-fold, Hold-out
-
-to validate the network. The log-likelihood loss and network score outputs produced can then be used to judge the usability of the learned structure.
+The log-likelihood loss and network score outputs produced can then be used to judge the usability of the learned structure.
 
 <img src="18.png" height="400px" width="750px" />
 
-#### Figure S6. Validate learned structure
+#### Figure S6. Validation of the learnt structure through cross-validation and hold-out testing.
 
-### Inference Learning
+### Inference
 
-The inference learning menu enables the user to learn and explore conditional probability plots on the learned structure. The user can set an event  and multiple evidences can be inserted and removed as per need. This crucial feature enables the user to explore probability plots on event nodes in the network conditionalized on chain of evidences, which is the essence of decision making through bayesian networks.
+After the parametrization of BN is complete, it can be queried to derive inferences and reason about the data. The inference learning menu enables the user to learn and explore conditional probability plots on the learned structure. The user can set an event  and multiple evidences can be inserted as per the query. This crucial feature enables the user to explore probability plots on event nodes in the network conditionalized on chain of evidences, which is the essence of decision making through bayesian networks.
 
-The app provides 2 means for inference learning
+Inferences can be learnt through two methods using **_wiseR_**
 
-* Approximate (Very fast but sampling based inference, thus varying results on each iteration leading to slightly less accurate probability plots)
-* Exact inference (Fast for small networks, slow for large networks but accurate results on each iteration)
+* Approximate Inference (Fast, Monte Carlo sampling of local structure). This option is useful for large datasets where exact inference is intractable. However, the sampling is implemented every time, hence adding incrementally to computational overhead over time. Also it yields slightly different results on each iteration. The app has the feature to re-compute approximate inferences for a specified number of times and to plot error bars in the inference.
+* Exact inference (Fast for small networks, slow for large networks, one-time computation)
 
-While the app learns approximate learning as default, user must explicitly learn exact inferences whenever the structure is learned or updated. The user can than enable exact inferences instead of approximate.
+Assuming that the User is working with large datasets, approximate inference is the default setting. This can be switched in the app.
 
 To compensate for wavering accuracy of approximate inference while retaining its speed, option for inference with error bars is given. User can provide the no. of iterations for error plot (Recommended 25). It is observed that the inference plots produced using approximate inference with error bars, is almost as accurate as exact inference, without the time constraint of exact inferences on large networks.
 
