@@ -575,7 +575,7 @@ dashboardPage(skin = "blue",
                                         status = "primary",
                                         width = 12,
                                         div(style="text-align:center",
-                                            h2('Team')
+                                            p(h2(em("wiseR"),"Authors"))
                                         ),
                                         fluidRow(
                                           style = "margin-left:10px;padding:10px;",
@@ -617,25 +617,32 @@ dashboardPage(skin = "blue",
 
                                           )
                                         ),
-                                        fluidRow(
-                                          style = "margin-left:10px;padding:10px;",
-                                          column(3, align = "center",
-                                                 img(src = "anant.jpg", style = "max-width: 50%; width: 50%; height: auto")
-                                          ),
-                                          column(4,
-                                                 h4('Anant Mittal'),
-                                                 h5('B.Tech Computer Science, IIIT-Delhi'),
-                                                 h5('anant14015@iiitd.ac.in'),
-                                                 fluidRow(width = 12,
-                                                          column(width=2, a(img(src = "email.png", style = "margin:5px; width: 20px; height: 20px"), href = "mailto:anant14015@iiitd.ac.in"), target = "_blank"),
-                                                          column(width=2, a(img(src = "github.png", width = '30px', height = '30px'), href = "https://github.com/anant15"), target = "_blank")
-                                                 )
-                                          )
-                                        ),
+                                        #fluidRow(
+                                        #  style = "margin-left:10px;padding:10px;",
+                                        #  column(3, align = "center",
+                                        #         img(src = "anant.jpg", style = "max-width: 50%; width: 50%; height: auto")
+                                        #  ),
+                                        #  column(4,
+                                        #         h4('Anant Mittal'),
+                                        #         h5('B.Tech Computer Science, IIIT-Delhi'),
+                                        #         h5('anant14015@iiitd.ac.in'),
+                                        #         fluidRow(width = 12,
+                                        #                  column(width=2, a(img(src = "email.png", style = "margin:5px; width: 20px; height: 20px"), href = "mailto:anant14015@iiitd.ac.in"), target = "_blank"),
+                                        #                  column(width=2, a(img(src = "github.png", width = '30px', height = '30px'), href = "https://github.com/anant15"), target = "_blank")
+                                        #         )
+                                        #  )
+                                        #),
                                         hr(),
                                             div(style="text-align:center",
+                                                h3("Contributors"),
+                                                h4('Anant Mittal'),
+                                                h5('B.Tech Computer Science, IIIT-Delhi'),
+                                                h5('anant14015@iiitd.ac.in'),
+                                                a(img(src = "email.png", style = "margin:5px; width: 20px; height: 20px"), href = "mailto:anant14015@iiitd.ac.in"),
+                                                a(img(src = "github.png", width = '30px', height = '30px'), href = "https://github.com/anant15"),
+                                                hr(),
                                                 h3('Reference'),
-                                                h5('Placeholder'),
+                                                h5('Learning Robust Bayesian Networks from Data with wiseR:  A use case in Mycobacterium tuberculosis drug tolerance'),
                                                 hr(),
                                                 h3('Acknowlegments'),
                                                 h5("Rakesh Lodha, Professor (Pediatrics), All India Institute of Medical Sciences, New Delhi, India"),
