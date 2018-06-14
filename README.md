@@ -1,5 +1,5 @@
 # wiseR
-An end-to-end Bayesian Networks interface enabling users for observational and causal reasoning, learning, inference, statistical validation and dashboard deployment. 
+An interactive Bayesian Networks GUI enabling users for observational and causal reasoning, learning, inference, statistical validation and dashboard deployment. 
 
 (Link to pre-print coming soon)
 
