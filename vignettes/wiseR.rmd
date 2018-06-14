@@ -344,6 +344,7 @@ This feature save author hassle of creating a dashboard for their findings, and 
 
 This section compares the features of **_wiseR_** with other existing Bayesian Networks tools (Table)
 Table Key:
+
 * Open source (OS): Is the source code available ? If yes what programming language?
 * Target Audience (TA) :What is the target audience? Based on the source code availability and programming language used, the app can be target to end user, data scientist or both.
 * Enabled Statistical/ML extensions (MLE) : Does the backend language supports AI/ML libraries for customizations in those directions?
