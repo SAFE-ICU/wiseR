@@ -701,6 +701,31 @@ shinyServer(function(input, output,session) {
       }
     }
   )
+  output$saveBtnBoot<-downloadHandler(
+    filename = function() {
+      paste('BootstrapObject', ".RData", sep = "")
+    },
+    content = function(filename) {
+      if(load==2)
+      {
+        tryCatch({
+          if(reset==2)
+          {
+            if(type == 2)
+            {
+              save(bn.hc.boot,file=filename)
+            }
+          }
+          else
+          {
+            shinyalert::shinyalert("Construct bayesian network for taking decisions",type="info")
+          }
+        },error = function(e){
+          shinyalert::shinyalert("No bootstrap object found", type = "error")
+        })
+      }
+    }
+  )
   #Data Frame From User
   observeEvent(input$dataFile,{
     inFile <- input$dataFile

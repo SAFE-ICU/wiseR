@@ -411,7 +411,8 @@ dashboardPage(skin = "blue",
                                                                                       actionButton('PruneBtn','Parameter Tuning', class = "butt"),
                                                                                       hr(),
                                                                                       shiny::h5("Save learned structure"),
-                                                                                      downloadButton('saveBtn','Save', class = "butt")
+                                                                                      downloadButton('saveBtn','Save', class = "butt"),
+                                                                                      downloadButton('saveBtnBoot','Save Bootstrap Object', class = "butt")
                                                                                   )
                                                                                 ),
                                                                                 shiny::conditionalPanel(
