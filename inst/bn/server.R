@@ -3190,6 +3190,7 @@ shinyServer(function(input, output,session) {
     tooltip(session)
   })
   observeEvent(input$RemoveArc2,{
+    #print(input$postout__rows_selected)
     if(load==2)
     {
       tryCatch({
@@ -3326,12 +3327,13 @@ shinyServer(function(input, output,session) {
     }
   })
   observeEvent(input$ReverseArc2,{
+    #print(input$postout_rows_selected)
     if(load==2)
     {
       tryCatch({
         if(reset==2)
         {
-          if(!is.null(input$postout__rows_selected))
+          if(!is.null(input$postout_rows_selected))
           {
             bn.hc.boot.average<<-reverse.arc(bn.hc.boot.average,bn.hc.boot.average$arcs[input$postout_rows_selected,1],bn.hc.boot.average$arcs[input$postout_rows_selected,2])
             if(input$parallel==T)
