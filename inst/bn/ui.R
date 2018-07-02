@@ -7,6 +7,7 @@ library("shinyBS")
 library('shinyalert')
 library('rintrojs')
 library('igraph')
+library("HydeNet")
 source('error.bar.R')
 source('graph.custom.R')
 source('graph.custom.assoc.R')
@@ -556,6 +557,30 @@ dashboardPage(skin = "blue",
                                                                             )
                                                                             )
                                                                          ),
+                                                                 tabPanel("Decision Networks",
+                                                                          shinyWidgets::radioGroupButtons(inputId = "decisionoption",
+                                                                                                          choices = c("Build Network","Infer Decisions"),
+                                                                                                          selected = "Build Network",
+                                                                                                          justified = FALSE
+                                                                          ),
+                                                                          conditionalPanel(
+                                                                            "input.decisionoption=='Build Network'",
+                                                                            dropdownButton(
+                                                                              shiny::fluidRow(shiny::column(3,h5("")),shiny::column(6,actionButton("buildDecisionNet",'build', class = "butt"))),
+                                                                              h5("Set Decision Node"),
+                                                                              shiny::fluidRow(shiny::column(6,selectInput("decisionNode",label = NULL,choices = c())),shiny::column(6,actionButton("set_decision","Set Node",class = "butt"))),
+                                                                              h5("Set Utility Node"),
+                                                                              shiny::fluidRow(shiny::column(6,selectInput("utilityNode",label = NULL,choices = c())),shiny::column(6,actionButton("set_utility","Set Node",class = "butt"))),
+                                                                              label = "Build Network",circle = F, status = "primary", icon = icon("gear"), width = "400px",tooltip = tooltipOptions(title = "Build Network")
+                                                                            ),
+                                                                            shinycssloaders::withSpinner(visNetworkOutput("decisionPlot",height = "450px"),color="#2E86C1")
+                                                                          ),
+                                                                          conditionalPanel(
+                                                                            "input.decisionoption=='Infer Decisions'",
+                                                                            shiny::fluidRow(shiny::column(3,h5("Select policy node")),shiny::column(3,selectInput("policyNode",label = NULL,choices = c())),shiny::column(3,actionButton("set_policy","Infer Decision",class = "butt"))),
+                                                                            shinycssloaders::withSpinner(DT::dataTableOutput("policyPlot",height = "450px"),color="#2E86C1")
+                                                                          )
+                                                                          ),
                                                                  tabPanel("Publish your dashboard",
                                                                           shiny::fluidRow(
                                                                             column(3,h5("Name")),

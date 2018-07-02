@@ -7,6 +7,7 @@ library("shinyBS")
 library('shinyalert')
 library('rintrojs')
 library('igraph')
+source('graph.custom.decision.R')
 source('error.bar.R')
 source('graph.custom.R')
 source('graph.custom.assoc.R')
@@ -4559,6 +4560,63 @@ shinyServer(function(input, output,session) {
       }
     }
   )
+  observeEvent(input$buildDecisionNet,{
+    if(reset==2)
+    {
+      model <- as.character(bn.hc.boot.average)
+      model <- model <- gsub(model,pattern = "\\:",replacement = "*",x = model)
+      model <- gsub(model,pattern = "\\]\\[",replacement = "+",x = model)
+      model <- gsub(model,pattern = "\\]|\\[",replacement = "",x = model)
+      model <- as.formula(paste("~",model,sep=""))
+      Dnet<<-HydeNetwork(model,data = DiscreteData)
+      decisionNodes <<-c()
+      utilityNodes <<-c()
+      plot(Dnet)
+      updateSelectInput(session,"decisionNode",choices = nodeNamesB)
+      updateSelectInput(session,"utilityNode",choices = nodeNamesB)
+      updateSelectInput(session,"policyNode",choices = nodeNamesB)
+      output$decisionPlot<<-renderVisNetwork({graph.custom.decision(directed.arcs(bn.hc.boot.average),names(bn.hc.boot.average$nodes),decisionNodes,utilityNodes,FALSE)})
+    }
+  })
+  observeEvent(input$set_decision,{
+    if(reset==2)
+    {
+      decisionNodes<<-c(decisionNodes,input$decisionNode)
+      Dnet<<-setDecisionNodes(Dnet,input$decisionNode)
+      output$decisionPlot<<-renderVisNetwork({graph.custom.decision(directed.arcs(bn.hc.boot.average),names(bn.hc.boot.average$nodes),decisionNodes,utilityNodes,TRUE)})
+    }
+  })
+  observeEvent(input$set_utility,{
+    if(reset==2)
+    {
+      utilityNodes<<-c(utilityNodes,input$utilityNode)
+      Dnet<<-setUtilityNodes(Dnet,input$utilityNode)
+      plot(Dnet)
+      output$decisionPlot<<-renderVisNetwork({graph.custom.decision(directed.arcs(bn.hc.boot.average),names(bn.hc.boot.average$nodes),decisionNodes,utilityNodes,TRUE)})
+    }
+  })
+  observeEvent(input$set_policy,{
+    policyVars <<- input$policyNode
+    policies<<-policyMatrix(Dnet)
+    print(policies)
+    invisible(CNets <- compileDecisionModel(Dnet, policyMatrix = policies))
+    samples <- lapply(CNets,HydePosterior,variable.names = policyVars,n.iter=100, trace=F)
+    inference <<-lapply(samples, function(l) mean(as.numeric(l[[input$policyNode]])))
+    max = 0
+    val = inference[[1]]
+    for(i in 2:length(inference))
+    {
+      print(length(inference))
+      print(i)
+      if(inference[[i]]>val)
+      {
+        val = inference[[i]]
+        max = i
+      }
+    }
+    print(inference)
+    output$policyPlot<-DT::renderDataTable({policies[max,]},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'))
+  })
   observeEvent(input$build,{
     if(load==2)
     {
