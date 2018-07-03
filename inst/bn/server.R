@@ -4582,7 +4582,7 @@ shinyServer(function(input, output,session) {
     if(reset==2)
     {
       decisionNodes<<-c(decisionNodes,input$decisionNode)
-      Dnet<<-setDecisionNodes(Dnet,input$decisionNode)
+      Dnet[["nodeDecision"]][as.character(input$decisionNode)]<<-TRUE
       output$decisionPlot<<-renderVisNetwork({graph.custom.decision(directed.arcs(bn.hc.boot.average),names(bn.hc.boot.average$nodes),decisionNodes,utilityNodes,TRUE)})
     }
   })
@@ -4590,15 +4590,13 @@ shinyServer(function(input, output,session) {
     if(reset==2)
     {
       utilityNodes<<-c(utilityNodes,input$utilityNode)
-      Dnet<<-setUtilityNodes(Dnet,input$utilityNode)
-      plot(Dnet)
+      Dnet[["nodeUtility"]][as.character(input$utilityNode)]<<-TRUE
       output$decisionPlot<<-renderVisNetwork({graph.custom.decision(directed.arcs(bn.hc.boot.average),names(bn.hc.boot.average$nodes),decisionNodes,utilityNodes,TRUE)})
     }
   })
   observeEvent(input$set_policy,{
     policyVars <<- input$policyNode
     policies<<-policyMatrix(Dnet)
-    print(policies)
     invisible(CNets <- compileDecisionModel(Dnet, policyMatrix = policies))
     samples <- lapply(CNets,HydePosterior,variable.names = policyVars,n.iter=100, trace=F)
     inference <<-lapply(samples, function(l) mean(as.numeric(l[[input$policyNode]])))
@@ -4615,7 +4613,9 @@ shinyServer(function(input, output,session) {
       }
     }
     print(inference)
-    output$policyPlot<-DT::renderDataTable({policies[max,]},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'))
+    tab = as.data.frame(policies[max,])
+    colnames(tab) = colnames(policies)
+    output$policyPlot<-DT::renderDataTable({tab},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'),rownames=FALSE)
   })
   observeEvent(input$build,{
     if(load==2)
