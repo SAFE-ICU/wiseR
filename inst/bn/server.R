@@ -7,6 +7,7 @@ library("shinyBS")
 library('shinyalert')
 library('rintrojs')
 library('igraph')
+library("HydeNet")
 source('graph.custom.decision.R')
 source('error.bar.R')
 source('graph.custom.R')
@@ -4560,6 +4561,12 @@ shinyServer(function(input, output,session) {
       }
     }
   )
+  observeEvent(input$startD,{
+    if(reset==2)
+    {
+      updateSelectInput(session,"parents",choices = nodeNamesB)
+    }
+  })
   observeEvent(input$buildDecisionNet,{
     if(reset==2)
     {
@@ -4572,10 +4579,62 @@ shinyServer(function(input, output,session) {
       decisionNodes <<-c()
       utilityNodes <<-c()
       plot(Dnet)
+      netName<<-nodeNamesB
+      netGraph<<- directed.arcs(bn.hc.boot.average)
       updateSelectInput(session,"decisionNode",choices = nodeNamesB)
       updateSelectInput(session,"utilityNode",choices = nodeNamesB)
       updateSelectInput(session,"policyNode",choices = nodeNamesB)
-      output$decisionPlot<<-renderVisNetwork({graph.custom.decision(directed.arcs(bn.hc.boot.average),names(bn.hc.boot.average$nodes),decisionNodes,utilityNodes,FALSE)})
+      output$decisionPlot<<-renderVisNetwork({graph.custom.decision(directed.arcs(bn.hc.boot.average),netName,decisionNodes,utilityNodes,FALSE)})
+    }
+  })
+  observeEvent(input$buildDecisionNet2,{
+    if(reset==2 && input$newNodeName!="" && input$newNodeFormula!="" && input$parents!="")
+    {
+      model <- as.character(bn.hc.boot.average)
+      model <- model <- gsub(model,pattern = "\\:",replacement = "*",x = model)
+      model <- gsub(model,pattern = "\\]\\[",replacement = "+",x = model)
+      model <- gsub(model,pattern = "\\]|\\[",replacement = "",x = model)
+      model <- as.formula(paste("~",model,sep=""))
+      strAdd = input$newNodeName
+      strAddP = ""
+      count = length(input$parents)
+      for(i in input$parents)
+      {
+        if(count==1)
+        {
+          strAddP = paste(strAddP,i,sep = "")
+        }
+        else
+        {
+          strAddP = paste(strAddP,i,' * ',sep = "")
+          count = count -1
+        }
+      }
+      strAdd = paste(strAdd," | ",strAddP,sep="")
+      model <- as.formula(paste(paste(as.character(model)[1],as.character(model)[2],sep = ""),strAdd,sep = " + "))
+      Dnet<<-HydeNetwork(model,data = DiscreteData)
+      decisionNodes <<-c()
+      utilityNodes <<-c()
+      plot(Dnet)
+      Dnet$nodeFormula[[input$newNodeName]] = as.formula(eval(parse(text = input$newNodeFormula)))
+      Dnet<<-Dnet
+      Dnet$nodeType[[input$newNodeName]] = "determ"
+      Dnet<<-Dnet
+      Dnet$nodeParams[[input$newNodeName]]$define = "fromFormula"
+      Dnet$nodeParams[[input$newNodeName]]$mu = NULL
+      Dnet$nodeParams[[input$newNodeName]]$tau = NULL
+      print(Dnet$nodeParams)
+      updateSelectInput(session,"decisionNode",choices = c(nodeNamesB,input$newNodeName))
+      updateSelectInput(session,"utilityNode",choices = c(nodeNamesB,input$newNodeName))
+      updateSelectInput(session,"policyNode",choices = c(nodeNamesB,input$newNodeName))
+      netName<<-c(nodeNamesB,input$newNodeName)
+      netGraph<<-directed.arcs(bn.hc.boot.average)
+      for(i in input$parents)
+      {
+        netGraph<<- rbind(netGraph,c(i,input$newNodeName))
+      }
+      netGraph<<-netGraph
+      output$decisionPlot<<-renderVisNetwork({graph.custom.decision(netGraph,netName,decisionNodes,utilityNodes,FALSE)})
     }
   })
   observeEvent(input$set_decision,{
@@ -4583,7 +4642,7 @@ shinyServer(function(input, output,session) {
     {
       decisionNodes<<-c(decisionNodes,input$decisionNode)
       Dnet[["nodeDecision"]][as.character(input$decisionNode)]<<-TRUE
-      output$decisionPlot<<-renderVisNetwork({graph.custom.decision(directed.arcs(bn.hc.boot.average),names(bn.hc.boot.average$nodes),decisionNodes,utilityNodes,TRUE)})
+      output$decisionPlot<<-renderVisNetwork({graph.custom.decision(netGraph,netName,decisionNodes,utilityNodes,TRUE)})
     }
   })
   observeEvent(input$set_utility,{
@@ -4591,10 +4650,11 @@ shinyServer(function(input, output,session) {
     {
       utilityNodes<<-c(utilityNodes,input$utilityNode)
       Dnet[["nodeUtility"]][as.character(input$utilityNode)]<<-TRUE
-      output$decisionPlot<<-renderVisNetwork({graph.custom.decision(directed.arcs(bn.hc.boot.average),names(bn.hc.boot.average$nodes),decisionNodes,utilityNodes,TRUE)})
+      output$decisionPlot<<-renderVisNetwork({graph.custom.decision(netGraph,netName,decisionNodes,utilityNodes,TRUE)})
     }
   })
   observeEvent(input$set_policy,{
+    print(Dnet$nodeFormula[[input$newNodeName]])
     policyVars <<- input$policyNode
     policies<<-policyMatrix(Dnet)
     invisible(CNets <- compileDecisionModel(Dnet, policyMatrix = policies))

@@ -558,15 +558,17 @@ dashboardPage(skin = "blue",
                                                                             )
                                                                          ),
                                                                  tabPanel("Decision Networks",
-                                                                          shinyWidgets::radioGroupButtons(inputId = "decisionoption",
-                                                                                                          choices = c("Build Network","Infer Decisions"),
-                                                                                                          selected = "Build Network",
-                                                                                                          justified = FALSE
-                                                                          ),
+                                                                          shiny::fluidRow(shiny::column(6,actionButton("startD","Setup Decision Network",class="butt")),column(6,shinyWidgets::radioGroupButtons(inputId = "decisionoption",
+                                                                                                                                                                                                                choices = c("Build Network","Infer Decisions"),
+                                                                                                                                                                                                                selected = "Build Network",
+                                                                                                                                                                                                                justified = FALSE
+                                                                          ))),
                                                                           conditionalPanel(
                                                                             "input.decisionoption=='Build Network'",
                                                                             dropdownButton(
-                                                                              shiny::fluidRow(shiny::column(3,h5("")),shiny::column(6,actionButton("buildDecisionNet",'build', class = "butt"))),
+                                                                              shiny::fluidRow(shiny::column(6,textInput("newNodeName",placeholder = NULL,label = "New Deterministic node")),shiny::column(6,selectInput("parents",label = "Node parents",choices = "",multiple = T))),
+                                                                              textAreaInput("newNodeFormula",placeholder = NULL,label = "New Node Formula"),
+                                                                              shiny::fluidRow(shiny::column(6,actionButton("buildDecisionNet2",'build modified', class = "butt")),shiny::column(6,actionButton("buildDecisionNet",'build simple', class = "butt"))),
                                                                               h5("Set Decision Node"),
                                                                               shiny::fluidRow(shiny::column(6,selectInput("decisionNode",label = NULL,choices = c())),shiny::column(6,actionButton("set_decision","Set Node",class = "butt"))),
                                                                               h5("Set Utility Node"),
