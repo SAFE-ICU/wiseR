@@ -4588,51 +4588,28 @@ shinyServer(function(input, output,session) {
     }
   })
   observeEvent(input$buildDecisionNet2,{
-    if(reset==2 && input$newNodeName!="" && input$newNodeFormula!="" && input$parents!="")
+    if(reset==2 && input$newNodeName!="" && input$parents!="")
     {
       model <- as.character(bn.hc.boot.average)
       model <- model <- gsub(model,pattern = "\\:",replacement = "*",x = model)
       model <- gsub(model,pattern = "\\]\\[",replacement = "+",x = model)
       model <- gsub(model,pattern = "\\]|\\[",replacement = "",x = model)
       model <- as.formula(paste("~",model,sep=""))
-      strAdd = input$newNodeName
-      strAddP = ""
-      count = length(input$parents)
-      for(i in input$parents)
-      {
-        if(count==1)
-        {
-          strAddP = paste(strAddP,i,sep = "")
-        }
-        else
-        {
-          strAddP = paste(strAddP,i,' * ',sep = "")
-          count = count -1
-        }
-      }
-      strAdd = paste(strAdd," | ",strAddP,sep="")
+      strAdd = paste(input$newNodeName," | ",input$parents,sep = "")
       model <- as.formula(paste(paste(as.character(model)[1],as.character(model)[2],sep = ""),strAdd,sep = " + "))
-      Dnet<<-HydeNetwork(model,data = DiscreteData)
+      newData<<-DiscreteData
+      newData[[input$newNodeName]] = DiscreteData[[input$parents]]
+      newData<<-newData
+      Dnet<<-HydeNetwork(model,data = newData)
       decisionNodes <<-c()
       utilityNodes <<-c()
       plot(Dnet)
-      Dnet$nodeFormula[[input$newNodeName]] = as.formula(eval(parse(text = input$newNodeFormula)))
-      Dnet<<-Dnet
-      Dnet$nodeType[[input$newNodeName]] = "determ"
-      Dnet<<-Dnet
-      Dnet$nodeParams[[input$newNodeName]]$define = "fromFormula"
-      Dnet$nodeParams[[input$newNodeName]]$mu = NULL
-      Dnet$nodeParams[[input$newNodeName]]$tau = NULL
-      print(Dnet$nodeParams)
       updateSelectInput(session,"decisionNode",choices = c(nodeNamesB,input$newNodeName))
       updateSelectInput(session,"utilityNode",choices = c(nodeNamesB,input$newNodeName))
       updateSelectInput(session,"policyNode",choices = c(nodeNamesB,input$newNodeName))
       netName<<-c(nodeNamesB,input$newNodeName)
       netGraph<<-directed.arcs(bn.hc.boot.average)
-      for(i in input$parents)
-      {
-        netGraph<<- rbind(netGraph,c(i,input$newNodeName))
-      }
+      netGraph<<- rbind(netGraph,c(input$parents,input$newNodeName))
       netGraph<<-netGraph
       output$decisionPlot<<-renderVisNetwork({graph.custom.decision(netGraph,netName,decisionNodes,utilityNodes,FALSE)})
     }

@@ -566,8 +566,7 @@ dashboardPage(skin = "blue",
                                                                           conditionalPanel(
                                                                             "input.decisionoption=='Build Network'",
                                                                             dropdownButton(
-                                                                              shiny::fluidRow(shiny::column(6,textInput("newNodeName",placeholder = NULL,label = "New Deterministic node")),shiny::column(6,selectInput("parents",label = "Node parents",choices = "",multiple = T))),
-                                                                              textAreaInput("newNodeFormula",placeholder = NULL,label = "New Node Formula"),
+                                                                              shiny::fluidRow(shiny::column(6,textInput("newNodeName",placeholder = NULL,label = "New Deterministic node")),shiny::column(6,selectInput("parents",label = "Node parents",choices = "",multiple = F))),
                                                                               shiny::fluidRow(shiny::column(6,actionButton("buildDecisionNet2",'build modified', class = "butt")),shiny::column(6,actionButton("buildDecisionNet",'build simple', class = "butt"))),
                                                                               h5("Set Decision Node"),
                                                                               shiny::fluidRow(shiny::column(6,selectInput("decisionNode",label = NULL,choices = c())),shiny::column(6,actionButton("set_decision","Set Node",class = "butt"))),
