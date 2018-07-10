@@ -4588,28 +4588,28 @@ shinyServer(function(input, output,session) {
     }
   })
   observeEvent(input$buildDecisionNet2,{
-    if(reset==2 && input$newNodeName!="" && input$parents!="")
+    if(reset==2 && input$parents!="")
     {
       model <- as.character(bn.hc.boot.average)
       model <- model <- gsub(model,pattern = "\\:",replacement = "*",x = model)
       model <- gsub(model,pattern = "\\]\\[",replacement = "+",x = model)
       model <- gsub(model,pattern = "\\]|\\[",replacement = "",x = model)
       model <- as.formula(paste("~",model,sep=""))
-      strAdd = paste(input$newNodeName," | ",input$parents,sep = "")
+      strAdd = paste("Payoff"," | ",input$parents,sep = "")
       model <- as.formula(paste(paste(as.character(model)[1],as.character(model)[2],sep = ""),strAdd,sep = " + "))
       newData<<-DiscreteData
-      newData[[input$newNodeName]] = DiscreteData[[input$parents]]
+      newData[["Payoff"]] = DiscreteData[[input$parents]]
       newData<<-newData
       Dnet<<-HydeNetwork(model,data = newData)
       decisionNodes <<-c()
       utilityNodes <<-c()
       plot(Dnet)
-      updateSelectInput(session,"decisionNode",choices = c(nodeNamesB,input$newNodeName))
-      updateSelectInput(session,"utilityNode",choices = c(nodeNamesB,input$newNodeName))
-      updateSelectInput(session,"policyNode",choices = c(nodeNamesB,input$newNodeName))
-      netName<<-c(nodeNamesB,input$newNodeName)
+      updateSelectInput(session,"decisionNode",choices = c(nodeNamesB,"Payoff"))
+      updateSelectInput(session,"utilityNode",choices = c(nodeNamesB,"Payoff"))
+      updateSelectInput(session,"policyNode",choices = c(nodeNamesB,"Payoff"))
+      netName<<-c(nodeNamesB,"Payoff")
       netGraph<<-directed.arcs(bn.hc.boot.average)
-      netGraph<<- rbind(netGraph,c(input$parents,input$newNodeName))
+      netGraph<<- rbind(netGraph,c(input$parents,"Payoff"))
       netGraph<<-netGraph
       output$decisionPlot<<-renderVisNetwork({graph.custom.decision(netGraph,netName,decisionNodes,utilityNodes,FALSE)})
     }
@@ -4631,25 +4631,24 @@ shinyServer(function(input, output,session) {
     }
   })
   observeEvent(input$set_policy,{
-    print(Dnet$nodeFormula[[input$newNodeName]])
     policyVars <<- input$policyNode
     policies<<-policyMatrix(Dnet)
     invisible(CNets <- compileDecisionModel(Dnet, policyMatrix = policies))
-    samples <- lapply(CNets,HydePosterior,variable.names = policyVars,n.iter=100, trace=F)
+    samples <- lapply(CNets,HydePosterior,variable.names = policyVars,n.iter=1000, trace=F)
     inference <<-lapply(samples, function(l) mean(as.numeric(l[[input$policyNode]])))
     max = 0
     val = inference[[1]]
     for(i in 2:length(inference))
     {
-      print(length(inference))
-      print(i)
+      #print(length(inference))
+      #print(i)
       if(inference[[i]]>val)
       {
         val = inference[[i]]
         max = i
       }
     }
-    print(inference)
+    #print(inference)
     tab = as.data.frame(policies[max,])
     colnames(tab) = colnames(policies)
     output$policyPlot<-DT::renderDataTable({tab},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'),rownames=FALSE)
