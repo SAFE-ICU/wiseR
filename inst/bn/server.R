@@ -8,6 +8,7 @@ library('shinyalert')
 library('rintrojs')
 library('igraph')
 library("HydeNet")
+library("rhandsontable")
 source('graph.custom.decision.R')
 source('error.bar.R')
 source('graph.custom.R')
@@ -100,6 +101,7 @@ shinyServer(function(input, output,session) {
   output$valLoss<-renderText({0})
   output$netScore<-renderText({0})
   output$assocPlot<-renderVisNetwork({validate("Explore the association network on your data")})
+
   output$netPlot<-renderVisNetwork({validate("Construct bayesian network for taking decision")})
   output$parameterPlot<-renderPlot({validate("Construct bayesian network for taking decision")})
   output$consensusPlot<-renderPlot({validate("Construct bayesian network(Bootstap Learning) for taking decision")})
@@ -110,6 +112,8 @@ shinyServer(function(input, output,session) {
   output$priorout<-DT::renderDataTable({NULL},options = list(scrollX = TRUE,pageLength = 10),selection = 'single')
   output$postout<-DT::renderDataTable({NULL},options = list(scrollX = TRUE,pageLength = 10),selection = 'single')
   output$assocTable<-DT::renderDataTable({NULL},options = list(scrollX = TRUE,pageLength = 10),selection = 'single')
+  output$policyPlot<-DT::renderDataTable({NULL},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'),rownames=FALSE)
+  output$decisionPlot<-renderVisNetwork({validate("Build Decision Network using app")})
   tooltip(session)
   })
   #observe events
@@ -228,6 +232,7 @@ shinyServer(function(input, output,session) {
     updateSelectInput(session,'modGroup',choices = "")
     updateSelectInput(session,'AmodGroup',choices = "")
     updateSelectInput(session,"AmoduleSelection",choices = "")
+    updateSelectInput(session,"fromarc1",choices = names(DiscreteData))
     output$postout<-DT::renderDataTable({NULL},options = list(scrollX = TRUE,pageLength = 10),selection = 'single')
   })
   observeEvent(input$intervention,{
@@ -4567,58 +4572,69 @@ shinyServer(function(input, output,session) {
       updateSelectInput(session,"parents",choices = nodeNamesB)
     }
   })
-  observeEvent(input$buildDecisionNet,{
-    if(reset==2)
-    {
-      model <- as.character(bn.hc.boot.average)
-      model <- model <- gsub(model,pattern = "\\:",replacement = "*",x = model)
-      model <- gsub(model,pattern = "\\]\\[",replacement = "+",x = model)
-      model <- gsub(model,pattern = "\\]|\\[",replacement = "",x = model)
-      model <- as.formula(paste("~",model,sep=""))
-      Dnet<<-HydeNetwork(model,data = DiscreteData)
-      decisionNodes <<-c()
-      utilityNodes <<-c()
-      plot(Dnet)
-      netName<<-nodeNamesB
-      netGraph<<- directed.arcs(bn.hc.boot.average)
-      updateSelectInput(session,"decisionNode",choices = nodeNamesB)
-      updateSelectInput(session,"utilityNode",choices = nodeNamesB)
-      updateSelectInput(session,"policyNode",choices = nodeNamesB)
-      output$decisionPlot<<-renderVisNetwork({graph.custom.decision(directed.arcs(bn.hc.boot.average),netName,decisionNodes,utilityNodes,FALSE)})
-    }
+  observeEvent(input$parents,{
+    tryCatch({
+      if(reset==2)
+      {
+        DF<<- data.frame(Variable_states = levels(DiscreteData[,input$parents]),payoff = 1)
+        output$payoff <- renderRHandsontable({
+          rhandsontable(DF, stretchH = "all")
+        })
+
+      }
+      output$decisionPlot<<-renderVisNetwork({validate("Build Decision Network using app")})
+      output$policyPlot<-DT::renderDataTable({NULL},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'),rownames=FALSE)
+    },error=function(e){
+      print(e)
+    })
+
   })
   observeEvent(input$buildDecisionNet2,{
-    if(reset==2 && input$parents!="")
-    {
-      model <- as.character(bn.hc.boot.average)
-      model <- model <- gsub(model,pattern = "\\:",replacement = "*",x = model)
-      model <- gsub(model,pattern = "\\]\\[",replacement = "+",x = model)
-      model <- gsub(model,pattern = "\\]|\\[",replacement = "",x = model)
-      model <- as.formula(paste("~",model,sep=""))
-      strAdd = paste("Payoff"," | ",input$parents,sep = "")
-      model <- as.formula(paste(paste(as.character(model)[1],as.character(model)[2],sep = ""),strAdd,sep = " + "))
-      newData<<-DiscreteData
-      newData[["Payoff"]] = DiscreteData[[input$parents]]
-      newData<<-newData
-      Dnet<<-HydeNetwork(model,data = newData)
-      decisionNodes <<-c()
-      utilityNodes <<-c()
-      plot(Dnet)
-      updateSelectInput(session,"decisionNode",choices = c(nodeNamesB,"Payoff"))
-      updateSelectInput(session,"utilityNode",choices = c(nodeNamesB,"Payoff"))
-      updateSelectInput(session,"policyNode",choices = c(nodeNamesB,"Payoff"))
-      netName<<-c(nodeNamesB,"Payoff")
-      netGraph<<-directed.arcs(bn.hc.boot.average)
-      netGraph<<- rbind(netGraph,c(input$parents,"Payoff"))
-      netGraph<<-netGraph
-      output$decisionPlot<<-renderVisNetwork({graph.custom.decision(netGraph,netName,decisionNodes,utilityNodes,FALSE)})
-    }
+    tryCatch({
+      if(reset==2 && input$parents!="")
+      {
+        model <- as.character(bn.hc.boot.average)
+        model <- model <- gsub(model,pattern = "\\:",replacement = "*",x = model)
+        model <- gsub(model,pattern = "\\]\\[",replacement = "+",x = model)
+        model <- gsub(model,pattern = "\\]|\\[",replacement = "",x = model)
+        model <- as.formula(paste("~",model,sep=""))
+        strAdd = paste("Payoff"," | ",input$parents,sep = "")
+        model <- as.formula(paste(paste(as.character(model)[1],as.character(model)[2],sep = ""),strAdd,sep = " + "))
+        newData<<-DiscreteData
+        newData[["Payoff"]] = 1
+        DF<<-hot_to_r(input$payoff)
+        for(l in levels(DiscreteData[[input$parents]]))
+        {
+          ind = which(DiscreteData[[input$parents]]==l)
+          ind2 = which(DF$Variable_states == l)
+          newData[ind,ncol(newData)] = as.numeric(DF[ind2,2])
+        }
+        newData<<-newData
+        #print(newData$Payoff)
+        Dnet<<-HydeNetwork(model,data = newData)
+        decisionNodes <<-c()
+        utilityNodes <<-c()
+        updateSelectInput(session,"decisionNode",choices = c(nodeNamesB,"Payoff"))
+        updateSelectInput(session,"utilityNode",choices = c(nodeNamesB,"Payoff"))
+        updateSelectInput(session,"policyNode",choices = c(nodeNamesB,"Payoff"))
+        netName<<-c(nodeNamesB,"Payoff")
+        netGraph<<-directed.arcs(bn.hc.boot.average)
+        netGraph<<- rbind(netGraph,c(input$parents,"Payoff"))
+        netGraph<<-netGraph
+        output$decisionPlot<<-renderVisNetwork({graph.custom.decision(netGraph,netName,decisionNodes,utilityNodes,FALSE)})
+      }
+
+    },error=function(e){
+      print(e)
+    })
+
   })
   observeEvent(input$set_decision,{
     if(reset==2)
     {
       decisionNodes<<-c(decisionNodes,input$decisionNode)
       Dnet[["nodeDecision"]][as.character(input$decisionNode)]<<-TRUE
+      Dnet<<-Dnet
       output$decisionPlot<<-renderVisNetwork({graph.custom.decision(netGraph,netName,decisionNodes,utilityNodes,TRUE)})
     }
   })
@@ -4627,31 +4643,44 @@ shinyServer(function(input, output,session) {
     {
       utilityNodes<<-c(utilityNodes,input$utilityNode)
       Dnet[["nodeUtility"]][as.character(input$utilityNode)]<<-TRUE
+      utilityVar<<-input$utilityNode
+      Dnet<<-Dnet
       output$decisionPlot<<-renderVisNetwork({graph.custom.decision(netGraph,netName,decisionNodes,utilityNodes,TRUE)})
     }
   })
   observeEvent(input$set_policy,{
-    policyVars <<- input$policyNode
-    policies<<-policyMatrix(Dnet)
-    invisible(CNets <- compileDecisionModel(Dnet, policyMatrix = policies))
-    samples <- lapply(CNets,HydePosterior,variable.names = policyVars,n.iter=1000, trace=F)
-    inference <<-lapply(samples, function(l) mean(as.numeric(l[[input$policyNode]])))
-    max = 0
-    val = inference[[1]]
-    for(i in 2:length(inference))
-    {
-      #print(length(inference))
-      #print(i)
-      if(inference[[i]]>val)
+    tryCatch({
+      policyVars <<- utilityVar
+      policies<<-policyMatrix(Dnet)
+      print(policies)
+      invisible(CNets <- compileDecisionModel(Dnet, policyMatrix = policies))
+      samples <- lapply(CNets,HydeSim,variable.names = policyVars,n.iter=1000, trace=F)
+      print(lapply(samples,head))
+      inference <<-lapply(samples, function(l) mean(as.numeric(l[[utilityVar]])))
+      print(inference)
+      max = 0
+      val <- inference[[1]]
+      for(i in 1:length(inference))
       {
-        val = inference[[i]]
-        max = i
+
+        if(inference[[i]]>=val)
+        {
+          val <- inference[[i]]
+          max <- i
+        }
       }
-    }
-    #print(inference)
-    tab = as.data.frame(policies[max,])
-    colnames(tab) = colnames(policies)
-    output$policyPlot<-DT::renderDataTable({tab},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'),rownames=FALSE)
+      tab = as.data.frame(policies[max,])
+      colnames(tab) = colnames(policies)
+      for(i in colnames(tab))
+      {
+        v = as.numeric(tab[[i]])
+        tab[[i]] = levels(DiscreteData[[i]])[v]
+      }
+      output$policyPlot<-DT::renderDataTable({tab},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'),rownames=FALSE)
+    },error=function(e){
+      print(e)
+    })
+
   })
   observeEvent(input$build,{
     if(load==2)

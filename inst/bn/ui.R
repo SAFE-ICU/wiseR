@@ -8,6 +8,7 @@ library('shinyalert')
 library('rintrojs')
 library('igraph')
 library("HydeNet")
+library("rhandsontable")
 source('error.bar.R')
 source('graph.custom.R')
 source('graph.custom.assoc.R')
@@ -558,29 +559,23 @@ dashboardPage(skin = "blue",
                                                                             )
                                                                          ),
                                                                  tabPanel("Decision Networks",
-                                                                          shiny::fluidRow(shiny::column(6,actionButton("startD","Setup Decision Network",class="butt")),column(6,shinyWidgets::radioGroupButtons(inputId = "decisionoption",
-                                                                                                                                                                                                                choices = c("Build Network","Infer Decisions"),
-                                                                                                                                                                                                                selected = "Build Network",
-                                                                                                                                                                                                                justified = FALSE
+                                                                          shiny::fluidRow(shiny::column(2,actionButton("startD","Setup Decision Network",class="butt")),
+                                                                          shiny::column(2,dropdownButton(
+                                                                            shiny::fluidRow(shiny::column(6,selectInput("parents",label = "Create payoff Node For:",choices = "",multiple = F))),
+                                                                            shiny::fluidRow(shiny::column(10,rHandsontableOutput("payoff"))),
+                                                                            br(),
+                                                                            shiny::fluidRow(shiny::column(6,actionButton("buildDecisionNet2",'build decision net', class = "butt"))),
+                                                                            h5("Set Decision Node"),
+                                                                            shiny::fluidRow(shiny::column(6,selectInput("decisionNode",label = NULL,choices = c())),shiny::column(6,actionButton("set_decision","Set Node",class = "butt"))),
+                                                                            h5("Set Utility Node"),
+                                                                            shiny::fluidRow(shiny::column(6,selectInput("utilityNode",label = NULL,choices = c())),shiny::column(6,actionButton("set_utility","Set Node",class = "butt"))),
+                                                                            br(),
+                                                                            shiny::fluidRow(shiny::column(6,actionButton("set_policy","Best Policy",class="butt"))),
+                                                                            br(),
+                                                                            shinycssloaders::withSpinner(DT::dataTableOutput("policyPlot",height = "150px"),color="#2E86C1"),
+                                                                            label = "Build Network",circle = F, status = "primary", icon = icon("gear"), width = "500px",tooltip = tooltipOptions(title = "Build Network")
                                                                           ))),
-                                                                          conditionalPanel(
-                                                                            "input.decisionoption=='Build Network'",
-                                                                            dropdownButton(
-                                                                              shiny::fluidRow(shiny::column(6,selectInput("parents",label = "Create Terminal Node For:",choices = "",multiple = F))),
-                                                                              shiny::fluidRow(shiny::column(6,actionButton("buildDecisionNet2",'build modified', class = "butt")),shiny::column(6,actionButton("buildDecisionNet",'build simple', class = "butt"))),
-                                                                              h5("Set Decision Node"),
-                                                                              shiny::fluidRow(shiny::column(6,selectInput("decisionNode",label = NULL,choices = c())),shiny::column(6,actionButton("set_decision","Set Node",class = "butt"))),
-                                                                              h5("Set Utility Node"),
-                                                                              shiny::fluidRow(shiny::column(6,selectInput("utilityNode",label = NULL,choices = c())),shiny::column(6,actionButton("set_utility","Set Node",class = "butt"))),
-                                                                              label = "Build Network",circle = F, status = "primary", icon = icon("gear"), width = "400px",tooltip = tooltipOptions(title = "Build Network")
-                                                                            ),
-                                                                            shinycssloaders::withSpinner(visNetworkOutput("decisionPlot",height = "450px"),color="#2E86C1")
-                                                                          ),
-                                                                          conditionalPanel(
-                                                                            "input.decisionoption=='Infer Decisions'",
-                                                                            shiny::fluidRow(shiny::column(3,h5("Select policy node")),shiny::column(3,selectInput("policyNode",label = NULL,choices = c())),shiny::column(3,actionButton("set_policy","Infer Decision",class = "butt"))),
-                                                                            shinycssloaders::withSpinner(DT::dataTableOutput("policyPlot",height = "450px"),color="#2E86C1")
-                                                                          )
+                                                                          shinycssloaders::withSpinner(visNetworkOutput("decisionPlot",height = "450px"),color="#2E86C1")
                                                                           ),
                                                                  tabPanel("Publish your dashboard",
                                                                           shiny::fluidRow(
@@ -644,21 +639,6 @@ dashboardPage(skin = "blue",
 
                                           )
                                         ),
-                                        #fluidRow(
-                                        #  style = "margin-left:10px;padding:10px;",
-                                        #  column(3, align = "center",
-                                        #         img(src = "anant.jpg", style = "max-width: 50%; width: 50%; height: auto")
-                                        #  ),
-                                        #  column(4,
-                                        #         h4('Anant Mittal'),
-                                        #         h5('B.Tech Computer Science, IIIT-Delhi'),
-                                        #         h5('anant14015@iiitd.ac.in'),
-                                        #         fluidRow(width = 12,
-                                        #                  column(width=2, a(img(src = "email.png", style = "margin:5px; width: 20px; height: 20px"), href = "mailto:anant14015@iiitd.ac.in"), target = "_blank"),
-                                        #                  column(width=2, a(img(src = "github.png", width = '30px', height = '30px'), href = "https://github.com/anant15"), target = "_blank")
-                                        #         )
-                                        #  )
-                                        #),
                                         hr(),
                                             div(style="text-align:center",
                                                 h3("Contributors"),

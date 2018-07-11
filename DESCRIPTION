@@ -14,7 +14,7 @@ Contact: Tavpritesh Sethi<tavpriteshsethi@iiitd.ac.in>,Shubham Maheshwari<shubha
 Description: An end-to-end Bayesian Network Analysis and publishing platform for learning cross-validated structure, inferences, topology, visualization in interventional and observational data. wiseR is strongly influenced by bnlearn engine for learning Bayesian Network models from observational and interventional data and has novel features such as hybrid discretization, ensemble approximate inference, module level visualization, inference and publishing your results as a web-application or a dashboard.
 biocViews:
 Depends: R (>= 3.3.1)
-Imports: Rgraphviz,RBGL,graph,bnlearn,rhandsontable,shiny,shinydashboard,dplyr,visNetwork,shinyWidgets,missRanger,tools,shinyalert,shinycssloaders,rintrojs,arules,psych,DescTools,DT,linkcomm,igraph,parallel,snow,shinyBS
+Imports: Rgraphviz,RBGL,graph,bnlearn,HydeNet,rhandsontable,shiny,shinydashboard,dplyr,visNetwork,shinyWidgets,missRanger,tools,shinyalert,shinycssloaders,rintrojs,arules,psych,DescTools,DT,linkcomm,igraph,parallel,snow,shinyBS
 URL: https://github.com/SAFE-ICU/wiseR
 BugReports: https://github.com/SAFE-ICU/wiseR/issues
 Suggests: knitr, rmarkdown, rcompanion

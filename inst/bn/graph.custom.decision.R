@@ -4,11 +4,15 @@ graph.custom.decision <- function(NetworkGraph,nodeNames,EvidenceNode,EventNode,
     nodes <- data.frame(name = nodeNames)
     nodes$id <- 0:(nrow(nodes) - 1)
     nodes$group <- "Random"
+    nodes$shape<-"dot"
     nodes[which(nodes$name %in% EvidenceNode),3] = "Decision"
     nodes[which(nodes$name == EventNode),3] = "Utility"
+    nodes[which(nodes$name %in% EvidenceNode),4] = "square"
+    nodes[which(nodes$name == EventNode),4] = "diamond"
     visNodes<- data.frame(id = nodeNames,
                           label = nodeNames,
-                          group = nodes["group"])
+                          group = nodes["group"],
+                          shape = nodes[["shape"]])
     visEdges<- data.frame(from = NetworkGraph[,1],
                           to = NetworkGraph[,2])
     return(visNetwork(visNodes, visEdges, width = "100%") %>%
