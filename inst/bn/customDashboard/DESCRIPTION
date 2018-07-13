@@ -8,7 +8,7 @@ Contact: John Doe<JohnDoe@mail.com>
 Description: An R package
 biocViews:
 Depends: R (>= 3.3.1)
-Imports: RBGL,graph,bnlearn,rhandsontable,shiny,shinydashboard,dplyr,visNetwork,shinyWidgets,tools,shinyalert,shinycssloaders,rintrojs,arules,psych,DT,linkcomm,igraph,shinyBS
+Imports: Rgraphviz,RBGL,graph,bnlearn,HydeNet,rhandsontable,shiny,shinydashboard,dplyr,visNetwork,shinyWidgets,missRanger,tools,shinyalert,shinycssloaders,rintrojs,arules,psych,DescTools,DT,linkcomm,igraph,parallel,snow,shinyBS
 Suggests: knitr, rmarkdown, rcompanion
 VignetteBuilder: knitr
 License: MIT License | file License

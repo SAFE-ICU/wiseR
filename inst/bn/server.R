@@ -1860,6 +1860,9 @@ shinyServer(function(input, output,session) {
               updateSelectInput(session,'modGroup',choices = "")
               updateSliderInput(session,"NumBar",min = 1, max = nlevels(DiscreteData[,nodeNamesB[1]]),value = nlevels(DiscreteData[,nodeNamesB[1]]))
               output$postout<-DT::renderDataTable({bn.hc.boot.average$arcs},options = list(scrollX = TRUE,pageLength = 10),selection = 'single')
+              updateSelectInput(session,"parents",choices = nodeNamesB)
+              output$decisionPlot<-renderVisNetwork({validate("Build Decision Network using app")})
+              output$policyPlot<-DT::renderDataTable({NULL})
               reset<<-2
               upload<<-1
               uploadtype<<-1
@@ -2024,6 +2027,9 @@ shinyServer(function(input, output,session) {
               updateSelectInput(session,'modGroup',choices = "")
               updateSliderInput(session,"NumBar",min = 1, max = nlevels(DiscreteData[,nodeNamesB[1]]),value = nlevels(DiscreteData[,nodeNamesB[1]]))
               output$postout<-DT::renderDataTable({bn.hc.boot.average$arcs},options = list(scrollX = TRUE,pageLength = 10),selection = 'single')
+              updateSelectInput(session,"parents",choices = nodeNamesB)
+              output$decisionPlot<-renderVisNetwork({validate("Build Decision Network using app")})
+              output$policyPlot<-DT::renderDataTable({NULL})
               reset<<-2
               upload<<-1
               uploadtype<<-2
@@ -2162,6 +2168,9 @@ shinyServer(function(input, output,session) {
             updateSelectInput(session,'modGroup',choices = "")
             updateSliderInput(session,"NumBar",min = 1, max = nlevels(DiscreteData[,nodeNamesB[1]]),value = nlevels(DiscreteData[,nodeNamesB[1]]))
             output$postout<-DT::renderDataTable({bn.hc.boot.average$arcs},options = list(scrollX = TRUE,pageLength = 10),selection = 'single')
+            updateSelectInput(session,"parents",choices = nodeNamesB)
+            output$decisionPlot<-renderVisNetwork({validate("Build Decision Network using app")})
+            output$policyPlot<-DT::renderDataTable({NULL})
             reset<<-2
             upload<<-1
             uploadtype<<-1
@@ -2286,6 +2295,9 @@ shinyServer(function(input, output,session) {
             updateSelectInput(session,'modGroup',choices = "")
             updateSliderInput(session,"NumBar",min = 1, max = nlevels(DiscreteData[,nodeNamesB[1]]),value = nlevels(DiscreteData[,nodeNamesB[1]]))
             output$postout<-DT::renderDataTable({bn.hc.boot.average$arcs},options = list(scrollX = TRUE,pageLength = 10),selection = 'single')
+            updateSelectInput(session,"parents",choices = nodeNamesB)
+            output$decisionPlot<-renderVisNetwork({validate("Build Decision Network using app")})
+            output$policyPlot<-DT::renderDataTable({NULL})
             reset<<-2
             upload<<-1
             uploadtype<<-2
@@ -2515,6 +2527,9 @@ shinyServer(function(input, output,session) {
                                                              "ellipse", "database", "text", "diamond"))
           updateSelectInput(session,'modGroup',choices = "")
           updateSliderInput(session,"NumBar",min = 1, max = nlevels(DiscreteData[,nodeNamesB[1]]),value = nlevels(DiscreteData[,nodeNamesB[1]]))
+          updateSelectInput(session,"parents",choices = nodeNamesB)
+          output$decisionPlot<-renderVisNetwork({validate("Build Decision Network using app")})
+          output$policyPlot<-DT::renderDataTable({NULL})
           reset<<-2
           type<<-2
           tryCatch({
@@ -2665,6 +2680,9 @@ shinyServer(function(input, output,session) {
                                                                  "ellipse", "database", "text", "diamond"))
               updateSelectInput(session,'modGroup',choices = "")
               updateSliderInput(session,"NumBar",min = 1, max = nlevels(DiscreteData[,nodeNamesB[1]]),value = nlevels(DiscreteData[,nodeNamesB[1]]))
+              updateSelectInput(session,"parents",choices = nodeNamesB)
+              output$decisionPlot<-renderVisNetwork({validate("Build Decision Network using app")})
+              output$policyPlot<-DT::renderDataTable({NULL})
               reset<<-2
               type<<-1
               tryCatch({
@@ -2758,6 +2776,9 @@ shinyServer(function(input, output,session) {
                                                                  "ellipse", "database", "text", "diamond"))
               updateSelectInput(session,'modGroup',choices = "")
               updateSliderInput(session,"NumBar",min = 1, max = nlevels(DiscreteData[,nodeNamesB[1]]),value = nlevels(DiscreteData[,nodeNamesB[1]]))
+              updateSelectInput(session,"parents",choices = nodeNamesB)
+              output$decisionPlot<-renderVisNetwork({validate("Build Decision Network using app")})
+              output$policyPlot<-DT::renderDataTable({NULL})
               reset<<-2
               type<<-2
               tryCatch({
@@ -3020,6 +3041,9 @@ shinyServer(function(input, output,session) {
           graph<<-igraph::graph_from_edgelist(as.matrix(NetworkGraph),directed = TRUE)
           updateSelectInput(session,"neighbornodes",choices = "")
           updateSliderInput(session,"NumBar",min = 1, max = nlevels(DiscreteData[,nodeNamesB[1]]),value = nlevels(DiscreteData[,nodeNamesB[1]]))
+          updateSelectInput(session,"parents",choices = nodeNamesB)
+          output$decisionPlot<-renderVisNetwork({validate("Build Decision Network using app")})
+          output$policyPlot<-DT::renderDataTable({NULL})
           reset<<-2
           tryCatch({
             if(input$tableName=="Bayesian Graph")
@@ -3161,6 +3185,9 @@ shinyServer(function(input, output,session) {
       graph<<-igraph::graph_from_edgelist(as.matrix(NetworkGraph),directed = TRUE)
       updateSelectInput(session,"neighbornodes",choices = "")
       updateSliderInput(session,"NumBar",min = 1, max = nlevels(DiscreteData[,nodeNamesB[1]]),value = nlevels(DiscreteData[,nodeNamesB[1]]))
+      updateSelectInput(session,"parents",choices = nodeNamesB)
+      output$decisionPlot<-renderVisNetwork({validate("Build Decision Network using app")})
+      output$policyPlot<-DT::renderDataTable({NULL})
       reset<<-2
       tryCatch({
         if(input$tableName=="Bayesian Graph")
@@ -3316,6 +3343,9 @@ shinyServer(function(input, output,session) {
             graph<<-igraph::graph_from_edgelist(as.matrix(NetworkGraph),directed = TRUE)
             updateSelectInput(session,"neighbornodes",choices = "")
             updateSliderInput(session,"NumBar",min = 1, max = nlevels(DiscreteData[,nodeNamesB[1]]),value = nlevels(DiscreteData[,nodeNamesB[1]]))
+            updateSelectInput(session,"parents",choices = nodeNamesB)
+            output$decisionPlot<-renderVisNetwork({validate("Build Decision Network using app")})
+            output$policyPlot<-DT::renderDataTable({NULL})
             reset<<-2
             updateSelectInput(session,"fromarc",choices = nodeNamesB)
             updateSelectInput(session,'varshape3',choices = c( "dot","square", "triangle", "box", "circle", "star",
@@ -3429,6 +3459,9 @@ shinyServer(function(input, output,session) {
             graph<<-igraph::graph_from_edgelist(as.matrix(NetworkGraph),directed = TRUE)
             updateSelectInput(session,"neighbornodes",choices = "")
             updateSliderInput(session,"NumBar",min = 1, max = nlevels(DiscreteData[,nodeNamesB[1]]),value = nlevels(DiscreteData[,nodeNamesB[1]]))
+            updateSelectInput(session,"parents",choices = nodeNamesB)
+            output$decisionPlot<-renderVisNetwork({validate("Build Decision Network using app")})
+            output$policyPlot<-DT::renderDataTable({NULL})
             reset<<-2
             tryCatch({
               if(input$tableName=="Bayesian Graph")
@@ -4566,12 +4599,6 @@ shinyServer(function(input, output,session) {
       }
     }
   )
-  observeEvent(input$startD,{
-    if(reset==2)
-    {
-      updateSelectInput(session,"parents",choices = nodeNamesB)
-    }
-  })
   observeEvent(input$parents,{
     tryCatch({
       if(reset==2)
@@ -4582,7 +4609,6 @@ shinyServer(function(input, output,session) {
         })
 
       }
-      output$decisionPlot<<-renderVisNetwork({validate("Build Decision Network using app")})
       output$policyPlot<-DT::renderDataTable({NULL},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'),rownames=FALSE)
     },error=function(e){
       print(e)
@@ -4621,7 +4647,11 @@ shinyServer(function(input, output,session) {
         netGraph<<-directed.arcs(bn.hc.boot.average)
         netGraph<<- rbind(netGraph,c(input$parents,"Payoff"))
         netGraph<<-netGraph
-        output$decisionPlot<<-renderVisNetwork({graph.custom.decision(netGraph,netName,decisionNodes,utilityNodes,FALSE)})
+        utilityNodes<<-c(utilityNodes,"Payoff")
+        Dnet[["nodeUtility"]][as.character("Payoff")]<<-TRUE
+        utilityVar<<-"Payoff"
+        Dnet<<-Dnet
+        output$decisionPlot<<-renderVisNetwork({graph.custom.decision(netGraph,netName,decisionNodes,utilityNodes,TRUE)})
       }
 
     },error=function(e){
@@ -4638,49 +4668,37 @@ shinyServer(function(input, output,session) {
       output$decisionPlot<<-renderVisNetwork({graph.custom.decision(netGraph,netName,decisionNodes,utilityNodes,TRUE)})
     }
   })
-  observeEvent(input$set_utility,{
-    if(reset==2)
-    {
-      utilityNodes<<-c(utilityNodes,input$utilityNode)
-      Dnet[["nodeUtility"]][as.character(input$utilityNode)]<<-TRUE
-      utilityVar<<-input$utilityNode
-      Dnet<<-Dnet
-      output$decisionPlot<<-renderVisNetwork({graph.custom.decision(netGraph,netName,decisionNodes,utilityNodes,TRUE)})
-    }
-  })
   observeEvent(input$set_policy,{
-    tryCatch({
-      policyVars <<- utilityVar
-      policies<<-policyMatrix(Dnet)
-      print(policies)
-      invisible(CNets <- compileDecisionModel(Dnet, policyMatrix = policies))
-      samples <- lapply(CNets,HydeSim,variable.names = policyVars,n.iter=1000, trace=F)
-      print(lapply(samples,head))
-      inference <<-lapply(samples, function(l) mean(as.numeric(l[[utilityVar]])))
-      print(inference)
-      max = 0
-      val <- inference[[1]]
-      for(i in 1:length(inference))
-      {
-
-        if(inference[[i]]>=val)
+    withProgress(message = "Building Policy table", value = 0, {
+      tryCatch({
+        policyVars <<- utilityVar
+        policies<<-policyMatrix(Dnet)
+        invisible(CNets <- compileDecisionModel(Dnet, policyMatrix = policies))
+        samples <- lapply(CNets,HydeSim,variable.names = policyVars,n.iter=1000, trace=F)
+        inference <<-lapply(samples, function(l) mean(as.numeric(l[[utilityVar]])))
+        inference<<-unlist(inference)
+        sortOrder<-order(inference,decreasing = T)
+        tabP = as.data.frame(policies)
+        colnames(tabP) = colnames(policies)
+        tabP<<-tabP[sortOrder,]
+        for(i in 1:ncol(tabP))
         {
-          val <- inference[[i]]
-          max <- i
+          for(j in 1:nrow(tabP))
+          {
+            v = as.numeric(tabP[j,i])
+            tabP[j,i] <- levels(DiscreteData[[colnames(tabP)[[i]]]])[v]
+            tabP<<-tabP
+          }
         }
-      }
-      tab = as.data.frame(policies[max,])
-      colnames(tab) = colnames(policies)
-      for(i in colnames(tab))
-      {
-        v = as.numeric(tab[[i]])
-        tab[[i]] = levels(DiscreteData[[i]])[v]
-      }
-      output$policyPlot<-DT::renderDataTable({tab},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'),rownames=FALSE)
-    },error=function(e){
-      print(e)
+        tabP<<-tabP
+        tabP$payoff<-inference[sortOrder]
+        tabP<<-tabP
+        output$policyPlot<-DT::renderDataTable({tabP},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'),rownames=FALSE)
+        updateRadioGroupButtons(session,"decisionOption",selected = "Policy Table")
+      },error=function(e){
+        print(e)
+      })
     })
-
   })
   observeEvent(input$build,{
     if(load==2)

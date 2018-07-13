@@ -15,6 +15,7 @@ library("DT")
 library("linkcomm")
 library('igraph')
 library("shinyBS")
+library("HydeNet")
 source('error.bar.R')
 source('graph.custom.R')
 source('custom.Modules.R')
@@ -185,7 +186,36 @@ dashboardPage(skin = "blue",
                                                                               withSpinner(plotOutput("parameterPlot",height = "450px"),color="#2E86C1")
                                                                             )
                                                                             )
-                                                                         )
+                                                                         ),
+                                                                 tabPanel("Decision Networks",
+                                                                          shinyWidgets::radioGroupButtons(inputId = "decisionOption",
+                                                                                                          choices = c("Decision Network","Policy Table"),
+                                                                                                          selected = "Decision Network",
+                                                                                                          justified = FALSE
+                                                                          ),
+                                                                          conditionalPanel(
+                                                                            "input.decisionOption=='Decision Network'",
+                                                                            shiny::fluidRow(
+                                                                              shiny::column(2,dropdownButton(
+                                                                                shiny::fluidRow(shiny::column(6,selectInput("parents",label = "Create payoff Node For:",choices = "",multiple = F))),
+                                                                                shiny::fluidRow(shiny::column(10,rHandsontableOutput("payoff"))),
+                                                                                br(),
+                                                                                shiny::fluidRow(shiny::column(6,actionButton("buildDecisionNet2",'build decision net', class = "butt"))),
+                                                                                h5("Set Decision Node"),
+                                                                                shiny::fluidRow(shiny::column(6,selectInput("decisionNode",label = NULL,choices = c())),shiny::column(6,actionButton("set_decision","Set Node",class = "butt"))),
+                                                                                br(),
+                                                                                shiny::fluidRow(shiny::column(6,actionButton("set_policy","Best Policy",class="butt"))),
+                                                                                br(),
+
+                                                                                label = "Build Network",circle = F, status = "primary", icon = icon("gear"), width = "500px",tooltip = tooltipOptions(title = "Build Network")
+                                                                              ))),
+                                                                            shinycssloaders::withSpinner(visNetworkOutput("decisionPlot",height = "450px"),color="#2E86C1")
+                                                                          ),
+                                                                          conditionalPanel(
+                                                                            "input.decisionOption=='Policy Table'",
+                                                                            shinycssloaders::withSpinner(DT::dataTableOutput("policyPlot",height = "150px"),color="#2E86C1")
+                                                                          )
+                                                                 )
                                                                  )
 
 
