@@ -328,6 +328,11 @@ Apart from structure and inference learning which are the workhorse of a BN anal
 
 #### Figure S24. Visualiation and tables available to be exported from the application.
 
+### Taking Decisions with the learnt network
+Heads-up: This section relies upon JAGS installation on their system. JAGS can be downloaded from its [official page](https://sourceforge.net/projects/mcmc-jags/files/)
+As per our knowledge, there is no available open-source tool or a package in R that integrates structure learning with decision making. Influence diagrams have typically been defined by hand by experts. _**wiseR**_ integrates these two capabilities to help the analyst arrive at the best (or next-best) policy for optimizing a payoff. For this purpose, the use can create a payoff node based off the variable that they wish to optimize (known as the utility node, e.g. Blood Pressure optimization in the Intensive Care Unit). After this the user sets the decision nodes that are direct parents of the node their utility node. If the policy from parents is expected to be obvious, they can go to grandparents or orders higher, however the effects may diminish. Finally the 
+
+
 ## Publish your dashboard
 
 We consider this section to be a key highlight of **_wiseR_**. Publishing the analysis as an interactive dashboard helps reproducibility and effective communication.  **_wiseR_** enables the user to produce a custom dashboard of their results as an R package.
