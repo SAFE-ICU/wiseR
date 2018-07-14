@@ -4677,10 +4677,8 @@ shinyServer(function(input, output,session) {
         samples <- lapply(CNets,HydeSim,variable.names = policyVars,n.iter=1000, trace=F)
         inference <<-lapply(samples, function(l) mean(as.numeric(l[[utilityVar]])))
         inference<<-unlist(inference)
-        sortOrder<-order(inference,decreasing = T)
         tabP = as.data.frame(policies)
         colnames(tabP) = colnames(policies)
-        tabP<<-tabP[sortOrder,]
         for(i in 1:ncol(tabP))
         {
           for(j in 1:nrow(tabP))
@@ -4691,7 +4689,10 @@ shinyServer(function(input, output,session) {
           }
         }
         tabP<<-tabP
-        tabP$payoff<-inference[sortOrder]
+        tabP$payoff<-inference
+        tabP<<-tabP
+        sortOrder = order(tabP$payoff,decreasing = T)
+        tabP = dplyr::arrange(tabP,dplyr::desc(tabP$payoff))
         tabP<<-tabP
         output$policyPlot<-DT::renderDataTable({tabP},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'),rownames=FALSE)
         updateRadioGroupButtons(session,"decisionOption",selected = "Policy Table")
