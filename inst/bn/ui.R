@@ -409,7 +409,7 @@ dashboardPage(skin = "blue",
                                                                                                            value = 0.5))
                                                                                       ),
                                                                                       actionButton('learnBtn', 'Bootstrap', class = "butt"),
-                                                                                      actionButton('learnSBtn','Direct', class = "butt"),
+                                                                                      actionButton('learnSBtn','One-time', class = "butt"),
                                                                                       actionButton('PruneBtn','Parameter Tuning', class = "butt"),
                                                                                       hr(),
                                                                                       shiny::h5("Save learned structure"),
