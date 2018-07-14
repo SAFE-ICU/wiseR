@@ -558,7 +558,7 @@ dashboardPage(skin = "blue",
                                                                             )
                                                                             )
                                                                          ),
-                                                                 tabPanel("Decision Networks",
+                                                                 tabPanel("Decision Network",
                                                                           shinyWidgets::radioGroupButtons(inputId = "decisionOption",
                                                                                                           choices = c("Decision Network","Policy Table"),
                                                                                                           selected = "Decision Network",
