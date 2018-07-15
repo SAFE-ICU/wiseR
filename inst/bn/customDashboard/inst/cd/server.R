@@ -794,7 +794,8 @@ shinyServer(function(input, output,session) {
         sortOrder<-order(inference,decreasing = T)
         tabP = as.data.frame(policies)
         colnames(tabP) = colnames(policies)
-        tabP<<-tabP[sortOrder,]
+        tabP=tabP[sortOrder,]
+        tabP<<-tabP
         for(i in 1:ncol(tabP))
         {
           for(j in 1:nrow(tabP))
