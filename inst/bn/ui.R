@@ -244,7 +244,7 @@ dashboardPage(skin = "blue",
                                                                                                       shiny::selectInput('Agraph_layout',label = NULL,"layout_nicely")),
                                                                                                   selectInput('assocFont',label = "Node Font",choices = c(1:100),selected = 20)
                                                                                               ),
-                                                                                              downloadButton("aSave","Save Graph as html"),
+                                                                                              shiny::fluidRow(shiny::column(6,downloadButton("aSave","Save Graph as html")),shiny::column(6,actionButton("cytoAssoc","Export to Cytoscape",class="butt"))),
                                                                                               label = "Visual Settings",circle = F, status = "primary", icon = icon("gear"), width = "500px",tooltip = tooltipOptions(title = "graph visualization settings")
                                                                                             )
                                                                               ),
@@ -270,6 +270,7 @@ dashboardPage(skin = "blue",
                                                                           conditionalPanel(
                                                                             "input.assocOption=='Export Table'",
                                                                             downloadButton('assocDownload','Download', class = "butt"),
+                                                                            br(),
                                                                             shinycssloaders::withSpinner(DT::dataTableOutput("assocTable"),color = "#2E86C1")
                                                                           )
                                                                  ),
@@ -523,7 +524,7 @@ dashboardPage(skin = "blue",
                                                                                                                       shiny::selectInput('graph_layout',label = NULL,"layout_nicely")),
                                                                                                                   selectInput('bayesFont',label = "Node Font",choices = c(1:100),selected = 20)
                                                                                                               ),
-                                                                                                              downloadButton("bSave","Save Graph as html"),
+                                                                                                              shiny::fluidRow(shiny::column(6,downloadButton("bSave","Save Graph as html")),shiny::column(6,actionButton("cytoBayes","Export to Cytoscape",class="butt"))),
                                                                                                               label = "Visual Settings",circle = F, status = "primary", icon = icon("gear"), width = "400px",tooltip = tooltipOptions(title = "graph settings")
                                                                                                             )
                                                                                               ),

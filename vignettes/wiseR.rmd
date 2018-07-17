@@ -496,6 +496,11 @@ This concludes the walk-through example for replicating a BN analysis using **_w
   http://www.jstatsoft.org/v14/i17/.)
 * *gRain* (Søren Højsgaard (2012). Graphical Independence Networks with the gRain Package for R.
   Journal of Statistical Software, 46(10), 1-26. URL http://www.jstatsoft.org/v46/i10/.)
+* *RCy3* (Ono K, Muetze T, Kolishovski G, Shannon P, Demchak, B. CyREST: Turbocharging Cytoscape
+  Access for External Tools via a RESTful API [version 1; referees: 2 approved]. F1000Research
+  2015, 4:478.)
+* *BiocManager* ( Martin Morgan (2018). BiocManager: Access the Bioconductor Project Package            Repository. R package version 1.30.1. https://CRAN.R-project.org/package=BiocManager)
+* *HydeNet* (Jarrod E. Dalton and Benjamin Nutter (2018). HydeNet: Hybrid Bayesian Networks Using R     and JAGS. R package version 0.10.7. https://CRAN.R-project.org/package=HydeNet)
 
 
 

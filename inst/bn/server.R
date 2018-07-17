@@ -4698,7 +4698,38 @@ shinyServer(function(input, output,session) {
         updateRadioGroupButtons(session,"decisionOption",selected = "Policy Table")
       },error=function(e){
         print(e)
+        shinyalert::shinyalert(e,type = "error")
       })
+    })
+  })
+  observeEvent(input$cytoBayes,{
+    tryCatch({
+      if(reset==2)
+      {
+        mygraphNEL <- graph::ftM2graphNEL(as.matrix(NetworkGraph), edgemode="directed")
+        cytoscapePing()
+        createNetworkFromGraph(mygraphNEL,"myGraph")
+        shinyalert::shinyalert("Successfull",type = "success")
+      }
+
+    },error=function(e){
+      print(e)
+      shinyalert::shinyalert(e,type = "error")
+    })
+  })
+  observeEvent(input$cytoAssoc,{
+    tryCatch({
+      if(assocReset==2)
+      {
+        mygraphNEL <- graph::ftM2graphNEL(assocNetworkprune[,1:2], edgemode="undirected")
+        cytoscapePing()
+        createNetworkFromGraph(mygraphNEL,"myGraph")
+        shinyalert::shinyalert("Successfull",type = "success")
+      }
+
+    },error=function(e){
+      print(e)
+      shinyalert::shinyalert(e,type = "error")
     })
   })
   observeEvent(input$build,{
@@ -4706,7 +4737,7 @@ shinyServer(function(input, output,session) {
     {
       if(input$name!="")
       {
-        if(reset==2)
+        if(Reset==2)
         {
           do.call(file.remove, list(list.files("customDashboard/R/", full.names = TRUE)))
           write.csv(input$name,file = "customDashboard/inst/cd/name.txt",row.names = FALSE)
