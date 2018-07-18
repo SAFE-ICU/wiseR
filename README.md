@@ -2,8 +2,8 @@
 A R/Shiny application for learning, reasoning, inference, validation, visualization and web-deployment of Bayesian Network Models. 
 
 #### Authors
-*Tavpritesh Sethi
-*Shubham Maheshwari
+* Tavpritesh Sethi
+* Shubham Maheshwari
 
 #### Contributors
 * Anant Mittal
