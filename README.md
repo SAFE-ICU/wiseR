@@ -4,7 +4,7 @@ A R/Shiny application for learning, reasoning, inference, validation, visualizat
 #### Authors
 Tavpritesh Sethi, Shubham Maheshwari
 
-####Contributors
+#### Contributors
 Anant Mittal
 
 
