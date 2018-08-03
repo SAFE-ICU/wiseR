@@ -4737,7 +4737,7 @@ shinyServer(function(input, output,session) {
     {
       if(input$name!="")
       {
-        if(Reset==2)
+        if(reset==2)
         {
           do.call(file.remove, list(list.files("customDashboard/R/", full.names = TRUE)))
           write.csv(input$name,file = "customDashboard/inst/cd/name.txt",row.names = FALSE)
