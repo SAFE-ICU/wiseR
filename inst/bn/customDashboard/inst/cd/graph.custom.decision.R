@@ -22,10 +22,10 @@ graph.custom.decision <- function(NetworkGraph,nodeNames,EvidenceNode,EventNode,
              visGroups(groupname = "Utility", color = list(background = "pink",highlight = "red", hover = "red")) %>%
              visLegend(width = 0.1, position = "left",enabled=defLeg)%>%
              visNodes(shape = "dot")
-             )
-},error=function(e){
-  print(e)
-  shinyalert(e)
-})
+    )
+  },error=function(e){
+    print(e)
+    shinyalert(e)
+  })
 
 }
