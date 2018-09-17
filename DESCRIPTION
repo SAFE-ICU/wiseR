@@ -2,7 +2,7 @@ Package: wiseR
 Type: Package
 Title: wiseR: A Shiny Application for End-to-end Bayesian Decision Network analysis and Web-deployment. 
 
-wiseR is an R/Shiny GUI for learning and extending Bayesian networks into Decision Networks. Functionalities include end-to-end implementations for data-preprocessing, Structure-learning, Exact Inference, Approximate Inference, extending the learned structure to Decision network, Policy optimization, Correlation networks, Community detection, Visualization, Export and Web-deployment as Shiny dashboards. wiseR is powered by bnlearn, shinydashboard, visNetwork, HydeNet an
+wiseR is an R/Shiny GUI for learning and extending Bayesian networks into Decision Networks. Functionalities include end-to-end implementations for data-preprocessing, Structure-learning, Exact Inference, Approximate Inference, extending the learned structure to Decision network, Policy optimization, Correlation networks, Community detection, Visualization, Export and Web-deployment as Shiny dashboards. wiseR is powered by shinydashboard, bnlearn, gRain, visNetwork and HydeNet among other packages.
 Version: 1.0.1
 Author: Tavpritesh Sethi, Shubham Maheshwari
 Authors@R: c(
