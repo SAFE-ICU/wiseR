@@ -1,7 +1,6 @@
 Package: wiseR
 Type: Package
 Title: wiseR: A Shiny Application for end-to-end Bayesian Decision Network analysis and web-deployment. 
-
 Version: 1.0.1
 Author: Tavpritesh Sethi, Shubham Maheshwari
 Authors@R: c(
