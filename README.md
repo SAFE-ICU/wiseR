@@ -1,5 +1,5 @@
 # wiseR
-A R/Shiny application for learning, reasoning, inference, validation, visualization and web-deployment of Bayesian Network Models. 
+A Shiny application for end-to-end Bayesian Decision Network analysis and deployment. Includes functionalities for learning structure, exact inference, approximate inference, data-driven decision network, policy optimization, visualization layouts, cytoscape export, correlation networks, modularity detection and web-deployment of the learned models as Shiny applications. 
 
 #### Authors
 * Tavpritesh Sethi
