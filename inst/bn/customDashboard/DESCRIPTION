@@ -7,11 +7,11 @@ Maintainer: The package maintainer <JohnDoe@mail.com>
 Contact: John Doe<JohnDoe@mail.com> 
 Description: An R package
 biocViews:
-Depends: R (>= 3.3.1)
-Imports: Rgraphviz,RBGL,graph,bnlearn,HydeNet,rhandsontable,shiny,shinydashboard,dplyr,visNetwork,shinyWidgets,missRanger,tools,shinyalert,shinycssloaders,rintrojs,arules,psych,DescTools,DT,linkcomm,igraph,parallel,snow,shinyBS
+Depends: R (>= 3.5.0)
+Imports: Rgraphviz, RBGL, graph, bnlearn, HydeNet, rhandsontable, shiny, shinydashboard, dplyr, visNetwork, shinyWidgets, missRanger, tools, shinyalert, shinycssloaders, rintrojs, arules, psych, DescTools, DT, linkcomm, igraph, parallel, shinyBS
 Suggests: knitr, rmarkdown, rcompanion
 VignetteBuilder: knitr
-License: MIT License | file License
+License: GPL-3 | file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
