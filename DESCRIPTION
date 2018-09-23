@@ -4,10 +4,10 @@ Title: A Shiny Application for End-to-End Bayesian Decision Network Analysis and
 Version: 1.0.1
 Author: Tavpritesh Sethi [aut, cre], Shubham Maheshwari [aut]
 Authors@R: c(
-              person("Tavpritesh", "Sethi", role = c("aut", "cre"), email = "tavsethi@stanford.edu"),
+              person("Tavpritesh", "Sethi", role = c("aut", "cre"), email = "tavpriteshsethi@iiitd.ac.in"),
               person("Shubham", "Maheshwari", role = c("aut"), email = "shubham14101@iiitd.ac.in")             
             )
-Maintainer: Tavpritesh Sethi <tavsethi@stanford.edu>
+Maintainer: Tavpritesh Sethi <tavpriteshsethi@iiitd.ac.in>
 Contact: Tavpritesh Sethi<tavpriteshsethi@iiitd.ac.in>,Shubham Maheshwari<shubham14101@iiitd.ac.in> 
 Description: Powered by R/Shiny, wiseR is a GUI for learning and extending Bayesian networks into Decision Networks. wiseR can be used for probabilistic reasoning (in the observational setting), causal inference (in the interventional setting) and policy decisions (in Decision network setting). Functionalities include end-to-end implementations for data-preprocessing, Structure-learning, Exact Inference, Approximate Inference, extending the learned structure to Decision network, Policy optimization, Correlation networks, Community detection, Visualization, Export and Web-deployment as Shiny dashboards.  In addition to statistically rigorous methods of bootstraps, ensemble structure and cross-validation, wiseR includes resampling statistics for approximate-inference and comparison with exact inference. It also includes functions for community detection and visualization of network topology. wiseR is powered by shinydashboard, bnlearn, gRain, visNetwork and HydeNet among other packages. 
 biocViews:
