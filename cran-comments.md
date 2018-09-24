@@ -18,7 +18,7 @@ output: html_document
   Found the following hidden files and directories:         
   inst/bn/customDashboard/.Rbuildignore
   
-      Our App wiseR comes equipped with the functionality to generate a                customDashboard package through the app itself. Thus the .Rbuildignore file       mentioned here belongs to the to be generated package and is essential to        its working. In no way is the file malcious or unnecessary, but is an            essential part of the wiseR package and hence this note should be ingnored. 
+wiseR comes equipped with the functionality to generate a customDashboard package through the app itself. Thus it generates a .Rbuildignore file as a part of the process of creating the customDashboard from within the app. It is a standard .Rbuildignore file which is essential and is not malicious, hence this note should be ignored. 
 
 
 
@@ -28,4 +28,4 @@ output: html_document
   bn    2.1Mb  
   doc   6.0Mb
   
-      Both the sub-directories bn and doc have sizes more than 1Mb and necessarily     so. The app containes a single function wiseR() which initself calls the underlying shiny-application. The shiny-application is an interactive and very extensive dashboard containing thousands of lines of codes, and correspondingly uses a large array of custom-made functions. Not only this, but it also has build files for another customDashboard package which is modified and generated through the main wiseR dashboard. These all total to a large chunck of files with minimal to no wastefull code/files hence the large size. With regards to the doc folder, it consists of images and table required to build the wiseR vignette which is an extensive walktrough of how to use the app. The vignette is necessary as due to large and extensive functionality of the app it is essential to provide a proper tutorial of how to use the app along with a use case. Since this walktrough has large number of images (to maintain tutorial flow and ease of understanding) hence the large size
+The Shiny app containes a single function wiseR() which calls the underlying shiny-application. The application is an end-to-end Bayesian Decision Network software which is extensive in analytical scope, visualizations and interactivity, hence does not contain any wasteful code. Therefore, the sub-directory bn has size more than 1Mb as it is the engine of the app. With regards to the doc folder, it consists of images and tables required to build the wiseR vignette which is an extensive walktrough of how to use the app. The vignette is necessary as due to large and extensive functionality of the app it is essential to provide a proper tutorial of how to use the app along with a use case. Hence the doc folder is large to make the app well-documented and easy to use.
