@@ -798,12 +798,16 @@ shinyServer(function(input, output,session) {
           {
             tryCatch({
               DiscreteData[,nms]<<-as.factor(DiscreteData[,nms])
+              if(nlevels(DiscreteData[,nms])<2)
+              {
+                DiscreteData[,nms]<<-NULL
+              }
               if(nlevels(DiscreteData[,nms]>52))
               {
-                DiscreteData[,nms]<<-as.numeric(DiscreteData[,nms])
+                DiscreteData[,nms]<<-as.numeric(as.character(DiscreteData[,nms]))
               }
             },error=function(e){
-              DiscreteData[,nms]<<-as.numeric(DiscreteData[,nms])
+              DiscreteData[,nms]<<-as.numeric(as.character(DiscreteData[,nms]))
             })
           }
         }
@@ -891,9 +895,103 @@ shinyServer(function(input, output,session) {
   observeEvent(input$numconv,{
     if(load==2)
     {
+      print(eval(parse(text =input$numSelect2)))
       tryCatch({
         tryCatch({
-          DiscreteData[,input$numSelect]<<-as.numeric(DiscreteData[,input$numSelect])
+          DiscreteData[,input$numSelect]<<-as.numeric(as.character(DiscreteData[,input$numSelect]))
+          output$freqPlot<<-renderPlot({validate("Make sure data is complete and discretized before using this feature")})
+        },error=function(e)
+        {
+          shinyalert("Failed to convert variable to numeric",type="error")
+        })
+        updateSelectInput(session,"freqSelect",choices = names(DiscreteData))
+        trueData<<-DiscreteData
+        output$datasetTable<-DT::renderDataTable({DiscreteData},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'))
+        reset<<-1
+        assocReset<<-1
+        #shinyalert("Discretization successfull",type="success")
+        weight<<-1
+        value<<-1
+        blacklistEdges<<-c()
+        whitelistEdges<<-c()
+        INTvar<<-c()
+        output$valLoss<<-renderText({0})
+        output$netScore<<-renderText({0})
+        output$assocPlot<<-renderVisNetwork({validate("Explore the association network on your data")})
+        output$netPlot<<-renderVisNetwork({validate("Construct bayesian network for taking decisions")})
+        output$parameterPlot<<-renderPlot({validate("Construct bayesina network for taking decisions")})
+        output$consensusPlot<-renderPlot({validate("Construct bayesian network(Bootstap Learning) for taking decision")})
+        output$distPlot<<-renderPlot({validate("Construct bayesian netowrk for takinng decision")})
+        output$datasetTable<-DT::renderDataTable({DiscreteData},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'))
+        NetworkGraph <<- NULL
+        assocNetwork<<-NULL
+        predError<<-NULL
+        for(elem in 1:length(inserted))
+        {
+          removeUI(
+            ## pass in appropriate div id
+            selector = paste0('#', inserted[elem])
+          )
+
+        }
+        inserted <<- c()
+        for(elem2 in 1:length(insertedV))
+        {
+          removeUI(
+            ## pass in appropriate div id
+            selector = paste0('#', insertedV[elem2])
+          )
+
+        }
+        insertedV <<- c()
+        rvs$evidence <<- c()
+        rvs$value <<- c()
+        rvs$evidenceObserve <<- c()
+        rvs$valueObserve <<- c()
+        nodeNamesB <<- c()
+        EventNode <<- c()
+        EvidenceNode <<- c()
+        shapeVector<<- c()
+        bn.start<<- empty.graph(names(DiscreteData))
+        communities<<-NULL
+        Acommunities<<-NULL
+        graph<<-NULL
+        updateSelectInput(session,'event',choices = "")
+        updateSelectizeInput(session,'varselect',choices = "")
+        updateSelectInput(session,'paramSelect',choices = "")
+        updateSelectInput(session,"moduleSelection",choices = "")
+        updateSelectInput(session,"neighbornodes",choices = "")
+        updateSelectInput(session,"Aneighbornodes",choices = "")
+        updateSliderInput(session,"NumBar",min = 1, max = 2,value = 1)
+        updateSelectInput(session,"freqSelect",choices = names(DiscreteData))
+        updateSelectInput(session,"delSelect",choices = names(DiscreteData))
+        updateSelectInput(session,"facSelect",choices = names(DiscreteData))
+        updateSelectInput(session,"numSelect",choices = names(DiscreteData))
+        updateSelectInput(session,"fromarc",choices=c())
+        updateSelectInput(session,"toarc",choices = c())
+        updateSelectInput(session,"fromarc1",choices = names(DiscreteData))
+        updateSelectInput(session,'modGroup',choices = "")
+        updateSelectInput(session,'AmodGroup',choices = "")
+        updateSelectInput(session,"intSelect",choices = names(DiscreteData))
+        updateSelectInput(session,"AmoduleSelection",choices = "")
+        output$priorout<-DT::renderDataTable({NULL},options = list(scrollX = TRUE,pageLength = 10),selection = 'single')
+        output$postout<-DT::renderDataTable({NULL},options = list(scrollX = TRUE,pageLength = 10),selection = 'single')
+        output$postout<-DT::renderDataTable({NULL},options = list(scrollX = TRUE,pageLength = 10),selection = 'single')
+      },error=function(e){
+        shinyalert(toString(e),type = "error")
+      })
+    }
+  })
+  observeEvent(input$numconv2,{
+    if(load==2)
+    {
+      numList<-eval(parse(text =input$numSelect2))
+      tryCatch({
+        tryCatch({
+          for(i in numList)
+          {
+            DiscreteData[,i]<<-as.numeric(as.character(DiscreteData[,i]))
+          }
           output$freqPlot<<-renderPlot({validate("Make sure data is complete and discretized before using this feature")})
         },error=function(e)
         {
@@ -988,6 +1086,144 @@ shinyServer(function(input, output,session) {
             DiscreteData[,input$facSelect]<<-as.numeric(DiscreteData[,input$facSelect])
             output$freqPlot<<-renderPlot({validate("Make sure data is complete and discretized before using this feature")})
             shinyalert("Failed to convert variable to factor,has levels greater than 52",type="error")
+          }
+        },error=function(e)
+        {
+          shinyalert("Failed to convert variable to factor",type="error")
+        })
+        if(load==2)
+        {
+          if(check.NA(DiscreteData))
+          {
+            shinyalert::shinyalert("Impute missing data using pre-process tab to procede",type="info")
+            output$freqPlot<<-renderPlot({validate("Make sure data is complete and discretized before using this feature")})
+          }
+          else if(check.discrete(DiscreteData))
+          {
+            shinyalert::shinyalert("Discretize data using pre-process tab to proceed",type="info")
+            output$freqPlot<<-renderPlot({validate("Make sure data is complete and discretized before using this feature")})
+          }
+          else
+          {
+            tryCatch({
+              val = table(DiscreteData[,input$freqSelect])/nrow(DiscreteData)
+              output$freqPlot = renderPlot({par(mar=c(5,3,3,3))
+                par(oma=c(5,3,3,3))
+                barx <<-barplot(val,
+                                col = "lightblue",
+                                main = paste("Observed frequency of ",input$freqSelect),
+                                border = NA,
+                                xlab = "",
+                                ylab = "Frequency",
+                                ylim = c(0,1),
+                                las=2,
+                                cex.names=as.numeric(input$plotFont))
+                text(x = barx,y = round(val,digits = 4),label = round(val,digits = 4), pos = 3, cex = as.numeric(input$valueFont), col = "black")})
+            },error=function(e){
+              if(input$freqSelect=="")
+              {
+
+              }
+              else
+              {
+                shinyalert::shinyalert(toString(e),type="error")
+              }
+            })
+          }
+          tooltip(session)
+        }
+        trueData<<-DiscreteData
+        output$datasetTable<-DT::renderDataTable({DiscreteData},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'))
+        reset<<-1
+        assocReset<<-1
+        #shinyalert("Discretization successfull",type="success")
+        weight<<-1
+        value<<-1
+        blacklistEdges<<-c()
+        whitelistEdges<<-c()
+        INTvar<<-c()
+        output$valLoss<<-renderText({0})
+        output$netScore<<-renderText({0})
+        output$assocPlot<<-renderVisNetwork({validate("Explore the association network on your data")})
+        output$netPlot<<-renderVisNetwork({validate("Construct bayesian network for taking decisions")})
+        output$parameterPlot<<-renderPlot({validate("Construct bayesina network for taking decisions")})
+        output$consensusPlot<-renderPlot({validate("Construct bayesian network(Bootstap Learning) for taking decision")})
+        output$distPlot<<-renderPlot({validate("Construct bayesian netowrk for takinng decision")})
+        output$datasetTable<-DT::renderDataTable({DiscreteData},options = list(scrollX = TRUE,pageLength = 10),selection = list(target = 'column'))
+        NetworkGraph <<- NULL
+        assocNetwork<<-NULL
+        predError<<-NULL
+        for(elem in 1:length(inserted))
+        {
+          removeUI(
+            ## pass in appropriate div id
+            selector = paste0('#', inserted[elem])
+          )
+
+        }
+        inserted <<- c()
+        for(elem2 in 1:length(insertedV))
+        {
+          removeUI(
+            ## pass in appropriate div id
+            selector = paste0('#', insertedV[elem2])
+          )
+
+        }
+        insertedV <<- c()
+        rvs$evidence <<- c()
+        rvs$value <<- c()
+        rvs$evidenceObserve <<- c()
+        rvs$valueObserve <<- c()
+        nodeNamesB <<- c()
+        EventNode <<- c()
+        EvidenceNode <<- c()
+        shapeVector<<- c()
+        bn.start<<- empty.graph(names(DiscreteData))
+        communities<<-NULL
+        Acommunities<<-NULL
+        graph<<-NULL
+        updateSelectInput(session,'event',choices = "")
+        updateSelectizeInput(session,'varselect',choices = "")
+        updateSelectInput(session,'paramSelect',choices = "")
+        updateSelectInput(session,"moduleSelection",choices = "")
+        updateSelectInput(session,"neighbornodes",choices = "")
+        updateSelectInput(session,"Aneighbornodes",choices = "")
+        updateSliderInput(session,"NumBar",min = 1, max = 2,value = 1)
+        updateSelectInput(session,"freqSelect",choices = names(DiscreteData))
+        updateSelectInput(session,"delSelect",choices = names(DiscreteData))
+        updateSelectInput(session,"facSelect",choices = names(DiscreteData))
+        updateSelectInput(session,"numSelect",choices = names(DiscreteData))
+        updateSelectInput(session,"fromarc",choices=c())
+        updateSelectInput(session,"toarc",choices = c())
+        updateSelectInput(session,"fromarc1",choices = names(DiscreteData))
+        updateSelectInput(session,'modGroup',choices = "")
+        updateSelectInput(session,'AmodGroup',choices = "")
+        updateSelectInput(session,"intSelect",choices = names(DiscreteData))
+        updateSelectInput(session,"AmoduleSelection",choices = "")
+        output$priorout<-DT::renderDataTable({NULL},options = list(scrollX = TRUE,pageLength = 10),selection = 'single')
+        output$postout<-DT::renderDataTable({NULL},options = list(scrollX = TRUE,pageLength = 10),selection = 'single')
+        output$postout<-DT::renderDataTable({NULL},options = list(scrollX = TRUE,pageLength = 10),selection = 'single')
+      },error=function(e){
+        shinyalert(toString(e),type = "error")
+      })
+    }
+  })
+  observeEvent(input$facconv2,{
+    if(load==2)
+    {
+      charList<-eval(parse(text =input$facSelect2))
+      tryCatch({
+        tryCatch({
+          for(i in charList)
+          {
+            DiscreteData[,i]<<-as.factor(DiscreteData[,i])
+            if(nlevels(DiscreteData[,i])>52)
+            {
+              DiscreteData[,i]<<-as.numeric(as.character(DiscreteData[,i]))
+              output$freqPlot<<-renderPlot({validate("Make sure data is complete and discretized before using this feature")})
+              shinyalert("Failed to convert variable to factor,has levels greater than 52",type="error")
+            }
           }
         },error=function(e)
         {

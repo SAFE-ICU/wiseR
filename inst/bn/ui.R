@@ -137,11 +137,13 @@ dashboardPage(skin = "blue",
                                                                               shiny::column(2, dropdownButton(
                                                                                 div(id="dataNumeric",
                                                                                     shiny::h4("Convert Variables to Numeric"),
-                                                                                    shiny::fluidRow(shiny::column(6,selectInput('numSelect',label = NULL,"")),shiny::column(3,actionButton('numconv','Convert', class = "butt")))
+                                                                                    shiny::fluidRow(shiny::column(6,selectInput('numSelect',label = NULL,"")),shiny::column(3,actionButton('numconv','Convert', class = "butt"))),
+                                                                                    shiny::fluidRow(shiny::column(6,textInput('numSelect2',label = NULL,placeholder = "Array of Variables")),shiny::column(3,actionButton('numconv2','Convert', class = "butt")))
                                                                                 ),
                                                                                 div(id="dataFactor",
                                                                                     shiny::h4("Convert Variables to Factor"),
-                                                                                    shiny::fluidRow(shiny::column(6,selectInput('facSelect',label = NULL,"")),shiny::column(3,actionButton('facconv','Convert', class = "butt")))
+                                                                                    shiny::fluidRow(shiny::column(6,selectInput('facSelect',label = NULL,"")),shiny::column(3,actionButton('facconv','Convert', class = "butt"))),
+                                                                                    shiny::fluidRow(shiny::column(6,textInput('facSelect2',label = NULL,placeholder = "Array of Variables")),shiny::column(3,actionButton('facconv2','Convert', class = "butt")))
                                                                                 ),
                                                                                 div(id="dataImpute",
                                                                                     shiny::h4("Impute Missing Data:"),
