@@ -599,7 +599,9 @@ dashboardPage(skin = "blue",
                                                                             column(3,selectInput("theme",label = NULL,choices = c("Blue gradient"="blue_gradient","BoE website"="boe_website","Grey light"="grey_light","Grey dark"="grey_dark","OneNote"="onenote","Poor man's Flatly"="poor_mans_flatly","Purple gradient"="purple_gradient"))),
                                                                             column(2,actionButton("build",'build', class = "butt")),
                                                                             column(3,downloadButton('dashboard','Download', class = "butt")))
-                                                                 )
+                                                                 ),
+                                                                 tabPanel("App Tutorial",
+                                                                          htmlOutput('pdfviewer'))
                                                                  )
 
 
