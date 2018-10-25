@@ -118,7 +118,7 @@ shinyServer(function(input, output,session) {
   })
   #observe events
   output$pdfviewer <- renderText({
-    return(paste('<iframe style="height:450px; width:100%" src="','wiseR_ Helping your decisions from complex datasets.pdf', '"></iframe>', sep = ""))
+    return(paste('<iframe style="height:450px; width:100%" src="','wiseR.pdf', '"></iframe>', sep = ""))
   })
   observeEvent(input$start,{
     updateTabItems(session, "sidebarMenu", "Structure")
