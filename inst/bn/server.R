@@ -4994,7 +4994,11 @@ shinyServer(function(input, output,session) {
       sink(fileName)
       cat(customString)
       sink()
-
+      if(file.exists("customDashboard/Temp")==TRUE)
+      {
+        print("test")
+        file.rename(from = "customDashboard/Temp",to = "customDashboard/.Rbuildignore")
+      }
       shinyalert::shinyalert("Custom Dashboard successfully built. You can now download it as an R package",type="success")
       }
       }
