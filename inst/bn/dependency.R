@@ -2,7 +2,18 @@ dependency<-function()
 {
   if (!requireNamespace("BiocManager"))
     install.packages("BiocManager")
-  BiocManager::install()
+  if(require('graph')==F)
+  {
+    BiocManager::install('graph')
+  }
+  if(require('RBGL')==F)
+  {
+    BiocManager::install('RBGL')
+  }
+  if(require('Rgraphviz')==F)
+  {
+    BiocManager::install('Rgraphviz')
+  }
   if(require('gRbase')==F)
   {
     install.packages('gRbase')
@@ -16,16 +27,4 @@ dependency<-function()
     BiocManager::install("RCy3")
   }
   library(RCy3)
-  if(require('graph')==F)
-  {
-    BiocManager::install('graph')
-  }
-  if(require('RBGL')==F)
-  {
-    BiocManager::install('RBGL')
-  }
-  if(require('Rgraphviz')==F)
-  {
-    BiocManager::install('Rgraphviz')
-  }
 }
