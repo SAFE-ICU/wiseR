@@ -85,7 +85,7 @@ dashboardPage(skin = "blue",
                                                                    ),
                                                                    fluidRow(
                                                                      style = "margin-left:40px;padding:10px;",
-                                                                     column(width=3, align = "center", h4('Discover Dark Knowledge')),
+                                                                     column(width=3, align = "center", h4('Discover Deep Knowledge')),
                                                                      column(width=1, align = "center", img(src = "arrow.png",height = 40,width = 60)),
                                                                      column(width=3, align = "center", h4('Assess Impact')),
                                                                      column(width=1, align = "center", img(src = "arrow.png",height = 40,width = 60)),
