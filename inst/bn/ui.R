@@ -281,7 +281,7 @@ dashboardPage(skin = "blue",
                                                                             shiny::fluidRow(
                                                                               shiny::column(2,dropdownButton(
                                                                                 shinyWidgets::radioGroupButtons(inputId = "structureOption",
-                                                                                                                choices = c("Initialize Structure (optional)","Learn Structure","Upload Pre-learnt Structure","Edit Structure (optional)","Validate Structure"),
+                                                                                                                choices = c("Initialize Structure (optional)","Learn Structure","Upload Pre-learnt Structure","Edit Structure (optional)","External Graph","Graph Neural Networks","Validate Structure"),
                                                                                                                 selected = "Initialize Structure (optional)",
                                                                                                                 justified = FALSE
                                                                                 ),
@@ -425,6 +425,20 @@ dashboardPage(skin = "blue",
                                                                                   shiny::fluidRow(shiny::column(3,h5("from")),shiny::column(3,h5("to")),shiny::column(3,h5("")),shiny::column(3,h5("Select from table"))),
                                                                                   shiny::fluidRow(shiny::column(3,selectInput("fromarc",label = NULL,choices=c())),shiny::column(3,selectInput("toarc",label = NULL,choices=c())),column(3,actionButton("addarc","Add", class = "butt")),actionButton("RemoveArc2","Remove", class = "butt"),actionButton("ReverseArc2","Reverse", class = "butt")),
                                                                                   shinycssloaders::withSpinner(DT::dataTableOutput("postout"),color = "#2E86C1")
+                                                                                ),
+                                                                                shiny::conditionalPanel(
+                                                                                  "input.structureOption=='External Graph'",
+                                                                                  shiny::fluidRow(column(5,h5("Upload list of edges of external graph (as .CSV)"))),
+                                                                                  shiny::fluidRow(column(5,shiny::fileInput('externalGraph',label = NULL,accept = c('.CSV')))),
+                                                                                  actionButton('externalGraphButton','Train', class = "butt")
+                                                                                ),
+                                                                                shiny::conditionalPanel(
+                                                                                  "input.structureOption=='Graph Neural Networks'",
+                                                                                  shiny::fluidRow(column(5, h5("Bootstrap replicates"),
+                                                                                                         sliderInput("bootGNN", label = NULL,
+                                                                                                                     min = 1, max = 1000,
+                                                                                                                     value = 11))),
+                                                                                  actionButton('GNNGraphButton','Train', class = "butt")
                                                                                 ),
                                                                                 shiny::conditionalPanel(
                                                                                   "input.structureOption=='Validate Structure'",

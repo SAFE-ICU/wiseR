@@ -26,4 +26,19 @@ dependency<-function()
     BiocManager::install("RCy3")
   }
   library(RCy3)
+  if(require('reticulate')==F){
+    install.packages("reticulate")
+    conda_create("wiser")
+    conda_install("wiser", "pytorch")
+    conda_install("wiser", "matplotlib")
+    conda_install("wiser", "networkx")
+    conda_install("wiser", "pandas")
+  }
+  else{
+    conda_create("wiser")
+    conda_install("wiser", "pytorch")
+    conda_install("wiser", "matplotlib")
+    conda_install("wiser", "networkx")
+    conda_install("wiser", "pandas")
+  }
 }

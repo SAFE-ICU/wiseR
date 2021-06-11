@@ -72,6 +72,7 @@ shinyServer(function(input, output,session) {
   graph<-NULL
   blacklistEdges<-c()
   whitelistEdges<-c()
+  externalGraphEdges<-c()
   INTvar<-c()
   NetworkGraph <- NULL
   assocNetwork<-NULL
@@ -170,6 +171,7 @@ shinyServer(function(input, output,session) {
     assocReset<<-1
     blacklistEdges<<-c()
     whitelistEdges<<-c()
+    externalGraphEdges<<-c()
     INTvar<<-c()
     output$valLoss<<-renderText({0})
     output$netScore<<-renderText({0})
@@ -267,6 +269,7 @@ shinyServer(function(input, output,session) {
         assocReset<<-1
         blacklistEdges<<-c()
         whitelistEdges<<-c()
+        externalGraphEdges<<-c()
         output$valLoss<<-renderText({0})
         output$netScore<<-renderText({0})
         output$assocPlot<<-renderVisNetwork({validate("Explore the association network on your data")})
@@ -394,11 +397,34 @@ shinyServer(function(input, output,session) {
             whitelistEdges<<-c()
             shinyalert::shinyalert("Upload a .csv file containg edges in format 'from' and 'to'",type="error")
           }
-          else if(!(unique(blacklistEdges[,1],blacklistEdges[,2]) %in% colnames(DiscreteData)))
+          else if(!(unique(whitelistEdges[,1],whitelistEdges[,2]) %in% colnames(DiscreteData)))
           {
             whitelistEdges<<-c()
             shinyalert::shinyalert("Upload a correct file containg only nodes as observed in the data",type="error")
           }
+        }
+      },error=function(e){
+        shinyalert::shinyalert(toString(e), type = "error")
+      })
+      tooltip(session)
+    }
+  })
+  observeEvent(input$externalGraph,{
+    if(load==2)
+    {
+      tryCatch({
+        file=input$externalGraph
+        externalGraphEdges=read.csv(file$datapath,stringsAsFactors = T,na.strings = c("NA","na","Na","nA","","?","-"))
+        externalGraphEdges<<-as.data.frame(externalGraphEdges)
+        if(dim(externalGraphEdges)[2]!=2)
+        {
+          externalGraphEdges<<-c()
+          shinyalert::shinyalert("Upload a .csv file containg edges in format 'from' and 'to'",type="error")
+        }
+        else if(!(unique(externalGraphEdges[,1],externalGraphEdges[,2]) %in% colnames(DiscreteData)))
+        {
+          externalGraphEdges<<-c()
+          shinyalert::shinyalert("Upload a correct file containg only nodes as observed in the data",type="error")
         }
       },error=function(e){
         shinyalert::shinyalert(toString(e), type = "error")
@@ -823,6 +849,7 @@ shinyServer(function(input, output,session) {
         load<<-2
         blacklistEdges<<-c()
         whitelistEdges<<-c()
+        externalGraphEdges<<-c()
         INTvar<<-c()
         updateSelectInput(session,"intSelect",choices = names(DiscreteData))
         output$valLoss<<-renderText({0})
@@ -917,6 +944,7 @@ shinyServer(function(input, output,session) {
         value<<-1
         blacklistEdges<<-c()
         whitelistEdges<<-c()
+        externalGraphEdges<<-c()
         INTvar<<-c()
         output$valLoss<<-renderText({0})
         output$netScore<<-renderText({0})
@@ -1010,6 +1038,7 @@ shinyServer(function(input, output,session) {
         value<<-1
         blacklistEdges<<-c()
         whitelistEdges<<-c()
+        externalGraphEdges<<-c()
         INTvar<<-c()
         output$valLoss<<-renderText({0})
         output$netScore<<-renderText({0})
@@ -1144,6 +1173,7 @@ shinyServer(function(input, output,session) {
         value<<-1
         blacklistEdges<<-c()
         whitelistEdges<<-c()
+        externalGraphEdges<<-c()
         INTvar<<-c()
         output$valLoss<<-renderText({0})
         output$netScore<<-renderText({0})
@@ -1282,6 +1312,7 @@ shinyServer(function(input, output,session) {
         value<<-1
         blacklistEdges<<-c()
         whitelistEdges<<-c()
+        externalGraphEdges<<-c()
         INTvar<<-c()
         output$valLoss<<-renderText({0})
         output$netScore<<-renderText({0})
@@ -1410,6 +1441,7 @@ shinyServer(function(input, output,session) {
             value<<-1
             blacklistEdges<<-c()
             whitelistEdges<<-c()
+            externalGraphEdges<<-c()
             INTvar<<-c()
             output$valLoss<<-renderText({0})
             output$netScore<<-renderText({0})
@@ -1507,6 +1539,7 @@ shinyServer(function(input, output,session) {
           value<<-1
           blacklistEdges<<-c()
           whitelistEdges<<-c()
+          externalGraphEdges<<-c()
           INTvar<<-c()
           output$valLoss<<-renderText({0})
           output$netScore<<-renderText({0})
@@ -1595,6 +1628,7 @@ shinyServer(function(input, output,session) {
         assocReset<<-1
         blacklistEdges<<-c()
         whitelistEdges<<-c()
+        externalGraphEdges<<-c()
         INTvar<<-c()
         output$valLoss<<-renderText({0})
         output$netScore<<-renderText({0})
@@ -1681,6 +1715,7 @@ shinyServer(function(input, output,session) {
       value<<-1
       blacklistEdges<<-c()
       whitelistEdges<<-c()
+      externalGraphEdges<<-c()
       INTvar<<-c()
       output$valLoss<<-renderText({0})
       output$netScore<<-renderText({0})
@@ -1763,6 +1798,7 @@ shinyServer(function(input, output,session) {
         value<<-1
         blacklistEdges<<-c()
         whitelistEdges<<-c()
+        externalGraphEdges<<-c()
         INTvar<<-c()
         output$valLoss<<-renderText({0})
         output$netScore<<-renderText({0})
@@ -1864,6 +1900,7 @@ shinyServer(function(input, output,session) {
             assocReset<<-1
             blacklistEdges<<-c()
             whitelistEdges<<-c()
+            externalGraphEdges<<-c()
             output$valLoss<<-renderText({0})
             output$netScore<<-renderText({0})
             output$assocPlot<<-renderVisNetwork({validate("Explore the association network on your data")})
@@ -2771,6 +2808,344 @@ shinyServer(function(input, output,session) {
           output$policyPlot<-DT::renderDataTable({NULL})
           reset<<-2
           type<<-2
+          tryCatch({
+            if(input$tableName=="Bayesian Graph")
+            {
+              output$tableOut<- DT::renderDataTable({NetworkGraph},options = list(scrollX = TRUE,pageLength = 10))
+            }
+            else if(input$tableName=="Cross Validation Results")
+            {
+              output$tableOut<- DT::renderDataTable({predError},options = list(scrollX = TRUE,pageLength = 10))
+            }
+            else if(input$tableName=="blacklist edges")
+            {
+              output$tableOut<- DT::renderDataTable({blacklistEdges},options = list(scrollX = TRUE,pageLength = 10))
+            }
+            else if(input$tableName=="whitelist edges")
+            {
+              output$tableOut<- DT::renderDataTable({whitelistEdges},options = list(scrollX = TRUE,pageLength = 10))
+            }
+            else if(input$tableName=="Nodes")
+            {
+              output$tableOut<- DT::renderDataTable({as.data.frame(nodeNamesB)},options = list(scrollX = TRUE,pageLength = 10))
+            }
+          },error=function(e){
+            shinyalert::shinyalert(toString(e), type = "error")
+          })
+          updateSelectInput(session,"fromarc",choices = nodeNamesB)
+          output$postout<-DT::renderDataTable({bn.hc.boot.average$arcs},options = list(scrollX = TRUE,pageLength = 10),selection = 'single')
+          save(DiscreteData,file="customDashboard/inst/cd/data.RData")
+          save(bn.hc.boot.average,file="customDashboard/inst/cd/structure.RData")
+          write.csv(input$name,file = "customDashboard/inst/cd/name.txt",row.names = FALSE)
+        },error = function(e){
+          shinyalert::shinyalert(toString(e), type = "error")
+        })
+      }
+      tooltip(session)
+    }
+  })
+  observeEvent(input$consensus,{
+    tryCatch({
+      if(reset == 2)
+      {
+        if(type == 2)
+        {
+          p = strength.plot(bn.hc.boot.average,bn.hc.boot)
+          output$consensusPlot<-renderPlot({strength.plot(bn.hc.boot.average,bn.hc.boot)})
+        }
+      }
+    },error=function(e){
+      shinyalert::shinyalert("graph can't be constructed because some nodes were dropped at the set threshold", type = "error")})
+  })
+  observeEvent(input$externalGraphButton, {
+    if(load==2)
+    {
+      if(check.NA(DiscreteData))
+      {
+        shinyalert::shinyalert("Impute missing data using pre-process tab to procede",type="info")
+      }
+      else if(check.discrete(DiscreteData))
+      {
+        shinyalert::shinyalert("Discretize data using pre-process tab to proceed",type="info")
+      }
+      else
+      {
+        tryCatch({
+          if (is.null(DiscreteData))
+            return(NULL)
+
+          # Create a Progress object
+          progress <- shiny::Progress$new()
+          # Make sure it closes when we exit this reactive, even if there's an error
+          on.exit(progress$close())
+          progress$set(message = "Learning network structure", value = 0)
+
+          # Get the selected learning algorithm from the user and learn the network
+          nodeCheck = unique(as.vector(as.matrix(externalGraphEdges)))
+          dag= empty.graph(nodeCheck)
+          for(elem in 1:nrow(externalGraphEdges))
+          {
+            tempEdge = as.vector(as.matrix(externalGraphEdges[elem,]))
+            dag = set.arc(dag,tempEdge[1],tempEdge[2])
+          }
+          bn.hc.boot.average <<- dag
+          bn.hc.boot.fit <<- bn.fit(bn.hc.boot.average,DiscreteData[,names(bn.hc.boot.average$nodes)],method = input$paramMethod2)
+          shinyalert::shinyalert("Structure learning complete",type="success")
+          simple<<-1
+          upload<<-2
+          type<<-1
+          for(elem in 1:length(inserted))
+          {
+            removeUI(
+              ## pass in appropriate div id
+              selector = paste0('#', inserted[elem])
+            )
+
+          }
+          inserted <<- c()
+          for(elem2 in 1:length(insertedV))
+          {
+            removeUI(
+              ## pass in appropriate div id
+              selector = paste0('#', insertedV[elem2])
+            )
+
+          }
+          insertedV <<- c()
+          rvs$evidence <<- c()
+          rvs$value <<- c()
+          rvs$evidenceObserve <<- c()
+          rvs$valueObserve <<- c()
+          output$distPlot <<- renderPlot(NULL)
+          NetworkGraph <<- data.frame(directed.arcs(bn.hc.boot.average))
+          nodeNamesB <<- names(bn.hc.boot.average$nodes)
+          EventNode <<- nodeNamesB[1]
+          EvidenceNode <<- c()
+          tryCatch({
+            btn <<- input$insertBtn
+            id <- paste0('Evidence', btn)
+            idL <- paste("Evidence", btn)
+            idV <- paste0('Value', btn)
+            idVL <- paste("Value", btn)
+            insertUI(selector = '#placeholder1',
+                     ui = tags$div(selectInput(id,'Evidence',nodeNamesB),
+                                   id = id
+                     )
+            )
+            insertUI(selector = '#placeholder2',
+                     ui = tags$div(selectInput(idV,'Value',levels(DiscreteData[,nodeNamesB[1]])),
+                                   id = idV
+                     )
+            )
+            inserted <<- c(id, inserted)
+            insertedV <<- c(idV,insertedV)
+            rvs$evidence <<- c(rvs$evidence,id)
+            rvs$value <<- c(rvs$value,id)
+            rvs$evidenceObserve <<- c(rvs$evidenceObserve,observeEvent(input[[id]],{
+              tryCatch({
+                valID = insertedV[which(inserted == id)]
+                updateSelectInput(session,valID, choices = levels(DiscreteData[,input[[id]]]))
+              },error = function(e){
+                shinyalert::shinyalert(toString("Construct bayesian network for taking decision"), type = "error")
+              })
+            }))
+
+          },error = function(e){
+            shinyalert::shinyalert(toString(e), type = "error")
+          })
+          shapeVector<<- rep('dot',length(nodeNamesB))
+          updateSelectInput(session,'event',choices = nodeNamesB)
+          weight <<- 1
+          value <<- 1
+          exactCheck<<-1
+          output$netPlot<-renderVisNetwork({graph.custom(NetworkGraph,nodeNamesB,shapeVector,EvidenceNode,EventNode,input$degree,input$graph_layout,weight,value,input$bayesFont)})
+          updateSelectInput(session,'event',choices = nodeNamesB)
+          updateSelectizeInput(session,'varselect',choices = nodeNamesB)
+          updateSelectInput(session,'varshape',choices = c( "dot","square", "triangle", "box", "circle", "star",
+                                                            "ellipse", "database", "text", "diamond"))
+          updateSelectInput(session,'varshape2',choices = c( "dot","square", "triangle", "box", "circle", "star",
+                                                             "ellipse", "database", "text", "diamond"))
+          updateSelectInput(session,'graph_layout',choices = c("layout_nicely (Recommended)"="layout_nicely","layout_as_star","layout_as_tree (Recommended)"="layout_as_tree","layout_in_circle","layout_with_sugiyama (Recommended)"="layout_with_sugiyama","layout_on_sphere","layout_randomly","layout_with_fr","layout_with_kk","layout_with_lgl","layout_with_mds (Recommended)"="layout_with_mds","layout_on_grid","layout_with_graphopt","layout_with_gem","layout_with_dh"))
+          updateSelectInput(session,'paramSelect',choices = nodeNamesB)
+          updateSelectInput(session,"moduleSelection",choices = "graph")
+          updateSelectInput(session,'varshape3',choices = c( "dot","square", "triangle", "box", "circle", "star",
+                                                             "ellipse", "database", "text", "diamond"))
+          updateSelectInput(session,'modGroup',choices = "")
+          graph<<-igraph::graph_from_edgelist(as.matrix(NetworkGraph),directed = TRUE)
+          updateSelectInput(session,"neighbornodes",choices = "")
+          updateSliderInput(session,"NumBar",min = 1, max = nlevels(DiscreteData[,nodeNamesB[1]]),value = nlevels(DiscreteData[,nodeNamesB[1]]))
+          updateSelectInput(session,"parents",choices = nodeNamesB)
+          output$decisionPlot<-renderVisNetwork({validate("Build Decision Network using app")})
+          output$policyPlot<-DT::renderDataTable({NULL})
+          reset<<-2
+          tryCatch({
+            if(input$tableName=="Bayesian Graph")
+            {
+              output$tableOut<- DT::renderDataTable({NetworkGraph},options = list(scrollX = TRUE,pageLength = 10))
+            }
+            else if(input$tableName=="Cross Validation Results")
+            {
+              output$tableOut<- DT::renderDataTable({predError},options = list(scrollX = TRUE,pageLength = 10))
+            }
+            else if(input$tableName=="blacklist edges")
+            {
+              output$tableOut<- DT::renderDataTable({blacklistEdges},options = list(scrollX = TRUE,pageLength = 10))
+            }
+            else if(input$tableName=="whitelist edges")
+            {
+              output$tableOut<- DT::renderDataTable({whitelistEdges},options = list(scrollX = TRUE,pageLength = 10))
+            }
+            else if(input$tableName=="Nodes")
+            {
+              output$tableOut<- DT::renderDataTable({as.data.frame(nodeNamesB)},options = list(scrollX = TRUE,pageLength = 10))
+            }
+          },error=function(e){
+            shinyalert::shinyalert(toString(e), type = "error")
+          })
+          updateSelectInput(session,"fromarc",choices = nodeNamesB)
+          output$postout<-DT::renderDataTable({bn.hc.boot.average$arcs},options = list(scrollX = TRUE,pageLength = 10),selection = 'single')
+          save(DiscreteData,file="customDashboard/inst/cd/data.RData")
+          save(bn.hc.boot.average,file="customDashboard/inst/cd/structure.RData")
+          write.csv(input$name,file = "customDashboard/inst/cd/name.txt",row.names = FALSE)
+        },error = function(e){
+          shinyalert::shinyalert(toString(e), type = "error")
+        })
+      }
+      tooltip(session)
+    }
+  })
+  observeEvent(input$GNNGraphButton, {
+    if(load==2)
+    {
+      if(check.NA(DiscreteData))
+      {
+        shinyalert::shinyalert("Impute missing data using pre-process tab to procede",type="info")
+      }
+      else if(check.discrete(DiscreteData))
+      {
+        shinyalert::shinyalert("Discretize data using pre-process tab to proceed",type="info")
+      }
+      else
+      {
+        tryCatch({
+          if (is.null(DiscreteData))
+            return(NULL)
+
+          # Create a Progress object
+          progress <- shiny::Progress$new()
+          # Make sure it closes when we exit this reactive, even if there's an error
+          on.exit(progress$close())
+          progress$set(message = "Learning network structure", value = 0)
+
+          # Get the selected learning algorithm from the user and learn the network
+          library(reticulate)
+          use_condaenv("wiser",required = T)
+          py_config()
+          df<- DiscreteData
+          col<- ncol(df)
+          colnames<- list(colnames(df))
+          r_iter <- as.integer(no.of.bootstraps)
+          reticulate::source_python('file.py')
+          bootstrap(df,col,colnames,r_iter)
+          externalGraphEdges=read.csv('gnn.csv',stringsAsFactors = T,na.strings = c("NA","na","Na","nA","","?","-"))
+          externalGraphEdges<<-as.data.frame(externalGraphEdges)
+          nodeCheck = unique(as.vector(as.matrix(externalGraphEdges)))
+          dag= empty.graph(nodeCheck)
+          for(elem in 1:nrow(externalGraphEdges))
+          {
+            tempEdge = as.vector(as.matrix(externalGraphEdges[elem,]))
+            dag = set.arc(dag,tempEdge[1],tempEdge[2])
+          }
+          bn.hc.boot.average <<- dag
+          bn.hc.boot.fit <<- bn.fit(bn.hc.boot.average,DiscreteData[,names(bn.hc.boot.average$nodes)],method = input$paramMethod2)
+          shinyalert::shinyalert("Structure learning complete",type="success")
+          simple<<-1
+          upload<<-2
+          type<<-1
+          for(elem in 1:length(inserted))
+          {
+            removeUI(
+              ## pass in appropriate div id
+              selector = paste0('#', inserted[elem])
+            )
+
+          }
+          inserted <<- c()
+          for(elem2 in 1:length(insertedV))
+          {
+            removeUI(
+              ## pass in appropriate div id
+              selector = paste0('#', insertedV[elem2])
+            )
+
+          }
+          insertedV <<- c()
+          rvs$evidence <<- c()
+          rvs$value <<- c()
+          rvs$evidenceObserve <<- c()
+          rvs$valueObserve <<- c()
+          output$distPlot <<- renderPlot(NULL)
+          NetworkGraph <<- data.frame(directed.arcs(bn.hc.boot.average))
+          nodeNamesB <<- names(bn.hc.boot.average$nodes)
+          EventNode <<- nodeNamesB[1]
+          EvidenceNode <<- c()
+          tryCatch({
+            btn <<- input$insertBtn
+            id <- paste0('Evidence', btn)
+            idL <- paste("Evidence", btn)
+            idV <- paste0('Value', btn)
+            idVL <- paste("Value", btn)
+            insertUI(selector = '#placeholder1',
+                     ui = tags$div(selectInput(id,'Evidence',nodeNamesB),
+                                   id = id
+                     )
+            )
+            insertUI(selector = '#placeholder2',
+                     ui = tags$div(selectInput(idV,'Value',levels(DiscreteData[,nodeNamesB[1]])),
+                                   id = idV
+                     )
+            )
+            inserted <<- c(id, inserted)
+            insertedV <<- c(idV,insertedV)
+            rvs$evidence <<- c(rvs$evidence,id)
+            rvs$value <<- c(rvs$value,id)
+            rvs$evidenceObserve <<- c(rvs$evidenceObserve,observeEvent(input[[id]],{
+              tryCatch({
+                valID = insertedV[which(inserted == id)]
+                updateSelectInput(session,valID, choices = levels(DiscreteData[,input[[id]]]))
+              },error = function(e){
+                shinyalert::shinyalert(toString("Construct bayesian network for taking decision"), type = "error")
+              })
+            }))
+
+          },error = function(e){
+            shinyalert::shinyalert(toString(e), type = "error")
+          })
+          shapeVector<<- rep('dot',length(nodeNamesB))
+          updateSelectInput(session,'event',choices = nodeNamesB)
+          weight <<- 1
+          value <<- 1
+          exactCheck<<-1
+          output$netPlot<-renderVisNetwork({graph.custom(NetworkGraph,nodeNamesB,shapeVector,EvidenceNode,EventNode,input$degree,input$graph_layout,weight,value,input$bayesFont)})
+          updateSelectInput(session,'event',choices = nodeNamesB)
+          updateSelectizeInput(session,'varselect',choices = nodeNamesB)
+          updateSelectInput(session,'varshape',choices = c( "dot","square", "triangle", "box", "circle", "star",
+                                                            "ellipse", "database", "text", "diamond"))
+          updateSelectInput(session,'varshape2',choices = c( "dot","square", "triangle", "box", "circle", "star",
+                                                             "ellipse", "database", "text", "diamond"))
+          updateSelectInput(session,'graph_layout',choices = c("layout_nicely (Recommended)"="layout_nicely","layout_as_star","layout_as_tree (Recommended)"="layout_as_tree","layout_in_circle","layout_with_sugiyama (Recommended)"="layout_with_sugiyama","layout_on_sphere","layout_randomly","layout_with_fr","layout_with_kk","layout_with_lgl","layout_with_mds (Recommended)"="layout_with_mds","layout_on_grid","layout_with_graphopt","layout_with_gem","layout_with_dh"))
+          updateSelectInput(session,'paramSelect',choices = nodeNamesB)
+          updateSelectInput(session,"moduleSelection",choices = "graph")
+          updateSelectInput(session,'varshape3',choices = c( "dot","square", "triangle", "box", "circle", "star",
+                                                             "ellipse", "database", "text", "diamond"))
+          updateSelectInput(session,'modGroup',choices = "")
+          graph<<-igraph::graph_from_edgelist(as.matrix(NetworkGraph),directed = TRUE)
+          updateSelectInput(session,"neighbornodes",choices = "")
+          updateSliderInput(session,"NumBar",min = 1, max = nlevels(DiscreteData[,nodeNamesB[1]]),value = nlevels(DiscreteData[,nodeNamesB[1]]))
+          updateSelectInput(session,"parents",choices = nodeNamesB)
+          output$decisionPlot<-renderVisNetwork({validate("Build Decision Network using app")})
+          output$policyPlot<-DT::renderDataTable({NULL})
+          reset<<-2
           tryCatch({
             if(input$tableName=="Bayesian Graph")
             {
