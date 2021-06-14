@@ -434,6 +434,7 @@ dashboardPage(skin = "blue",
                                                                                 ),
                                                                                 shiny::conditionalPanel(
                                                                                   "input.structureOption=='Graph Neural Networks'",
+                                                                                  shiny::fluidRow(column(6,shiny::textInput('pythonENV',label = 'Python Path',placeholder = "Please provide python env path in linux format")),column(6,shiny::textInput('condaENV',label = 'Conda Path',placeholder = "Please provide conda env path in linux format"))),
                                                                                   shiny::fluidRow(column(5, h5("Bootstrap replicates"),
                                                                                                          sliderInput("bootGNN", label = NULL,
                                                                                                                      min = 1, max = 1000,

@@ -22,9 +22,8 @@ import torch.nn.functional as F
 import torch.nn as nn
 from torch.autograd import Variable
 from torch.optim.adam import Adam
-
+from sklearn import preprocessing
 from config import CONFIG
-
 # ========================================
 # VAE utility functions
 # ========================================
@@ -32,14 +31,15 @@ def adjacency_matrix_to_edgelist(df):
     df = df.loc[:,~df.columns.str.contains("Unnamed")]
     f = df.to_numpy()
     edgelist = []
-    print(f)
     result = np.where(f == 1)
-    print('Tuple of arrays returned : ', result)
     listOfCoordinates=zip(result[0], result[1])
     for cord in listOfCoordinates:
         if(df.columns.values[cord[0]]!=df.columns.values[cord[1]]):
             edgelist.append([df.columns.values[cord[0]],df.columns.values[cord[1]]])
     return edgelist    
+
+def label_encode_dataset(df):
+    return df.apply(preprocessing.LabelEncoder().fit_transform)
 
 def my_softmax(input, axis=1):
     trans_input = input.transpose(axis, 0).contiguous()
@@ -171,7 +171,7 @@ def list_files(directory, extension):
     return (f for f in os.listdir(directory) if f.endswith("_graph" + extension))
 
 def load_data_set(data_filename):
-    full_df = pd.read_csv('encoded_datasets/' + data_filename)
+    full_df = pd.read_csv('datasets/' + data_filename)
     return full_df
 
 

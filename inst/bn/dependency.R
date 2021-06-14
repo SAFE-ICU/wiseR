@@ -29,16 +29,11 @@ dependency<-function()
   if(require('reticulate')==F){
     install.packages("reticulate")
     conda_create("wiser")
-    conda_install("wiser", "pytorch")
-    conda_install("wiser", "matplotlib")
-    conda_install("wiser", "networkx")
-    conda_install("wiser", "pandas")
-  }
-  else{
-    conda_create("wiser")
-    conda_install("wiser", "pytorch")
-    conda_install("wiser", "matplotlib")
-    conda_install("wiser", "networkx")
-    conda_install("wiser", "pandas")
+    #conda_install("wiser", "pytorch")
+    #conda_install("wiser", "matplotlib")
+    #conda_install("wiser", "networkx")
+    #conda_install("wiser", "pandas")
+    #conda_install("wiser", "scipy")
+    #conda_install("wiser", "scikit-learn")
   }
 }

@@ -77,7 +77,7 @@ def train(train_loader, col,epoch, best_val_loss, lambda_A, c_A, optimizer,encod
     # batch_idx : no of batches 
     for batch_idx, (data, relations) in enumerate(train_loader):
         if CONFIG.cuda:
-            data, relations = data.cuda(), relations.cuda()
+            data, relations = data, relations
 
         data, relations = Variable(data).double(), Variable(relations).double()
 
@@ -289,15 +289,14 @@ def bootstrap(df,ncol, colnames, iter = 1):
             log_prior = Variable(log_prior)
 
             if CONFIG.cuda:
-                log_prior = log_prior.cuda()
-
+                log_prior = log_prior
         if CONFIG.cuda:
-            encoder.cuda()
-            decoder.cuda()
-            rel_rec = rel_rec.cuda()
-            rel_send = rel_send.cuda()
-            triu_indices = triu_indices.cuda()
-            tril_indices = tril_indices.cuda()
+            encoder
+            decoder
+            rel_rec = rel_rec
+            rel_send = rel_send
+            triu_indices = triu_indices
+            tril_indices = tril_indices
 
         rel_rec = Variable(rel_rec)
         rel_send = Variable(rel_send)
