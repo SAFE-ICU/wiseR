@@ -6,6 +6,3 @@ An example use of this package is to learn the best policy that will minimize ba
 The CRAN release of the package can be installed by running install.packages("wiseR") and the development version can be installed by running devtools::install_github("SAFE-ICU/wiseR")
 
 Authors: Shubham Maheshwari (shubham14101@iiitd.ac.in), Dr. Tavpritesh Sethi (tavpriteshsethi@iiitd.ac.in)
-
-[Tutorial](wiser.html)
-
