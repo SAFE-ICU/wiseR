@@ -7,7 +7,7 @@ Maintainer: The package maintainer <JohnDoe@mail.com>
 Contact: John Doe<JohnDoe@mail.com> 
 Description: An R package
 Depends: R (>= 3.5.0)
-Imports: bnlearn, HydeNet, rhandsontable, shiny, shinydashboard, dplyr, visNetwork, shinyWidgets, missRanger, tools, shinyalert, shinycssloaders, rintrojs, arules, psych, DescTools, DT, linkcomm, igraph, parallel, shinyBS
+Imports: bnlearn, HydeNet, rhandsontable, shiny, shinydashboard, dplyr, visNetwork, shinyWidgets, missRanger, tools, shinyalert, shinycssloaders, rintrojs, arules, psych, DescTools, DT, linkcomm, parallel, shinyBS
 Suggests: knitr, rmarkdown, rcompanion
 VignetteBuilder: knitr
 License: GPL-3 | file LICENSE
